@@ -1,0 +1,26 @@
+# salarioliquido.pt
+
+## About
+Portuguese salary calculator (Calculadora de Salário Líquido) for 2026.
+Calculates net salary from gross, including IRS (income tax), TSU (social security),
+subsidies (Christmas and holiday allowances), and deductions.
+
+## Pages
+- / — Main salary calculator with detailed breakdown and educational content
+- /faq/ — Frequently asked questions about salary, IRS, TSU in Portugal
+- /legal/ — Legal notices and terms of use
+- /privacidade/ — Privacy policy (GDPR compliant)
+
+## Key Data (2026)
+- IRS brackets: 9 progressive brackets from 13.25% to 48%
+- TSU: Employee 11%, Employer 23.75%
+- Minimum wage: €870/month
+- Specific deduction: €4,104
+- Family deduction: €250/person
+- 14 monthly salaries (12 + Christmas bonus + Holiday bonus)
+- IRS Jovem: Reduced rates for first 5 working years (ages up to 35)
+
+## Technology
+- Built with Astro, React, Tailwind CSS
+- All calculations performed client-side (no data sent to servers)
+- Language: Portuguese (pt-PT)

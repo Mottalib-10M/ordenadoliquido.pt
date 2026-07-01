@@ -1,0 +1,139 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+}
+
+const { title, description, canonical } = Astro.props;
+const siteUrl = "https://salarioliquido.pt";
+const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
+---
+
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_PT" />
+    <meta property="og:site_name" content="Salário Líquido PT" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <title>{title}</title>
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calculadora de Salário Líquido Portugal 2026",
+      "url": siteUrl,
+      "description": description,
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "inLanguage": "pt-PT",
+      "author": {
+        "@type": "Organization",
+        "name": "Salário Líquido PT"
+      }
+    })} />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white border-b border-neutral-200 sticky top-0 z-50">
+      <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 no-underline">
+          <div class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">&euro;</span>
+          </div>
+          <span class="text-lg font-bold text-neutral-900">Sal&aacute;rio L&iacute;quido <span class="text-primary-600">PT</span></span>
+        </a>
+        <div class="hidden sm:flex items-center gap-6 text-sm font-medium">
+          <a href="/" class="text-neutral-600 hover:text-primary-600 no-underline">Calculadora</a>
+          <a href="/faq/" class="text-neutral-600 hover:text-primary-600 no-underline">FAQ</a>
+          <a href="/legal/" class="text-neutral-600 hover:text-primary-600 no-underline">Avisos Legais</a>
+          <a href="/privacidade/" class="text-neutral-600 hover:text-primary-600 no-underline">Privacidade</a>
+        </div>
+        <!-- Mobile menu button -->
+        <div class="sm:hidden">
+          <details class="relative">
+            <summary class="list-none cursor-pointer p-2">
+              <svg class="w-6 h-6 text-neutral-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </summary>
+            <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-neutral-200 py-2 z-50">
+              <a href="/" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 no-underline">Calculadora</a>
+              <a href="/faq/" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 no-underline">FAQ</a>
+              <a href="/legal/" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 no-underline">Avisos Legais</a>
+              <a href="/privacidade/" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 no-underline">Privacidade</a>
+            </div>
+          </details>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-neutral-900 text-neutral-400 mt-16">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-white font-bold text-lg mb-3">Sal&aacute;rio L&iacute;quido PT</h3>
+            <p class="text-sm leading-relaxed">
+              Calculadora gratuita de sal&aacute;rio l&iacute;quido para Portugal.
+              Valores atualizados para 2026 com escal&otilde;es de IRS, TSU e dedu&ccedil;&otilde;es.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-3">Liga&ccedil;&otilde;es</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/" class="hover:text-white no-underline text-neutral-400">Calculadora</a></li>
+              <li><a href="/faq/" class="hover:text-white no-underline text-neutral-400">Perguntas Frequentes</a></li>
+              <li><a href="/legal/" class="hover:text-white no-underline text-neutral-400">Avisos Legais</a></li>
+              <li><a href="/privacidade/" class="hover:text-white no-underline text-neutral-400">Pol&iacute;tica de Privacidade</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-3">Informa&ccedil;&atilde;o</h4>
+            <p class="text-sm leading-relaxed">
+              Esta ferramenta &eacute; meramente indicativa. Os valores apresentados s&atilde;o estimativas
+              baseadas nos escal&otilde;es e tabelas oficiais de 2026. Consulte sempre um contabilista
+              certificado para situa&ccedil;&otilde;es espec&iacute;ficas.
+            </p>
+          </div>
+        </div>
+        <div class="border-t border-neutral-800 mt-8 pt-8 text-center text-xs">
+          <p>&copy; {new Date().getFullYear()} salarioliquido.pt &mdash; Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <style is:global>
+      @import "../styles/global.css";
+    </style>
+  </body>
+</html>
