@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="404 - Pagina nao encontrada | salarioliquido.pt"
+  description="A pagina que procura nao foi encontrada. Volte a calculadora de salario liquido."
+  canonical="/404/"
+>
+  <section class="py-20">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-7xl font-extrabold text-primary-600 mb-4">404</h1>
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Pagina nao encontrada</h2>
+      <p class="text-neutral-600 mb-8 max-w-md mx-auto">
+        A pagina que procura nao existe ou foi movida. Por favor, verifique o endereco
+        ou volte a pagina inicial.
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center px-6 py-3 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors shadow-md"
+      >
+        Voltar a pagina inicial
+      </a>
+    </div>
+  </section>
+</Layout>

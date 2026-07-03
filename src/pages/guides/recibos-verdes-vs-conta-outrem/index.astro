@@ -1,0 +1,240 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://salarioliquido.pt/" },
+    { "@type": "ListItem", "position": 2, "name": "Guias", "item": "https://salarioliquido.pt/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Recibos Verdes vs. Conta de Outrem", "item": "https://salarioliquido.pt/guides/recibos-verdes-vs-conta-outrem/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qual é a diferença entre recibos verdes e trabalho por conta de outrem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A principal diferença está no vínculo laboral. O trabalhador por conta de outrem tem um contrato de trabalho com uma empresa, recebe 14 meses de salário e tem proteção social completa. O trabalhador a recibos verdes (independente) emite faturas pelos seus serviços, não tem salário fixo garantido, gere os seus próprios impostos e contribuições, e tem uma proteção social mais limitada."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto desconta um trabalhador a recibos verdes para a Segurança Social?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O trabalhador independente paga 21,4% sobre o rendimento relevante, que corresponde a 70% do rendimento bruto trimestral. Na prática, isto equivale a cerca de 15% do rendimento bruto total. A base de incidência contributiva é atualizada trimestralmente com base nas declarações de rendimentos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Compensa mais trabalhar a recibos verdes ou por conta de outrem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende da situação individual. O trabalho por conta de outrem oferece mais segurança (salário fixo, subsídios, proteção no desemprego), enquanto os recibos verdes oferecem mais flexibilidade e podem ser mais vantajosos fiscalmente para rendimentos elevados, especialmente com o regime simplificado. No entanto, o trabalhador independente não tem direito a subsídio de desemprego (exceto em situações muito específicas) nem a subsídios de férias e Natal."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Recibos Verdes vs. Conta de Outrem - Comparação Completa | Salário Líquido PT"
+  description="Comparação detalhada entre trabalho independente (recibos verdes) e trabalho por conta de outrem em Portugal: impostos, Segurança Social, proteção laboral e rendimento líquido."
+  canonical="/guides/recibos-verdes-vs-conta-outrem/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <article class="py-12 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="mb-8 text-sm text-neutral-500">
+        <ol class="flex items-center gap-1.5 flex-wrap">
+          <li><a href="/" class="hover:text-primary-600 no-underline text-neutral-500">Início</a></li>
+          <li class="before:content-['/'] before:mx-1.5"><a href="/guides/" class="hover:text-primary-600 no-underline text-neutral-500">Guias</a></li>
+          <li class="before:content-['/'] before:mx-1.5 text-neutral-900 font-medium">Recibos Verdes vs. Conta de Outrem</li>
+        </ol>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6">
+        Recibos Verdes vs. Conta de Outrem: Comparação Completa de Impostos e Direitos
+      </h1>
+
+      <div class="prose prose-neutral max-w-none">
+        <p class="text-lg text-neutral-600 leading-relaxed mb-8">
+          Uma das decisões mais importantes na carreira profissional em Portugal é a escolha entre trabalhar a recibos verdes (trabalhador independente) ou por conta de outrem (trabalhador dependente). Cada regime tem implicações muito diferentes em termos de impostos, contribuições sociais, proteção laboral e rendimento líquido. Neste guia, fazemos uma comparação exaustiva entre os dois regimes para o ajudar a tomar uma decisão informada.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Trabalho por conta de outrem: como funciona</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O trabalhador por conta de outrem é aquele que tem um contrato de trabalho com uma entidade empregadora e presta a sua atividade sob a direção e autoridade dessa entidade. Os seus rendimentos são classificados como Categoria A para efeitos de IRS. Este é o regime mais comum em Portugal, abrangendo a grande maioria dos trabalhadores no setor privado e público.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As principais características deste regime incluem o salário fixo mensal garantido, o direito a 14 meses de salário (incluindo subsídios de férias e Natal), a proteção social completa (incluindo subsídio de desemprego), férias anuais pagas (22 dias úteis) e a responsabilidade do empregador pelos descontos fiscais e contributivos.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Em termos de descontos, o trabalhador por conta de outrem paga 11% de TSU sobre o salário bruto e retenção na fonte de IRS conforme as tabelas em vigor. A entidade empregadora suporta adicionalmente 23,75% de TSU patronal. Todos estes descontos são processados automaticamente pela empresa, sem intervenção do trabalhador.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Trabalho a recibos verdes: como funciona</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O trabalhador a recibos verdes, ou trabalhador independente, presta serviços de forma autónoma, sem subordinação a uma entidade empregadora. Os seus rendimentos são classificados como Categoria B para efeitos de IRS. Este regime é utilizado por profissionais liberais, consultores, freelancers e empresários em nome individual.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O trabalhador independente não tem salário fixo garantido - o seu rendimento depende do volume de trabalho e dos honorários negociados com cada cliente. Não tem direito a subsídios de férias nem de Natal, nem a férias pagas. Todas as responsabilidades fiscais e contributivas recaem sobre o próprio trabalhador, que deve gerir os seus pagamentos ao Estado de forma autónoma.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O trabalhador independente pode optar entre dois regimes de tributação: o regime simplificado (para rendimentos anuais até 200.000 euros) ou a contabilidade organizada (obrigatória acima desse limiar, mas opcionalmente disponível para qualquer valor).
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Comparação de descontos: tabela resumo</h2>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="bg-primary-50">
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Componente</th>
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Conta de Outrem</th>
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Recibos Verdes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">Seg. Social (trabalhador)</td><td class="border border-neutral-200 px-4 py-2">11% do bruto</td><td class="border border-neutral-200 px-4 py-2">21,4% de 70% do bruto (~15%)</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">Seg. Social (empresa)</td><td class="border border-neutral-200 px-4 py-2">23,75% do bruto</td><td class="border border-neutral-200 px-4 py-2">N/A (a cargo do trabalhador)</td></tr>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">IRS - Base tributável</td><td class="border border-neutral-200 px-4 py-2">100% do bruto</td><td class="border border-neutral-200 px-4 py-2">75% do bruto (regime simplificado, serviços)</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">Retenção na fonte</td><td class="border border-neutral-200 px-4 py-2">Tabelas mensais</td><td class="border border-neutral-200 px-4 py-2">25% (regra geral, se aplicável)</td></tr>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">IVA</td><td class="border border-neutral-200 px-4 py-2">Não aplicável</td><td class="border border-neutral-200 px-4 py-2">23% (ou isento até 14.500 €/ano)</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">Subsídio de férias</td><td class="border border-neutral-200 px-4 py-2">Sim (1 mês)</td><td class="border border-neutral-200 px-4 py-2">Não</td></tr>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">Subsídio de Natal</td><td class="border border-neutral-200 px-4 py-2">Sim (1 mês)</td><td class="border border-neutral-200 px-4 py-2">Não</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">Subsídio de desemprego</td><td class="border border-neutral-200 px-4 py-2">Sim</td><td class="border border-neutral-200 px-4 py-2">Muito limitado</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">O regime simplificado de IRS para trabalhadores independentes</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          No regime simplificado, o IRS não incide sobre a totalidade dos rendimentos brutos. A Autoridade Tributária aplica um coeficiente que presume que uma parte do rendimento corresponde a despesas profissionais. Para prestadores de serviços, apenas 75% do rendimento bruto é considerado como rendimento tributável (o coeficiente é de 0,75).
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Na prática, para que o coeficiente de 0,75 se aplique integralmente, o trabalhador deve comprovar despesas de atividade de pelo menos 15% do rendimento bruto (ou 4.104 euros, o que for inferior). Se não comprovar estas despesas, a parcela não comprovada (até 15%) é tributada como rendimento, reduzindo a vantagem fiscal do regime simplificado.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Exemplo:</strong> Um consultor a recibos verdes que fature 30.000 euros anuais, no regime simplificado, terá um rendimento tributável de 22.500 euros (75% de 30.000 €), desde que comprove pelo menos 4.500 euros em despesas profissionais. Sem comprovar, o rendimento tributável pode subir para cerca de 25.500 euros.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Segurança Social para trabalhadores independentes</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As contribuições para a Segurança Social dos trabalhadores independentes são calculadas com base no rendimento relevante, que corresponde a 70% do rendimento bruto apurado nos três meses anteriores. A taxa contributiva é de 21,4% sobre este rendimento relevante.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O cálculo é atualizado trimestralmente (janeiro, abril, julho e outubro), com base nas declarações trimestrais que o trabalhador é obrigado a entregar à Segurança Social. Isto significa que o valor das contribuições pode variar ao longo do ano conforme os rendimentos efetivos.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Para trabalhadores no primeiro ano de atividade, existe uma isenção de contribuições durante os primeiros 12 meses. Após este período, o trabalhador começa a pagar contribuições com base nos rendimentos declarados. Existe também uma contribuição mínima obrigatória, calculada sobre 20% do IAS.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Exemplo comparativo: rendimento bruto de 2.000 € mensais</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Vejamos quanto efetivamente recebe cada trabalhador com um rendimento bruto mensal de 2.000 euros:
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Conta de outrem (2.000 € brutos × 14 meses = 28.000 € anuais):</strong>
+        </p>
+        <ul class="list-disc pl-6 text-neutral-700 leading-relaxed mb-4 space-y-1">
+          <li>TSU: 2.000 € × 11% = 220 €/mês</li>
+          <li>Retenção IRS (estimativa solteiro, 0 dependentes): ~230 €/mês</li>
+          <li>Líquido mensal: ~1.550 €</li>
+          <li>Líquido anual (14 meses): ~21.700 €</li>
+        </ul>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Recibos verdes (2.000 € brutos × 12 meses = 24.000 € anuais):</strong>
+        </p>
+        <ul class="list-disc pl-6 text-neutral-700 leading-relaxed mb-4 space-y-1">
+          <li>Seg. Social: ~300 €/mês (21,4% × 70% × 2.000 €)</li>
+          <li>IRS anual (regime simplificado): ~2.800 € (sobre 75% de 24.000 €)</li>
+          <li>IRS mensal equivalente: ~233 €</li>
+          <li>Líquido mensal equivalente: ~1.467 €</li>
+          <li>Líquido anual (12 meses): ~17.600 €</li>
+        </ul>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Neste exemplo, o trabalhador por conta de outrem recebe significativamente mais ao longo do ano (cerca de 4.100 euros a mais), principalmente devido aos dois meses extra de subsídios. Esta diferença ilustra por que razão muitos trabalhadores independentes precisam de cobrar honorários superiores para obter um rendimento líquido equivalente.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Proteção social: diferenças fundamentais</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As diferenças na proteção social são talvez o aspeto mais importante a considerar na comparação entre os dois regimes:
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Desemprego:</strong> O trabalhador por conta de outrem tem direito ao subsídio de desemprego em caso de despedimento involuntário, com valores e durações proporcionais ao tempo de contribuições. O trabalhador independente só tem acesso a uma prestação de cessação de atividade em condições muito específicas e limitadas.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Doença:</strong> Ambos os regimes têm direito ao subsídio de doença, mas as condições de acesso e os valores podem ser diferentes. O trabalhador por conta de outrem beneficia geralmente de um período de espera mais curto e de valores mais elevados.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Parentalidade:</strong> Ambos os regimes têm direito às licenças de parentalidade e respetivos subsídios, embora o cálculo dos valores possa diferir. O trabalhador independente deve ter pelo menos 6 meses de contribuições nos últimos 12 meses para aceder a estas prestações.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Reforma:</strong> Ambos os regimes contribuem para a pensão de velhice, mas o valor da futura pensão depende do montante e da regularidade das contribuições. Os trabalhadores independentes com rendimentos variáveis podem ter pensões mais baixas se os períodos de contribuição forem irregulares.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Quando compensa mais cada regime?</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>O trabalho por conta de outrem compensa mais quando:</strong> se valoriza a segurança de um rendimento fixo, se necessita de proteção social completa (especialmente subsídio de desemprego), se prefere não gerir questões fiscais e contributivas, ou se trabalha numa área onde os salários são competitivos.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Os recibos verdes compensam mais quando:</strong> se consegue cobrar honorários significativamente superiores ao que se receberia como empregado, se tem despesas profissionais elevadas que reduzem a base tributável, se valoriza a flexibilidade e autonomia profissional, ou se tem múltiplos clientes e capacidade de gestão financeira.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Como regra geral, para obter o mesmo rendimento líquido anual que um trabalhador por conta de outrem, um trabalhador a recibos verdes precisa de faturar entre 25% a 40% mais em termos brutos, dependendo do nível de rendimento e da situação fiscal específica.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Perguntas frequentes</h2>
+
+        <div class="space-y-6 mb-8">
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Qual é a diferença entre recibos verdes e trabalho por conta de outrem?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              A principal diferença está no vínculo laboral. O trabalhador por conta de outrem tem contrato de trabalho, 14 meses de salário e proteção social completa. O trabalhador a recibos verdes emite faturas, não tem salário fixo, gere os seus próprios impostos e tem proteção social mais limitada.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Quanto desconta um trabalhador a recibos verdes para a Segurança Social?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              O trabalhador independente paga 21,4% sobre o rendimento relevante (70% do rendimento bruto trimestral). Na prática, equivale a cerca de 15% do rendimento bruto total, atualizado trimestralmente.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Compensa mais trabalhar a recibos verdes ou por conta de outrem?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              Depende da situação individual. O trabalho dependente oferece mais segurança, enquanto os recibos verdes oferecem mais flexibilidade e podem ser fiscalmente vantajosos para rendimentos elevados. O trabalhador independente precisa de faturar 25-40% mais para obter o mesmo líquido anual.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-primary-50 border border-primary-200 rounded-xl p-6 mb-8">
+          <h2 class="text-lg font-bold text-primary-800 mb-3">Ferramentas relacionadas</h2>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/" class="text-primary-700 hover:text-primary-900 font-medium">Calculadora de Salário Líquido 2026</a> - Calcule o líquido para trabalho por conta de outrem.</li>
+            <li><a href="/guides/taxa-social-unica-tsu/" class="text-primary-700 hover:text-primary-900 font-medium">TSU - Taxa Social Única</a> - Compare as taxas contributivas entre os dois regimes.</li>
+            <li><a href="/guides/escaloes-irs-2026/" class="text-primary-700 hover:text-primary-900 font-medium">Escalões de IRS 2026</a> - Entenda como os escalões se aplicam a ambos os regimes.</li>
+          </ul>
+        </div>
+
+        <div class="border-t border-neutral-200 pt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Fontes</h2>
+          <ul class="space-y-1 text-sm text-neutral-600">
+            <li>Código do IRS - Categoria A (trabalho dependente) e Categoria B (trabalho independente)</li>
+            <li>Código Contributivo - Regime de trabalhadores independentes</li>
+            <li>Segurança Social - <a href="https://www.seg-social.pt" class="text-primary-600 hover:text-primary-700">seg-social.pt</a></li>
+            <li>Código do Trabalho - Contrato de trabalho e direitos do trabalhador</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>

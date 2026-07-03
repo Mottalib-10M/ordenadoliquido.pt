@@ -1,0 +1,213 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://salarioliquido.pt/" },
+    { "@type": "ListItem", "position": 2, "name": "Guias", "item": "https://salarioliquido.pt/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Retenção na Fonte", "item": "https://salarioliquido.pt/guides/retencao-na-fonte/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que é a retenção na fonte de IRS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A retenção na fonte é um adiantamento mensal do IRS que a entidade empregadora desconta do salário bruto do trabalhador e entrega à Autoridade Tributária. É um mecanismo que visa distribuir o pagamento do imposto ao longo do ano, evitando que o contribuinte tenha de pagar um valor elevado de uma só vez na altura da declaração anual."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como é calculada a taxa de retenção na fonte?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A taxa de retenção na fonte é determinada pelas tabelas publicadas anualmente pela Autoridade Tributária. Depende de fatores como o salário bruto mensal, o estado civil (solteiro, casado único titular, casado dois titulares), o número de dependentes e se o contribuinte tem deficiência fiscal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "É possível alterar a taxa de retenção na fonte?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. O trabalhador pode solicitar uma taxa de retenção superior à prevista nas tabelas (nunca inferior). Além disso, trabalhadores casados podem optar pela tributação conjunta ou separada, o que afeta a tabela de retenção aplicável. Também existem dispensas de retenção para rendimentos muito baixos."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Retenção na Fonte de IRS 2026 - Como Funciona | Salário Líquido PT"
+  description="Guia completo sobre a retenção na fonte de IRS em Portugal: tabelas 2026, como é calculada, fatores que influenciam a taxa e como pedir alterações."
+  canonical="/guides/retencao-na-fonte/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <article class="py-12 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="mb-8 text-sm text-neutral-500">
+        <ol class="flex items-center gap-1.5 flex-wrap">
+          <li><a href="/" class="hover:text-primary-600 no-underline text-neutral-500">Início</a></li>
+          <li class="before:content-['/'] before:mx-1.5"><a href="/guides/" class="hover:text-primary-600 no-underline text-neutral-500">Guias</a></li>
+          <li class="before:content-['/'] before:mx-1.5 text-neutral-900 font-medium">Retenção na Fonte</li>
+        </ol>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6">
+        Retenção na Fonte de IRS: Como Funciona e Tabelas 2026
+      </h1>
+
+      <div class="prose prose-neutral max-w-none">
+        <p class="text-lg text-neutral-600 leading-relaxed mb-8">
+          A retenção na fonte é o mecanismo através do qual a entidade empregadora desconta mensalmente uma parte do salário do trabalhador a título de adiantamento de IRS e entrega esse valor ao Estado. É um dos descontos mais significativos no recibo de vencimento e compreender como funciona é essencial para gerir o seu rendimento líquido. Neste guia, explicamos tudo sobre as tabelas de retenção, os fatores que determinam a taxa e como ela se relaciona com o imposto final.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">O que é a retenção na fonte?</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          A retenção na fonte é um pagamento antecipado e por conta do IRS (Imposto sobre o Rendimento das Pessoas Singulares) que é efetuado mensalmente. Em vez de o contribuinte pagar todo o imposto de uma só vez na altura da declaração anual de IRS, o Estado optou por um sistema de cobrança progressiva ao longo do ano.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Funciona da seguinte forma: todos os meses, a entidade empregadora calcula a taxa de retenção aplicável ao salário do trabalhador, desconta o respetivo valor e transfere-o para a Autoridade Tributária. O trabalhador recebe apenas o valor líquido, ou seja, o salário bruto menos a TSU (11%) e menos a retenção na fonte de IRS.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          É fundamental compreender que a retenção na fonte é apenas um adiantamento - não é o imposto final. O imposto efetivamente devido só é determinado na declaração anual de IRS, apresentada entre abril e junho do ano seguinte. Nessa altura, é feito o acerto: se as retenções na fonte efetuadas ao longo do ano forem superiores ao imposto devido, o contribuinte recebe um reembolso; se forem inferiores, terá de pagar a diferença.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">As tabelas de retenção na fonte 2026</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As tabelas de retenção na fonte são publicadas anualmente pela Autoridade Tributária, geralmente em janeiro ou fevereiro. Estas tabelas definem a taxa de retenção aplicável em função de várias variáveis. Em 2026, o sistema de retenção baseia-se numa fórmula progressiva que espelha mais fielmente os escalões de IRS, reduzindo as distorções entre o imposto retido e o imposto final.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As tabelas são organizadas por situação pessoal e familiar. Existem tabelas distintas para:
+        </p>
+        <ul class="list-disc pl-6 text-neutral-700 leading-relaxed mb-4 space-y-1">
+          <li>Não casados, casados (único titular) e casados (dois titulares)</li>
+          <li>Diferentes números de dependentes (0, 1, 2, 3 ou mais)</li>
+          <li>Contribuintes com deficiência fiscal</li>
+          <li>Rendimentos de pensões (tabela própria)</li>
+        </ul>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          A fórmula de cálculo da retenção mensal em 2026 segue um modelo que aplica a taxa marginal correspondente ao rendimento mensal, deduzindo uma parcela fixa que tem em conta a situação familiar. Este modelo visa aproximar a retenção mensal do imposto anual efetivo, minimizando os reembolsos e pagamentos adicionais na declaração anual.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Fatores que influenciam a taxa de retenção</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          A taxa de retenção na fonte depende de vários fatores que o trabalhador deve comunicar à entidade empregadora. Os principais são:
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>1. Rendimento bruto mensal:</strong> Quanto maior o salário, maior a taxa de retenção. Isto reflete a progressividade do sistema fiscal - os rendimentos mais elevados são tributados a taxas superiores.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>2. Estado civil:</strong> Os contribuintes casados, especialmente quando são o único titular de rendimentos no agregado, beneficiam de taxas de retenção mais baixas do que os solteiros com o mesmo rendimento. A opção entre tributação conjunta e separada também influencia a taxa.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>3. Número de dependentes:</strong> Cada dependente (filhos, afilhados civis, menores sob tutela) reduz a taxa de retenção na fonte. Um casal com dois filhos paga uma retenção inferior a um casal sem filhos, para o mesmo nível de rendimento.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>4. Deficiência fiscal:</strong> Os contribuintes com deficiência igual ou superior a 60% beneficiam de tabelas de retenção especiais com taxas mais reduzidas, refletindo os benefícios fiscais previstos na lei.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Exemplo de cálculo da retenção mensal</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Consideremos um trabalhador solteiro, sem dependentes, com um salário bruto mensal de 1.800 euros. O cálculo da retenção na fonte segue a fórmula das tabelas de 2026:
+        </p>
+        <ul class="list-disc pl-6 text-neutral-700 leading-relaxed mb-4 space-y-1">
+          <li><strong>Salário bruto:</strong> 1.800,00 €</li>
+          <li><strong>TSU (11%):</strong> 198,00 €</li>
+          <li><strong>Retenção na fonte (estimativa ~15%):</strong> 270,00 €</li>
+          <li><strong>Salário líquido:</strong> 1.800 € − 198 € − 270 € = 1.332,00 €</li>
+        </ul>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Note-se que a taxa efetiva de retenção (15%) é inferior à taxa marginal do escalão correspondente nos escalões de IRS. Isto acontece porque as tabelas de retenção já incorporam o efeito progressivo dos escalões e a dedução específica, procurando aproximar o valor retido mensalmente ao imposto anual efetivo.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Dispensa de retenção na fonte</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Os trabalhadores com rendimentos muito baixos podem estar dispensados de retenção na fonte. Em 2026, a dispensa aplica-se geralmente a rendimentos mensais iguais ou inferiores ao salário mínimo nacional (870 euros). Nestes casos, o trabalhador não sofre qualquer desconto de IRS no recibo de vencimento, pagando apenas a TSU de 11%.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          A dispensa de retenção na fonte não significa isenção de IRS. O trabalhador continua obrigado a entregar a declaração anual de IRS e pode apurar imposto a pagar (embora, na prática, os trabalhadores com salário mínimo raramente tenham IRS a pagar, em virtude do mínimo de existência e das deduções à coleta disponíveis).
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Retenção sobre subsídios de férias e Natal</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Os subsídios de férias e de Natal estão igualmente sujeitos a retenção na fonte de IRS. A taxa de retenção aplicável pode ser idêntica à do salário mensal ou calculada de forma autónoma, conforme as regras das tabelas em vigor. Em 2026, com o modelo de retenção progressiva, a taxa aplicável aos subsídios tende a ser a mesma que se aplica ao salário mensal regular.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Nos meses em que o trabalhador recebe o subsídio conjuntamente com o salário (por exemplo, receber o salário de junho mais o subsídio de férias no mesmo mês), a retenção é calculada separadamente sobre cada componente, evitando assim uma taxa desproporcionadamente elevada.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Retenção na fonte e o acerto anual de IRS</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O acerto anual de IRS é o momento em que se compara o imposto efetivamente devido (calculado na declaração anual) com a soma de todas as retenções na fonte efetuadas ao longo do ano. Este acerto pode resultar em três cenários:
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Reembolso de IRS:</strong> Quando as retenções na fonte excederam o imposto devido. Isto acontece frequentemente quando o contribuinte tem deduções significativas (saúde, educação, habitação) ou quando a taxa de retenção foi superior ao necessário.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>IRS a pagar:</strong> Quando as retenções na fonte foram insuficientes para cobrir o imposto devido. Isto pode ocorrer quando o contribuinte tem rendimentos de múltiplas fontes, quando beneficiou de uma taxa de retenção reduzida ou quando teve poucos descontos dedutíveis.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Saldo zero:</strong> A situação ideal, mas rara na prática, em que as retenções na fonte corresponderam exatamente ao imposto devido.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Como pedir uma taxa de retenção diferente</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O trabalhador pode solicitar uma taxa de retenção superior à prevista nas tabelas, mas não inferior. Esta opção pode ser útil para quem tem rendimentos de outras fontes (rendas, investimentos) e quer evitar um pagamento elevado na declaração anual. O pedido é feito junto da entidade empregadora, que passará a aplicar a taxa indicada.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Adicionalmente, os contribuintes casados devem decidir se optam pelas tabelas de casado com um titular ou dois titulares de rendimentos, uma vez que esta escolha afeta significativamente a taxa de retenção. A opção deve ser comunicada ao empregador no início de cada ano ou sempre que haja alteração da situação pessoal.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Perguntas frequentes</h2>
+
+        <div class="space-y-6 mb-8">
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">O que é a retenção na fonte de IRS?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              A retenção na fonte é um adiantamento mensal do IRS que a entidade empregadora desconta do salário bruto do trabalhador e entrega à Autoridade Tributária. É um mecanismo que distribui o pagamento do imposto ao longo do ano, evitando um pagamento elevado na declaração anual.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Como é calculada a taxa de retenção na fonte?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              A taxa é determinada pelas tabelas publicadas anualmente pela Autoridade Tributária. Depende do salário bruto mensal, do estado civil, do número de dependentes e da existência de deficiência fiscal. Em 2026, utiliza-se uma fórmula progressiva que espelha os escalões de IRS.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">É possível alterar a taxa de retenção na fonte?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              Sim. O trabalhador pode solicitar uma taxa de retenção superior à prevista nas tabelas (nunca inferior). Além disso, trabalhadores casados podem optar pela tributação conjunta ou separada, o que afeta a tabela de retenção aplicável.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-primary-50 border border-primary-200 rounded-xl p-6 mb-8">
+          <h2 class="text-lg font-bold text-primary-800 mb-3">Ferramentas relacionadas</h2>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/" class="text-primary-700 hover:text-primary-900 font-medium">Calculadora de Salário Líquido 2026</a> - Veja a retenção na fonte calculada automaticamente para o seu salário.</li>
+            <li><a href="/guides/escaloes-irs-2026/" class="text-primary-700 hover:text-primary-900 font-medium">Escalões de IRS 2026</a> - Compreenda os escalões que determinam a taxa de retenção.</li>
+            <li><a href="/guides/deducoes-irs/" class="text-primary-700 hover:text-primary-900 font-medium">Deduções de IRS</a> - Descubra as deduções que afetam o acerto anual.</li>
+          </ul>
+        </div>
+
+        <div class="border-t border-neutral-200 pt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Fontes</h2>
+          <ul class="space-y-1 text-sm text-neutral-600">
+            <li>Código do IRS, artigos 98.º a 101.º - Retenção na fonte</li>
+            <li>Despacho das Tabelas de Retenção na Fonte 2026 - Autoridade Tributária</li>
+            <li>Portal das Finanças - <a href="https://www.portaldasfinancas.gov.pt" class="text-primary-600 hover:text-primary-700">portaldasfinancas.gov.pt</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>

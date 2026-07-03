@@ -20,6 +20,7 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="author" content="Mottalib Radif" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -56,8 +57,32 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
         "name": "Salário Líquido PT"
       }
     })} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mottalib Radif",
+      "jobTitle": "Especialista em Finanças Pessoais e Fiscalidade",
+      "description": "Diplomado MBA pelo INSEAD, apaixonado por finanças pessoais em Portugal. Especializado em IRS, Segurança Social e otimização salarial.",
+      "alumniOf": { "@type": "EducationalOrganization", "name": "INSEAD" },
+      "image": "https://salarioliquido.pt/team/mottalib-radif.jpg",
+      "url": "https://salarioliquido.pt/sobre/"
+    })} />
+
+    <!-- Plausible Analytics -->
+    <script defer data-domain="salarioliquido.pt" src="https://plausible.io/js/script.js"></script>
+
+    <!-- Google Analytics 4 — replace G-XXXXXXXXXX with real ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
   </head>
   <body class="min-h-screen flex flex-col">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-blue-700 focus:rounded-lg focus:shadow-lg focus:ring-2 focus:ring-blue-500">Skip to content</a>
     <!-- Header -->
     <header class="bg-white border-b border-neutral-200 sticky top-0 z-50">
       <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -69,31 +94,45 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
         </a>
         <div class="hidden sm:flex items-center gap-6 text-sm font-medium">
           <a href="/" class="text-neutral-600 hover:text-primary-600 no-underline">Calculadora</a>
+          <a href="/guides/" class="text-neutral-600 hover:text-primary-600 no-underline">Guias</a>
           <a href="/faq/" class="text-neutral-600 hover:text-primary-600 no-underline">FAQ</a>
           <a href="/legal/" class="text-neutral-600 hover:text-primary-600 no-underline">Avisos Legais</a>
           <a href="/privacidade/" class="text-neutral-600 hover:text-primary-600 no-underline">Privacidade</a>
         </div>
-        <!-- Mobile menu button -->
-        <div class="sm:hidden">
-          <details class="relative">
-            <summary class="list-none cursor-pointer p-2">
-              <svg class="w-6 h-6 text-neutral-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </summary>
-            <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-neutral-200 py-2 z-50">
-              <a href="/" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 no-underline">Calculadora</a>
-              <a href="/faq/" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 no-underline">FAQ</a>
-              <a href="/legal/" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 no-underline">Avisos Legais</a>
-              <a href="/privacidade/" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 no-underline">Privacidade</a>
-            </div>
-          </details>
-        </div>
+        <!-- Mobile hamburger menu -->
+        <button
+          type="button"
+          id="mobile-menu-btn"
+          class="sm:hidden p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg id="menu-icon-open" class="w-6 h-6 text-neutral-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="menu-icon-close" class="w-6 h-6 text-neutral-600 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </nav>
+      <!-- Mobile menu panel -->
+      <div
+        id="mobile-menu"
+        class="sm:hidden hidden border-t border-neutral-200 bg-white shadow-lg"
+      >
+        <div class="px-4 py-3 space-y-1">
+          <a href="/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline transition-colors">Calculadora</a>
+          <a href="/guides/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline transition-colors">Guias</a>
+          <a href="/faq/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline transition-colors">FAQ</a>
+          <a href="/legal/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline transition-colors">Avisos Legais</a>
+          <a href="/privacidade/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline transition-colors">Privacidade</a>
+        </div>
+      </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1">
+    <main id="main-content" class="flex-1">
       <slot />
     </main>
 
@@ -112,6 +151,7 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
             <h4 class="text-white font-semibold mb-3">Liga&ccedil;&otilde;es</h4>
             <ul class="space-y-2 text-sm">
               <li><a href="/" class="hover:text-white no-underline text-neutral-400">Calculadora</a></li>
+              <li><a href="/guides/" class="hover:text-white no-underline text-neutral-400">Guias</a></li>
               <li><a href="/faq/" class="hover:text-white no-underline text-neutral-400">Perguntas Frequentes</a></li>
               <li><a href="/legal/" class="hover:text-white no-underline text-neutral-400">Avisos Legais</a></li>
               <li><a href="/privacidade/" class="hover:text-white no-underline text-neutral-400">Pol&iacute;tica de Privacidade</a></li>
@@ -131,6 +171,32 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
         </div>
       </div>
     </footer>
+
+    <!-- Mobile menu toggle script -->
+    <script is:inline>
+      (function() {
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+        if (!btn || !menu || !iconOpen || !iconClose) return;
+        btn.addEventListener('click', function() {
+          const isOpen = !menu.classList.contains('hidden');
+          menu.classList.toggle('hidden');
+          iconOpen.classList.toggle('hidden');
+          iconClose.classList.toggle('hidden');
+          btn.setAttribute('aria-expanded', String(!isOpen));
+        });
+        document.addEventListener('click', function(e) {
+          if (!btn.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.add('hidden');
+            iconOpen.classList.remove('hidden');
+            iconClose.classList.add('hidden');
+            btn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      })();
+    </script>
 
     <style is:global>
       @import "../styles/global.css";

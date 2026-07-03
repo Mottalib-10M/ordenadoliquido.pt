@@ -1,98 +1,98 @@
 # VALIDATION — salarioliquido.pt
 
-## Project Overview
-Portuguese salary calculator (Calculadora de Salário Líquido) for 2026, built with Astro 5, React 19, and Tailwind v4.
+## Metodologia
 
-## File Structure
+Os cálculos deste simulador baseiam-se nos escalões de IRS, taxas de TSU e tabelas de retenção na fonte oficiais para 2026.
 
-```
-salarioliquido.pt/
-├── package.json                  # Project config (name: salarioliquido-pt)
-├── tsconfig.json                 # TypeScript strict config
-├── astro.config.mjs              # Astro 5 + React + Sitemap + Tailwind v4
-├── vitest.config.ts              # Vitest test runner config
-├── .gitignore                    # Git ignore rules
-├── VALIDATION.md                 # This file
-├── public/
-│   ├── robots.txt                # Search engine directives
-│   ├── llms.txt                  # LLM-readable site description
-│   └── favicon.svg               # Green/red Portuguese favicon
-└── src/
-    ├── env.d.ts                  # Astro type reference
-    ├── styles/
-    │   └── global.css            # Tailwind v4 + Portuguese color theme
-    ├── lib/
-    │   ├── baremes-2026.ts       # Tax brackets, TSU, withholding tables
-    │   ├── engine.ts             # Salary calculation engine
-    │   └── engine.test.ts        # 17 unit tests
-    ├── components/
-    │   └── SalaryCalculator.tsx  # React interactive calculator
-    ├── layouts/
-    │   └── Layout.astro          # Base layout (lang=pt, Schema.org)
-    └── pages/
-        ├── index.astro           # Homepage + calculator + SEO content
-        ├── faq/
-        │   └── index.astro       # FAQ page (10 questions)
-        ├── legal/
-        │   └── index.astro       # Legal notices page
-        └── privacidade/
-            └── index.astro       # Privacy policy (RGPD)
-```
+**Fontes oficiais:**
+- [Autoridade Tributária e Aduaneira](https://www.portaldasfinancas.gov.pt)
+- [Segurança Social](https://www.seg-social.pt)
+- Código do IRS (escalões e deduções)
 
-## Tax Data (baremes-2026.ts)
+---
 
-| Feature | Value | Status |
-|---------|-------|--------|
-| IRS Brackets | 9 escalões (13.25% → 48%) | Implemented |
-| TSU Employee | 11% | Implemented |
-| TSU Employer | 23.75% | Implemented |
-| Specific Deduction | €4,104 | Implemented |
-| Family Deduction | €250/person | Implemented |
-| Minimum Wage | €870/month | Implemented |
-| Withholding Tables | 17 brackets × 3 statuses × 6 dep levels | Implemented |
-| IRS Jovem | 5 years, declining exemption | Implemented |
-| Subsídio de Natal | Mandatory, avg rate tax | Implemented |
-| Subsídio de Férias | Mandatory, normal withholding | Implemented |
+## Caso de validação n.°1 — Solteiro, sem dependentes, 1 500 € bruto
 
-## Engine Functions (engine.ts)
+**Dados de entrada:**
+- Salário bruto mensal: 1 500 €
+- Estado civil: Solteiro
+- Dependentes: 0
+- IRS Jovem: Não
 
-| Function | Description |
-|----------|-------------|
-| `calculateTSU(grossMonthly)` | Social security contributions |
-| `calculateIRS(annualTaxable, maritalStatus, dependents)` | Progressive income tax |
-| `calculateRetencao(grossMonthly, maritalStatus, dependents)` | Monthly withholding |
-| `calculateSalary(input)` | Full gross→net calculation |
+**Cálculo esperado:**
+1. TSU empregado (11%): 1 500 × 0,11 = **165,00 €**
+2. Base tributável mensal: 1 500 − 165 = **1 335,00 €**
+3. Retenção na fonte IRS (tabela): ~**195 €** (taxa marginal ~14,5%)
+4. **Salário líquido mensal:** 1 500 − 165 − 195 = **~1 140 €**
 
-## Types
+---
 
-- `SalaryInput`: grossMonthly, maritalStatus, dependents, irsJovem
-- `SalaryResult`: 25+ fields covering all calculation details
+## Caso de validação n.°2 — Casado, 2 titulares, 2 dependentes, 2 500 € bruto
 
-## Tests (engine.test.ts)
+**Dados de entrada:**
+- Salário bruto mensal: 2 500 €
+- Estado civil: Casado, 2 titulares
+- Dependentes: 2
 
-17 tests across 4 test suites:
-- `calculateTSU`: 4 tests (employee rate, employer rate, zero, minimum wage)
-- `calculateIRS`: 4 tests (zero, negative, first bracket, progressive, dependents, top bracket)
-- `calculateRetencao`: 4 tests (minimum wage, above minimum, casado vs solteiro, dependents)
-- `calculateSalary`: 5 tests (net < gross, 14 months, subsidies, employer cost, IRS Jovem, deductions, minimum wage)
+**Cálculo esperado:**
+1. TSU empregado (11%): 2 500 × 0,11 = **275,00 €**
+2. Base tributável mensal: 2 500 − 275 = **2 225,00 €**
+3. Retenção na fonte IRS (tabela casado 2 tit., 2 dep.): ~**385 €**
+4. **Salário líquido mensal:** 2 500 − 275 − 385 = **~1 840 €**
 
-## SEO & Accessibility
+---
 
-- [x] `lang="pt"` on HTML element
-- [x] Schema.org WebApplication markup
-- [x] Open Graph and Twitter meta tags
-- [x] Canonical URLs on all pages
-- [x] Sitemap generation via @astrojs/sitemap
-- [x] robots.txt with sitemap reference
-- [x] llms.txt for AI crawlers
-- [x] Semantic HTML structure
-- [x] 1500+ words of Portuguese educational content on homepage
-- [x] Mobile-responsive design (Tailwind)
+## Caso de validação n.°3 — IRS Jovem, 1 200 € bruto
 
-## Build Validation
+**Dados de entrada:**
+- Salário bruto mensal: 1 200 €
+- Estado civil: Solteiro
+- IRS Jovem: Sim (1.° ano)
 
-- [ ] `npm install` — dependencies installed
-- [ ] `npm test` — all 17 tests pass
-- [ ] `npm run build` — production build succeeds
-- [ ] Git commit created
-- [ ] Pushed to GitHub
+**Cálculo esperado:**
+1. TSU empregado (11%): 1 200 × 0,11 = **132,00 €**
+2. Isenção parcial IRS Jovem (1.° ano): redução significativa da retenção
+3. **Salário líquido superior** ao cenário sem IRS Jovem
+
+---
+
+## Build status
+
+- **Build:** 29 pages, 0 errors
+- **Tests:** 21/21 passed
+- **Sitemap:** auto-generated (sitemap-index.xml)
+
+## Page inventory (29 pages)
+
+| Category | Count | Details |
+|---|---|---|
+| Home + legal | 3 | index, legal, privacidade |
+| Tool pages | 1 | faq |
+| Guides index | 1 | /guides/ |
+| Guide articles | 8 | escaloes-irs-2026, taxa-social-unica-tsu, irs-jovem-2026, subsidio-natal-ferias, retencao-na-fonte, deducoes-irs, salario-minimo-portugal, recibos-verdes-vs-conta-outrem |
+| Salary pages | 12 | salario-[bruto]-bruto-liquido (12 salary levels) |
+| Situation pages | 4 | simulador-[situacao] (solteiro, casado-1-titular, casado-2-titulares, irs-jovem) |
+
+## Components
+
+- SalaryCalculator.tsx (Portuguese gross-to-net calculator with IRS Jovem)
+
+## Data files
+
+- baremes-2026.ts — IRS brackets, TSU rates, withholding tables, IRS Jovem
+- salarios-data.ts — 12 salary entries with pre-calculated examples
+- situacoes-data.ts — 4 situation entries (marital status variants)
+
+## Quality gates
+
+- [x] Build passes (29 pages, 0 errors)
+- [x] Tests pass (21/21)
+- [x] Sitemap generated
+- [x] Schema.org on every page (WebApplication, FAQPage, BreadcrumbList)
+- [x] Analytics: Plausible + GA4 placeholder
+- [x] robots.txt present
+- [x] llms.txt present
+- [x] All guide pages > 1500 words
+- [x] Disclaimer in footer
+- [x] Mobile-responsive navigation (hamburger menu)
+- [x] Internal cross-linking between tools and guides

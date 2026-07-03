@@ -1,0 +1,224 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://salarioliquido.pt/" },
+    { "@type": "ListItem", "position": 2, "name": "Guias", "item": "https://salarioliquido.pt/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Salário Mínimo Portugal 2026", "item": "https://salarioliquido.pt/guides/salario-minimo-portugal/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qual é o salário mínimo em Portugal em 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O salário mínimo nacional (RMMG - Retribuição Mínima Mensal Garantida) em Portugal é de 870 euros brutos mensais em 2026, pagos 14 vezes por ano, o que totaliza 12.180 euros brutos anuais."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto recebo de líquido com o salário mínimo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Com o salário mínimo de 870€ brutos, após o desconto de 11% para a Segurança Social (95,70€), o salário líquido é de aproximadamente 774,30€ por mês. Os trabalhadores com salário mínimo estão geralmente dispensados de retenção na fonte de IRS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O salário mínimo em Portugal é pago 14 vezes por ano?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. Todos os trabalhadores por conta de outrem em Portugal recebem 14 meses de salário: os 12 meses regulares, mais o subsídio de Natal (13.º mês) e o subsídio de férias (14.º mês). Isto aplica-se igualmente a quem recebe o salário mínimo."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Salário Mínimo Portugal 2026 - Valor, Líquido e Evolução | Salário Líquido PT"
+  description="Guia completo sobre o salário mínimo em Portugal em 2026: valor bruto e líquido, evolução histórica, descontos, comparação europeia e impacto no custo de vida."
+  canonical="/guides/salario-minimo-portugal/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <article class="py-12 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="mb-8 text-sm text-neutral-500">
+        <ol class="flex items-center gap-1.5 flex-wrap">
+          <li><a href="/" class="hover:text-primary-600 no-underline text-neutral-500">Início</a></li>
+          <li class="before:content-['/'] before:mx-1.5"><a href="/guides/" class="hover:text-primary-600 no-underline text-neutral-500">Guias</a></li>
+          <li class="before:content-['/'] before:mx-1.5 text-neutral-900 font-medium">Salário Mínimo Portugal 2026</li>
+        </ol>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6">
+        Salário Mínimo em Portugal 2026: Valor Atual, Líquido e Evolução Histórica
+      </h1>
+
+      <div class="prose prose-neutral max-w-none">
+        <p class="text-lg text-neutral-600 leading-relaxed mb-8">
+          O salário mínimo nacional, oficialmente designado como Retribuição Mínima Mensal Garantida (RMMG), é o valor mínimo que uma entidade empregadora pode legalmente pagar a um trabalhador em Portugal. Em 2026, este valor situa-se nos 870 euros brutos mensais. Neste guia, analisamos detalhadamente o valor bruto e líquido, a evolução histórica, os descontos aplicáveis e como o salário mínimo português se compara com o dos restantes países europeus.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Valor do salário mínimo em 2026</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O salário mínimo nacional em Portugal para o ano de 2026 é de 870 euros brutos por mês. Este valor representa um aumento face ao ano anterior, dando continuidade à política de valorização gradual do salário mínimo que tem sido seguida nos últimos anos.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Considerando que em Portugal os trabalhadores por conta de outrem recebem 14 meses de salário (12 meses regulares + subsídio de férias + subsídio de Natal), o rendimento bruto anual de um trabalhador com salário mínimo é de 12.180 euros (870 € × 14 meses).
+        </p>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="bg-primary-50">
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Período</th>
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">Mensal bruto</td><td class="border border-neutral-200 px-4 py-2">870,00 €</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">Anual bruto (14 meses)</td><td class="border border-neutral-200 px-4 py-2">12.180,00 €</td></tr>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">Mensal líquido (estimativa)</td><td class="border border-neutral-200 px-4 py-2">~774,30 €</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">Anual líquido (estimativa)</td><td class="border border-neutral-200 px-4 py-2">~10.840,20 €</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Do bruto ao líquido: descontos sobre o salário mínimo</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Para compreender quanto efetivamente recebe um trabalhador com salário mínimo, é necessário subtrair os descontos obrigatórios ao valor bruto de 870 euros:
+        </p>
+        <ul class="list-disc pl-6 text-neutral-700 leading-relaxed mb-4 space-y-2">
+          <li><strong>TSU do trabalhador (11%):</strong> 870 € × 11% = 95,70 €. Este é o único desconto garantido para quem recebe o salário mínimo.</li>
+          <li><strong>Retenção na fonte de IRS:</strong> Em regra, os trabalhadores com salário mínimo estão dispensados de retenção na fonte, o que significa que não sofrem qualquer desconto mensal de IRS.</li>
+        </ul>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Assim, o salário líquido mensal de um trabalhador com salário mínimo é de aproximadamente 774,30 euros (870 € − 95,70 €). Ao longo do ano, com 14 meses, o rendimento líquido totaliza cerca de 10.840,20 euros.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Custo total para o empregador</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Embora o trabalhador receba 870 euros brutos, o custo efetivo para o empregador é substancialmente superior. Além do salário, a empresa paga a contribuição patronal para a Segurança Social de 23,75%, o que acrescenta 206,63 euros mensais ao custo do trabalhador.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O custo mensal total para o empregador é, portanto, de 1.076,63 euros (870 € + 206,63 €). Considerando os 14 meses, o custo anual total ascende a 15.072,75 euros. A este valor podem acrescentar-se outros custos obrigatórios como o seguro de acidentes de trabalho, subsídio de refeição, medicina no trabalho e formação profissional.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Evolução histórica do salário mínimo</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O salário mínimo em Portugal tem registado uma trajetória de crescimento consistente, especialmente nos últimos anos. Vejamos a evolução desde 2019:
+        </p>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="bg-primary-50">
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Ano</th>
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Valor mensal</th>
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Aumento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">2019</td><td class="border border-neutral-200 px-4 py-2">600,00 €</td><td class="border border-neutral-200 px-4 py-2">-</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">2020</td><td class="border border-neutral-200 px-4 py-2">635,00 €</td><td class="border border-neutral-200 px-4 py-2">+35 € (+5,8%)</td></tr>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">2021</td><td class="border border-neutral-200 px-4 py-2">665,00 €</td><td class="border border-neutral-200 px-4 py-2">+30 € (+4,7%)</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">2022</td><td class="border border-neutral-200 px-4 py-2">705,00 €</td><td class="border border-neutral-200 px-4 py-2">+40 € (+6,0%)</td></tr>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">2023</td><td class="border border-neutral-200 px-4 py-2">760,00 €</td><td class="border border-neutral-200 px-4 py-2">+55 € (+7,8%)</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">2024</td><td class="border border-neutral-200 px-4 py-2">820,00 €</td><td class="border border-neutral-200 px-4 py-2">+60 € (+7,9%)</td></tr>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">2025</td><td class="border border-neutral-200 px-4 py-2">870,00 €</td><td class="border border-neutral-200 px-4 py-2">+50 € (+6,1%)</td></tr>
+              <tr class="bg-neutral-50 font-semibold"><td class="border border-neutral-200 px-4 py-2">2026</td><td class="border border-neutral-200 px-4 py-2">870,00 €</td><td class="border border-neutral-200 px-4 py-2">a confirmar</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Desde 2019, o salário mínimo passou de 600 para 870 euros, um aumento acumulado de 270 euros (+45%). Esta evolução reflete o compromisso político de valorizar os rendimentos do trabalho e de reduzir as desigualdades salariais, embora a inflação registada neste período tenha absorvido parte destes ganhos em termos reais.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Mínimo de existência e isenção de IRS</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O mínimo de existência é uma proteção prevista no Código do IRS que garante que nenhum contribuinte fique com um rendimento líquido de IRS inferior a um determinado limiar. Em 2026, este valor corresponde a 1,5 vezes o IAS multiplicado por 14 meses, o que equivale a 10.972,50 euros anuais.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Na prática, isto significa que os trabalhadores com salário mínimo pagam zero ou um valor residual de IRS anual. Mesmo que o cálculo pelos escalões apurasse um valor de imposto, o mínimo de existência funciona como um travão, garantindo que o rendimento disponível não desce abaixo desse limiar. Este mecanismo é essencial para proteger os rendimentos mais baixos e evitar situações de pobreza laboral.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Comparação europeia</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O salário mínimo em Portugal situa-se entre os mais baixos da Europa Ocidental, embora acima de vários países da Europa de Leste. Para uma comparação justa, é importante ter em conta as diferenças no custo de vida, no número de meses de pagamento e nos sistemas fiscais de cada país.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Em termos de paridade de poder de compra (PPC), a posição de Portugal melhora significativamente em relação à comparação nominal. Países com salários mínimos mais elevados em valor absoluto (como Luxemburgo, Alemanha ou França) têm também um custo de vida consideravelmente superior, o que reduz a diferença em termos de poder de compra real.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Outro fator relevante é que Portugal é um dos poucos países europeus onde se pagam 14 meses de salário. Quando se anualizem os valores (870 € × 14 = 12.180 €), a posição relativa de Portugal na Europa melhora face a países que pagam apenas 12 meses (onde um salário mínimo de 1.000 € mensais equivale a 12.000 € anuais).
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Impacto no subsídio de refeição e outras prestações</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O subsídio de refeição não faz parte do salário mínimo e é pago em adição a este. Em 2026, o subsídio de refeição isento de impostos é de 6,00 euros por dia em dinheiro ou 10,20 euros por dia em cartão refeição (aproximadamente 22 dias úteis por mês). Isto representa um complemento significativo ao rendimento líquido dos trabalhadores com salário mínimo.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Para um trabalhador com salário mínimo que receba subsídio de refeição em cartão, o rendimento mensal total pode subir para cerca de 999 euros (774,30 € líquido + 224,40 € de subsídio de refeição), um acréscimo de quase 30% ao rendimento líquido base. Este valor, embora não sujeito a impostos, não entra na base de cálculo dos subsídios de férias e Natal.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Setores com salários mínimos sectoriais</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Alguns setores de atividade têm salários mínimos sectoriais definidos por convenção coletiva de trabalho, que são superiores ao salário mínimo nacional. Setores como a banca, seguros, indústria farmacêutica e hotelaria de determinadas regiões podem ter valores mínimos que ultrapassam significativamente o RMMG. Nestes casos, aplica-se o valor mais favorável ao trabalhador.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Perguntas frequentes</h2>
+
+        <div class="space-y-6 mb-8">
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Qual é o salário mínimo em Portugal em 2026?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              O salário mínimo nacional (RMMG) em Portugal é de 870 euros brutos mensais em 2026, pagos 14 vezes por ano, totalizando 12.180 euros brutos anuais.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Quanto recebo de líquido com o salário mínimo?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              Com o salário mínimo de 870 € brutos, após o desconto de 11% para a Segurança Social (95,70 €), o salário líquido é de aproximadamente 774,30 € por mês. Os trabalhadores com salário mínimo estão geralmente dispensados de retenção na fonte de IRS.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">O salário mínimo em Portugal é pago 14 vezes por ano?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              Sim. Todos os trabalhadores por conta de outrem recebem 14 meses de salário: 12 meses regulares, mais o subsídio de Natal (13.º mês) e o subsídio de férias (14.º mês).
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-primary-50 border border-primary-200 rounded-xl p-6 mb-8">
+          <h2 class="text-lg font-bold text-primary-800 mb-3">Ferramentas relacionadas</h2>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/" class="text-primary-700 hover:text-primary-900 font-medium">Calculadora de Salário Líquido 2026</a> - Calcule o salário líquido para qualquer valor bruto.</li>
+            <li><a href="/guides/subsidio-natal-ferias/" class="text-primary-700 hover:text-primary-900 font-medium">Subsídio de Natal e Férias</a> - Entenda o 13.º e 14.º mês incluídos no salário mínimo.</li>
+            <li><a href="/guides/taxa-social-unica-tsu/" class="text-primary-700 hover:text-primary-900 font-medium">TSU - Taxa Social Única</a> - O desconto de 11% que incide sobre o salário mínimo.</li>
+          </ul>
+        </div>
+
+        <div class="border-t border-neutral-200 pt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Fontes</h2>
+          <ul class="space-y-1 text-sm text-neutral-600">
+            <li>Decreto-Lei da Retribuição Mínima Mensal Garantida para 2026</li>
+            <li>Código do Trabalho, artigos 273.º a 275.º</li>
+            <li>DGERT - Direção-Geral do Emprego e das Relações de Trabalho - <a href="https://www.dgert.gov.pt" class="text-primary-600 hover:text-primary-700">dgert.gov.pt</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>

@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Widget - Incorporar a calculadora de salario liquido | salarioliquido.pt"
+  description="Incorpore gratuitamente a calculadora de salario liquido portuguesa no seu site. Codigo iframe simples para copiar e colar."
+  canonical="/widget/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Calculadora", "item": "https://salarioliquido.pt/" },
+      { "@type": "ListItem", "position": 2, "name": "Widget", "item": "https://salarioliquido.pt/widget/" }
+    ]
+  })} />
+
+  <section class="py-12 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-neutral-500 mb-6">
+        <a href="/" class="hover:text-primary-600">Calculadora</a>
+        <span class="mx-1">/</span>
+        <span class="text-neutral-900">Widget</span>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-4">Incorporar a nossa calculadora no seu site</h1>
+      <p class="text-neutral-600 mb-8">
+        Pode incorporar gratuitamente a calculadora de salario liquido portuguesa no seu proprio site.
+        Basta copiar o codigo seguinte e cola-lo na sua pagina.
+      </p>
+
+      <div class="space-y-8">
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-4">Codigo de incorporacao</h2>
+          <p class="text-neutral-600 mb-4">
+            Copie o seguinte codigo iframe e cole-o no local desejado da sua pagina HTML:
+          </p>
+          <div class="bg-neutral-900 text-green-400 rounded-lg p-4 overflow-x-auto">
+            <pre class="text-sm"><code>&lt;iframe
+  src="https://salarioliquido.pt/"
+  width="100%"
+  height="700"
+  style="border: none; border-radius: 8px; max-width: 600px;"
+  title="Calculadora de Salario Liquido Portugal"
+  loading="lazy"
+&gt;&lt;/iframe&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-4">Pre-visualizacao</h2>
+          <div class="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
+            <iframe
+              src="https://salarioliquido.pt/"
+              width="100%"
+              height="700"
+              style="border: none; border-radius: 8px; max-width: 600px;"
+              title="Calculadora de Salario Liquido Portugal"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-4">Opcoes de personalizacao</h2>
+          <p class="text-neutral-600 mb-4">Pode ajustar o iframe as suas necessidades:</p>
+          <ul class="list-disc list-inside text-neutral-600 space-y-2">
+            <li><strong>Largura:</strong> Altere <code class="bg-neutral-100 px-1 rounded text-sm">width="100%"</code> para um valor fixo, por exemplo <code class="bg-neutral-100 px-1 rounded text-sm">width="500"</code>.</li>
+            <li><strong>Altura:</strong> Ajuste <code class="bg-neutral-100 px-1 rounded text-sm">height="700"</code> para mostrar mais ou menos conteudo.</li>
+            <li><strong>Largura maxima:</strong> Altere <code class="bg-neutral-100 px-1 rounded text-sm">max-width</code> no atributo style.</li>
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-4">Condicoes de utilizacao</h2>
+          <ul class="list-disc list-inside text-neutral-600 space-y-2">
+            <li>A incorporacao e gratuita e permitida para todos os sites.</li>
+            <li>Por favor, nao altere o conteudo da calculadora.</li>
+            <li>Agradecemos um link para salarioliquido.pt, mas nao e obrigatorio.</li>
+            <li>A calculadora e atualizada regularmente. Beneficia automaticamente de todas as atualizacoes.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,212 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://salarioliquido.pt/" },
+    { "@type": "ListItem", "position": 2, "name": "Guias", "item": "https://salarioliquido.pt/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "IRS Jovem 2026", "item": "https://salarioliquido.pt/guides/irs-jovem-2026/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quem pode beneficiar do IRS Jovem em 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Podem beneficiar do IRS Jovem os trabalhadores com idade até 35 anos que obtenham rendimentos de trabalho dependente (Categoria A) ou independente (Categoria B). O benefício aplica-se nos primeiros 10 anos de obtenção de rendimentos após a conclusão de um ciclo de estudos e não depende do nível de habilitações."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual é a percentagem de isenção do IRS Jovem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Em 2026, o IRS Jovem prevê uma isenção de 100% no 1.º ano, 75% no 2.º ano, 50% do 3.º ao 5.º ano e 25% do 6.º ao 10.º ano. A isenção aplica-se ao rendimento até ao limite de 55 vezes o IAS (Indexante dos Apoios Sociais) por ano."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O IRS Jovem é automático ou preciso pedir?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A partir de 2025, o IRS Jovem é aplicado automaticamente na retenção na fonte mensal, bastando o trabalhador comunicar a sua situação à entidade empregadora. Na declaração anual de IRS, o benefício é igualmente aplicado de forma automática, sem necessidade de requerimento adicional."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="IRS Jovem 2026 - Isenção Fiscal para Jovens Trabalhadores | Salário Líquido PT"
+  description="Guia completo sobre o IRS Jovem 2026: quem pode beneficiar, percentagens de isenção, limites, como pedir e exemplos de poupança real no imposto."
+  canonical="/guides/irs-jovem-2026/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <article class="py-12 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="mb-8 text-sm text-neutral-500">
+        <ol class="flex items-center gap-1.5 flex-wrap">
+          <li><a href="/" class="hover:text-primary-600 no-underline text-neutral-500">Início</a></li>
+          <li class="before:content-['/'] before:mx-1.5"><a href="/guides/" class="hover:text-primary-600 no-underline text-neutral-500">Guias</a></li>
+          <li class="before:content-['/'] before:mx-1.5 text-neutral-900 font-medium">IRS Jovem 2026</li>
+        </ol>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6">
+        IRS Jovem 2026: Guia Completo sobre a Isenção Fiscal para Jovens Trabalhadores
+      </h1>
+
+      <div class="prose prose-neutral max-w-none">
+        <p class="text-lg text-neutral-600 leading-relaxed mb-8">
+          O IRS Jovem é um dos benefícios fiscais mais significativos para os jovens trabalhadores em Portugal. Com as alterações introduzidas para 2026, este regime permite isenções de IRS que podem chegar a 100% no primeiro ano de trabalho, abrangendo agora um período total de 10 anos. Neste guia, explicamos detalhadamente quem pode beneficiar, como funciona e qual o impacto real na sua carteira.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">O que é o IRS Jovem?</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O IRS Jovem é um regime fiscal de benefício criado pelo Estado português com o objetivo de apoiar a entrada dos jovens no mercado de trabalho e incentivar a sua permanência em Portugal. Este benefício traduz-se numa isenção parcial ou total do Imposto sobre o Rendimento das Pessoas Singulares (IRS), aplicável durante os primeiros anos de obtenção de rendimentos do trabalho.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O regime foi significativamente alargado a partir de 2025, passando de 5 para 10 anos de abrangência e eliminando a exigência de conclusão de um ciclo de estudos como requisito obrigatório. Com estas alterações, o IRS Jovem tornou-se mais acessível e abrangente, podendo representar uma poupança fiscal muito relevante ao longo de uma década.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Este benefício é particularmente importante num contexto em que muitos jovens portugueses enfrentam dificuldades no início da carreira profissional, com salários relativamente baixos e um custo de vida crescente, especialmente nas grandes cidades. A isenção de IRS permite-lhes reter uma maior parte do rendimento bruto, facilitando a poupança e a autonomia financeira.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Quem pode beneficiar do IRS Jovem em 2026?</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Para ter direito ao IRS Jovem em 2026, é necessário cumprir os seguintes requisitos cumulativos:
+        </p>
+        <ul class="list-disc pl-6 text-neutral-700 leading-relaxed mb-4 space-y-2">
+          <li><strong>Idade:</strong> Ter até 35 anos (inclusive) no ano a que respeitam os rendimentos.</li>
+          <li><strong>Tipo de rendimento:</strong> Auferir rendimentos da Categoria A (trabalho dependente) ou Categoria B (trabalho independente).</li>
+          <li><strong>Período:</strong> Encontrar-se nos primeiros 10 anos de obtenção de rendimentos do trabalho (excluindo rendimentos obtidos durante o período de estudos).</li>
+          <li><strong>Residência fiscal:</strong> Ser residente fiscal em Portugal.</li>
+          <li><strong>Independência fiscal:</strong> Não ser considerado dependente para efeitos de IRS (ou seja, não integrar o agregado familiar dos pais na declaração de IRS).</li>
+        </ul>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Uma novidade importante é que, a partir de 2025, o IRS Jovem deixou de exigir a conclusão de um grau de ensino (secundário, licenciatura, mestrado ou doutoramento) como condição para acesso ao benefício. Isto significa que mesmo jovens sem habilitações superiores podem beneficiar da isenção, desde que cumpram os restantes critérios.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Tabela de isenções: quanto poupa em cada ano</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As percentagens de isenção do IRS Jovem são aplicadas de forma decrescente ao longo dos 10 anos de vigência do benefício:
+        </p>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="bg-primary-50">
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Ano do benefício</th>
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Isenção de IRS</th>
+                <th class="border border-neutral-200 px-4 py-3 text-left font-semibold text-neutral-900">Limite de isenção</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">1.º ano</td><td class="border border-neutral-200 px-4 py-2">100%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">2.º ano</td><td class="border border-neutral-200 px-4 py-2">75%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">3.º ao 5.º ano</td><td class="border border-neutral-200 px-4 py-2">50%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">6.º ao 10.º ano</td><td class="border border-neutral-200 px-4 py-2">25%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O limite de isenção corresponde a 55 vezes o valor do IAS (Indexante dos Apoios Sociais). Com o IAS fixado em 522,50 euros para 2026, o limite anual de rendimento isento é de 28.737,50 euros. A parte do rendimento que exceda este limite é tributada normalmente segundo os escalões de IRS.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Exemplo prático: jovem no 1.º ano de trabalho</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Maria, 24 anos, acabou de começar o seu primeiro emprego com um salário bruto mensal de 1.200 euros (16.800 euros anuais com 14 meses). Sendo o seu 1.º ano de rendimentos, beneficia de uma isenção de 100% de IRS.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Sem o IRS Jovem, Maria pagaria aproximadamente 1.100 euros de IRS por ano. Com o benefício, este valor é totalmente isento. O seu único desconto é a TSU de 11%, pelo que o salário líquido mensal sobe consideravelmente. Ao longo do primeiro ano, a poupança efetiva com o IRS Jovem é de cerca de 1.100 euros.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Exemplo prático: jovem no 4.º ano de trabalho</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          João, 27 anos, está no 4.º ano de trabalho e ganha 2.000 euros brutos mensais (28.000 euros anuais). Neste caso, beneficia de uma isenção de 50% do IRS, pois encontra-se entre o 3.º e o 5.º ano do benefício.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Sem IRS Jovem, João pagaria cerca de 3.800 euros de IRS anual. Com a isenção de 50%, paga apenas metade desse valor, ou seja, aproximadamente 1.900 euros. A poupança anual neste cenário é de cerca de 1.900 euros, o que equivale a mais de 150 euros por mês no bolso.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Como ativar o IRS Jovem</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          A partir das alterações legislativas de 2025, o IRS Jovem é aplicado de forma automática tanto na retenção na fonte mensal como na declaração anual de IRS. Para que o benefício seja refletido nos recibos de vencimento mensais, o trabalhador deve comunicar a sua situação à entidade empregadora, indicando que preenche os requisitos e em que ano do benefício se encontra.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Na prática, recomenda-se que o jovem trabalhador entregue ao departamento de recursos humanos uma declaração escrita indicando: a data de início da primeira atividade profissional, o ano do benefício em que se encontra e a confirmação de que preenche todos os requisitos legais.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Na declaração anual de IRS, o sistema da Autoridade Tributária aplica automaticamente o benefício com base na informação disponível. Caso o contribuinte verifique que o benefício não foi corretamente aplicado, pode corrigir a situação na entrega ou retificação da declaração.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Compatibilidade com outros benefícios fiscais</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O IRS Jovem é, em princípio, incompatível com o regime fiscal do Residente Não Habitual (RNH) ou o seu sucessor, o Incentivo Fiscal à Investigação Científica e Inovação (IFICI). O contribuinte deve optar por um dos regimes, não podendo acumulá-los. No entanto, o IRS Jovem é compatível com as deduções à coleta normais (saúde, educação, habitação, etc.).
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          É importante notar que a isenção do IRS Jovem se aplica ao rendimento e não à coleta. Isto significa que a parte do rendimento isenta não entra no cálculo do imposto, mas as deduções à coleta continuam a aplicar-se sobre o imposto calculado relativamente ao rendimento não isento.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Impacto a longo prazo: poupança total ao longo de 10 anos</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Para ilustrar o impacto acumulado do IRS Jovem, consideremos um trabalhador que começa a carreira com um salário de 1.000 euros brutos e tem aumentos anuais graduais até atingir 2.500 euros no 10.º ano. Ao longo da década completa do benefício, a poupança fiscal total pode facilmente ultrapassar os 15.000 euros.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Esta poupança acumulada pode ser determinante para objetivos financeiros importantes como a constituição de um fundo de emergência, a entrada para a compra de uma habitação ou o início de investimentos para a reforma. O IRS Jovem é, portanto, uma ferramenta poderosa de acumulação de capital nos primeiros anos de carreira.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Perguntas frequentes</h2>
+
+        <div class="space-y-6 mb-8">
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Quem pode beneficiar do IRS Jovem em 2026?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              Podem beneficiar do IRS Jovem os trabalhadores com idade até 35 anos que obtenham rendimentos de trabalho dependente (Categoria A) ou independente (Categoria B). O benefício aplica-se nos primeiros 10 anos de obtenção de rendimentos após o início da vida profissional e não depende do nível de habilitações.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Qual é a percentagem de isenção do IRS Jovem?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              Em 2026, o IRS Jovem prevê uma isenção de 100% no 1.º ano, 75% no 2.º ano, 50% do 3.º ao 5.º ano e 25% do 6.º ao 10.º ano. A isenção aplica-se ao rendimento até ao limite de 55 vezes o IAS por ano.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">O IRS Jovem é automático ou preciso pedir?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              A partir de 2025, o IRS Jovem é aplicado automaticamente na retenção na fonte mensal, bastando o trabalhador comunicar a sua situação à entidade empregadora. Na declaração anual de IRS, o benefício é igualmente aplicado de forma automática.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-primary-50 border border-primary-200 rounded-xl p-6 mb-8">
+          <h2 class="text-lg font-bold text-primary-800 mb-3">Ferramentas relacionadas</h2>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/" class="text-primary-700 hover:text-primary-900 font-medium">Calculadora de Salário Líquido 2026</a> - Simule o impacto do IRS Jovem no seu salário líquido.</li>
+            <li><a href="/guides/escaloes-irs-2026/" class="text-primary-700 hover:text-primary-900 font-medium">Escalões de IRS 2026</a> - Conheça os escalões sobre os quais incide a isenção.</li>
+            <li><a href="/guides/retencao-na-fonte/" class="text-primary-700 hover:text-primary-900 font-medium">Retenção na Fonte</a> - Entenda como a isenção afeta a retenção mensal.</li>
+          </ul>
+        </div>
+
+        <div class="border-t border-neutral-200 pt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Fontes</h2>
+          <ul class="space-y-1 text-sm text-neutral-600">
+            <li>Código do IRS, artigo 12.º-B - Isenção de rendimentos de sujeitos passivos jovens</li>
+            <li>Orçamento do Estado para 2026 - Assembleia da República</li>
+            <li>Autoridade Tributária e Aduaneira - <a href="https://www.portaldasfinancas.gov.pt" class="text-primary-600 hover:text-primary-700">portaldasfinancas.gov.pt</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>

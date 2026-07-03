@@ -1,0 +1,247 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SalaryCalculator from "../components/SalaryCalculator";
+import { SITUACOES, type SituacaoEntry } from "../lib/situacoes-data";
+import { SALARIOS } from "../lib/salarios-data";
+import { calculateSalary } from "../lib/engine";
+
+export function getStaticPaths() {
+  return SITUACOES.map((s) => ({
+    params: { situacao: s.slug },
+    props: { situacao: s },
+  }));
+}
+
+interface Props {
+  situacao: SituacaoEntry;
+}
+
+const { situacao } = Astro.props;
+
+const title = `Simulador Salário ${situacao.label} 2026 - Bruto Líquido`;
+const description = `Simulador de salário líquido para ${situacao.label.toLowerCase()} em Portugal 2026. Calcule o seu vencimento após IRS, TSU e deduções. ${situacao.descricao.slice(0, 120)}...`;
+
+function formatEuro(val: number): string {
+  return val.toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+}
+
+function formatPercent(val: number): string {
+  return (val * 100).toFixed(1) + "%";
+}
+
+// Compute example salaries for this situation
+const exemplosSalarios = [1000, 1500, 2000, 2500, 3000, 4000].map((bruto) => {
+  const result = calculateSalary({
+    grossMonthly: bruto,
+    maritalStatus: situacao.estadoCivil,
+    dependents: situacao.dependentes,
+    irsJovem: situacao.irsJovem,
+  });
+  return {
+    bruto,
+    liquido: result.netMonthly,
+    retencaoTaxa: result.retencaoTaxa,
+    retencaoMensal: result.retencaoMensal,
+    tsu: result.tsuEmployee,
+  };
+});
+
+const outrasSituacoes = SITUACOES.filter((s) => s.slug !== situacao.slug);
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Calculadora",
+      "item": "https://salarioliquido.pt/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": `Simulador ${situacao.label}`,
+      "item": `https://salarioliquido.pt/simulador-${situacao.slug}/`
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": situacao.faq.map((f) => ({
+    "@type": "Question",
+    "name": f.pergunta,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.resposta
+    }
+  }))
+};
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": `Simulador Salário ${situacao.label} Portugal 2026`,
+  "url": `https://salarioliquido.pt/simulador-${situacao.slug}/`,
+  "description": description,
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "inLanguage": "pt-PT"
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical={`/simulador-${situacao.slug}/`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(webAppSchema)} />
+
+  <!-- Breadcrumb -->
+  <div class="bg-neutral-50 border-b border-neutral-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="flex items-center gap-2 text-sm text-neutral-500">
+        <a href="/" class="hover:text-primary-600 no-underline">Calculadora</a>
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        <span class="text-neutral-800 font-medium">Simulador {situacao.label}</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white py-10 md:py-14">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
+          Simulador Salário {situacao.label}<br />
+          <span class="text-primary-200">Portugal 2026</span>
+        </h1>
+        <p class="text-lg text-primary-100 leading-relaxed">
+          Calcule o salário líquido para a situação de <strong>{situacao.label.toLowerCase()}</strong>.
+          Descubra quanto recebe após IRS, Segurança Social e deduções.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="py-10 md:py-14 -mt-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SalaryCalculator client:idle />
+    </div>
+  </section>
+
+  <!-- Situation Description -->
+  <section class="py-10 bg-white border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Salário Líquido para {situacao.label} em 2026</h2>
+      <p class="text-neutral-700 leading-relaxed">{situacao.descricao}</p>
+
+      <h3 class="text-xl font-bold text-neutral-900 mt-8 mb-4">Implicações Fiscais</h3>
+      <p class="text-neutral-700 leading-relaxed">{situacao.implicacoesFiscais}</p>
+
+      <h3 class="text-xl font-bold text-neutral-900 mt-8 mb-4">Conselhos para Otimizar o IRS</h3>
+      <p class="text-neutral-700 leading-relaxed">{situacao.conselhosDetalhados}</p>
+    </div>
+  </section>
+
+  <!-- Example Table -->
+  <section class="py-10 md:py-14 bg-neutral-50 border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-6">
+        Tabela de Salários - {situacao.label}
+      </h2>
+
+      <div class="bg-white rounded-2xl shadow-lg border border-neutral-200 overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-neutral-50 border-b border-neutral-200">
+              <th class="text-left px-5 py-3 font-semibold text-neutral-700">Bruto</th>
+              <th class="text-right px-5 py-3 font-semibold text-neutral-700">TSU (11%)</th>
+              <th class="text-right px-5 py-3 font-semibold text-neutral-700">Retenção IRS</th>
+              <th class="text-right px-5 py-3 font-semibold text-neutral-700">Taxa</th>
+              <th class="text-right px-5 py-3 font-semibold text-primary-700">Líquido</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100">
+            {exemplosSalarios.map((ex) => (
+              <tr class="hover:bg-neutral-50 transition-colors">
+                <td class="px-5 py-3 font-medium text-neutral-800">{formatEuro(ex.bruto)}</td>
+                <td class="px-5 py-3 text-right text-red-500">-{formatEuro(ex.tsu)}</td>
+                <td class="px-5 py-3 text-right text-red-500">-{formatEuro(ex.retencaoMensal)}</td>
+                <td class="px-5 py-3 text-right text-neutral-600">{formatPercent(ex.retencaoTaxa)}</td>
+                <td class="px-5 py-3 text-right font-bold text-primary-700">{formatEuro(ex.liquido)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-xs text-neutral-400 mt-3">
+        * Valores para {situacao.label.toLowerCase()}, {situacao.dependentes} dependentes{situacao.irsJovem > 0 ? `, IRS Jovem ${situacao.irsJovem}.º ano` : ""}. Regime geral, Continente, 2026.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-10 md:py-14 border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-8">Perguntas Frequentes - {situacao.label}</h2>
+
+      <div class="space-y-6">
+        {situacao.faq.map((f) => (
+          <details class="bg-white rounded-xl shadow border border-neutral-200 overflow-hidden group">
+            <summary class="px-6 py-4 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 transition-colors flex items-center justify-between list-none">
+              <span>{f.pergunta}</span>
+              <svg class="w-5 h-5 text-neutral-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-4 text-neutral-600 leading-relaxed">
+              {f.resposta}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-links -->
+  <section class="py-10 md:py-14 bg-neutral-50 border-t border-neutral-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-6 text-center">Outras Situações Fiscais</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+        {outrasSituacoes.map((s) => (
+          <a
+            href={`/simulador-${s.slug}/`}
+            class="bg-white rounded-xl border border-neutral-200 p-5 hover:border-primary-400 hover:shadow-md transition-all no-underline group"
+          >
+            <p class="font-bold text-neutral-900 group-hover:text-primary-600">{s.label}</p>
+            <p class="text-xs text-neutral-500 mt-1 line-clamp-2">{s.descricao.slice(0, 100)}...</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-8 text-center">
+        <h3 class="text-lg font-semibold text-neutral-800 mb-4">Salários por Valor Bruto</h3>
+        <div class="flex flex-wrap justify-center gap-3">
+          {SALARIOS.map((s) => (
+            <a
+              href={`/salario-${s.slug}-bruto-liquido/`}
+              class="inline-block bg-white border border-neutral-200 rounded-lg px-3 py-1.5 text-sm font-medium text-neutral-700 hover:border-primary-400 hover:text-primary-600 no-underline transition-colors"
+            >
+              {s.brutoMensal}€
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

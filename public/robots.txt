@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://salarioliquido.pt/sitemap-index.xml
+
+Disallow: /*?*

@@ -1,0 +1,221 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://salarioliquido.pt/" },
+    { "@type": "ListItem", "position": 2, "name": "Guias", "item": "https://salarioliquido.pt/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Deduções de IRS", "item": "https://salarioliquido.pt/guides/deducoes-irs/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quais são as principais deduções de IRS em 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As principais deduções de IRS em 2026 incluem: despesas gerais familiares (até 250€ por sujeito passivo), despesas de saúde (15% até 1.000€), educação (30% até 800€), habitação (15% de rendas até 502€ ou juros de empréstimo), e despesas em lares (25% até 403,75€). Existem ainda deduções por dependentes e a dedução pela exigência de fatura."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Preciso de pedir faturas com NIF para ter deduções?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. Para beneficiar das deduções de IRS, é fundamental solicitar fatura com o seu NIF (Número de Identificação Fiscal) em todas as compras e serviços. As faturas comunicadas à AT através do e-Fatura são automaticamente consideradas para efeitos de deduções na declaração de IRS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Existe um limite máximo global para as deduções de IRS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. Os contribuintes com rendimentos mais elevados estão sujeitos a um limite global de deduções à coleta que varia conforme o escalão de rendimento. Para rendimentos coletáveis até ao 2.º escalão, não há limite global. Para escalões superiores, o limite vai sendo progressivamente reduzido, podendo chegar a um teto de cerca de 1.000€ nos escalões mais altos."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Deduções de IRS 2026 - Todas as Deduções e Benefícios Fiscais | Salário Líquido PT"
+  description="Guia completo sobre deduções de IRS em Portugal para 2026: despesas dedutíveis, limites, como pedir faturas com NIF e estratégias para maximizar o seu reembolso."
+  canonical="/guides/deducoes-irs/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <article class="py-12 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="mb-8 text-sm text-neutral-500">
+        <ol class="flex items-center gap-1.5 flex-wrap">
+          <li><a href="/" class="hover:text-primary-600 no-underline text-neutral-500">Início</a></li>
+          <li class="before:content-['/'] before:mx-1.5"><a href="/guides/" class="hover:text-primary-600 no-underline text-neutral-500">Guias</a></li>
+          <li class="before:content-['/'] before:mx-1.5 text-neutral-900 font-medium">Deduções de IRS</li>
+        </ol>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6">
+        Deduções de IRS 2026: Todas as Despesas Dedutíveis e Como Maximizar o Reembolso
+      </h1>
+
+      <div class="prose prose-neutral max-w-none">
+        <p class="text-lg text-neutral-600 leading-relaxed mb-8">
+          As deduções de IRS são um dos mecanismos mais importantes para reduzir o imposto a pagar em Portugal. Ao declarar corretamente as despesas dedutíveis, pode obter um reembolso significativo ou diminuir o valor de IRS em falta. Neste guia, apresentamos todas as categorias de deduções disponíveis em 2026, os respetivos limites e as estratégias para otimizar a sua situação fiscal.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Como funcionam as deduções de IRS</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As deduções de IRS funcionam como valores que são subtraídos ao imposto calculado (coleta), reduzindo o montante que o contribuinte efetivamente paga. É importante distinguir entre dois conceitos: a dedução específica (que reduz o rendimento coletável) e as deduções à coleta (que reduzem o imposto apurado).
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          A dedução específica é de 4.104 euros para todos os trabalhadores por conta de outrem e é aplicada automaticamente ao rendimento bruto antes do cálculo do imposto. Já as deduções à coleta dependem das despesas efetivamente realizadas e declaradas pelo contribuinte, estando sujeitas a limites máximos por categoria.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O processo é o seguinte: primeiro calcula-se o rendimento coletável (rendimento bruto menos a dedução específica), depois aplica-se a tabela de escalões para determinar a coleta, e por fim subtraem-se as deduções à coleta. O resultado é o imposto líquido a pagar.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Despesas gerais familiares</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Esta categoria abrange todas as despesas de consumo geral que não se enquadram nas restantes categorias específicas. Inclui compras em supermercados, vestuário, combustíveis, telecomunicações e qualquer outra despesa faturada com NIF.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          A dedução corresponde a 35% das despesas gerais familiares, até um limite máximo de 250 euros por sujeito passivo (500 euros no caso de casal com tributação conjunta). Para atingir o limite máximo, é necessário acumular despesas de pelo menos 715 euros por sujeito passivo ao longo do ano.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As famílias monoparentais beneficiam de um limite majorado de 335 euros. Esta majoração reconhece o esforço acrescido de quem educa sozinho os filhos e contribui para uma maior equidade fiscal.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Despesas de saúde</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As despesas de saúde incluem consultas médicas, medicamentos, análises, exames, próteses, óculos, lentes e seguros de saúde. A dedução é de 15% das despesas de saúde, com um limite máximo de 1.000 euros por agregado familiar.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          É importante notar que apenas as despesas isentas de IVA ou sujeitas a IVA à taxa reduzida (6%) são automaticamente classificadas como despesas de saúde. As despesas com IVA à taxa normal (23%) - como certos produtos de ótica ou tratamentos de estética - precisam de ser manualmente reclassificadas pelo contribuinte na plataforma e-Fatura e devem estar justificadas por receita médica.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Despesas de educação e formação</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Esta categoria inclui propinas, mensalidades de creche, infantários e ATL, manuais escolares, material escolar e refeições escolares. A dedução é de 30% das despesas de educação, até um limite máximo de 800 euros por agregado familiar.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Quando o estudante frequenta um estabelecimento de ensino localizado no interior do país (territórios de baixa densidade), o limite de dedução sobe para 1.000 euros, como incentivo à fixação de população nestas regiões. As rendas de estudantes deslocados também podem ser incluídas nesta categoria, com limites específicos.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Despesas de habitação</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As despesas de habitação dedutíveis abrangem duas situações principais: rendas de habitação própria permanente e juros de empréstimos à habitação (apenas contratos anteriores a 2012).
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Rendas:</strong> A dedução é de 15% das rendas pagas, com um limite de 502 euros por agregado familiar. Para arrendatários com rendimento coletável na primeira faixa, o limite pode ser majorado. No caso de imóveis situados em territórios do interior, o limite sobe para 800 euros.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Juros de empréstimo:</strong> Para contratos celebrados até 31 de dezembro de 2011, a dedução é de 15% dos juros pagos, até um limite de 296 euros. Contratos posteriores a esta data não beneficiam desta dedução.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Deduções por dependentes</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Cada dependente do agregado familiar dá direito a uma dedução fixa à coleta. Em 2026, o valor é de 600 euros por dependente, acrescido de 126 euros para o segundo dependente em diante quando existam mais de dois dependentes a cargo.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Para famílias com filhos com idade até três anos, existe uma dedução adicional que reconhece os custos acrescidos nos primeiros anos de vida. Estes valores são aplicados automaticamente pela Autoridade Tributária com base na informação do agregado familiar registada.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Despesas em lares</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Os encargos com lares e apoio domiciliário de familiares ascendentes (pais, avós) ou colaterais até ao 3.º grau que estejam a cargo do contribuinte são dedutíveis em 25%, com um limite de 403,75 euros. Esta dedução abrange mensalidades de lares, centros de dia e serviços de apoio domiciliário.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Dedução pela exigência de fatura (IVA)</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Uma das deduções mais interessantes é a dedução pela exigência de fatura, que permite ao contribuinte recuperar uma parte do IVA suportado em setores específicos. Em 2026, são dedutíveis 15% do IVA pago em despesas nos seguintes setores:
+        </p>
+        <ul class="list-disc pl-6 text-neutral-700 leading-relaxed mb-4 space-y-1">
+          <li>Restauração e alojamento</li>
+          <li>Cabeleireiros e institutos de beleza</li>
+          <li>Oficinas de reparação automóvel</li>
+          <li>Veterinários</li>
+          <li>Ginásios e atividades desportivas</li>
+          <li>Passes de transportes públicos</li>
+        </ul>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O limite global desta dedução é de 250 euros por agregado familiar. Para os passes de transporte público, a dedução é a totalidade do IVA (100%), sem limite, sendo uma das deduções mais generosas. Para maximizar esta dedução, basta pedir fatura com NIF em todos os restaurantes, cabeleireiros e oficinas que frequente.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Limite global de deduções</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Para contribuintes com rendimentos mais elevados, existe um limite global que restringe o total de deduções à coleta. Este limite varia conforme o escalão de rendimento coletável:
+        </p>
+        <ul class="list-disc pl-6 text-neutral-700 leading-relaxed mb-4 space-y-1">
+          <li>Até ao 2.º escalão: sem limite global</li>
+          <li>Do 3.º ao 6.º escalão: limite progressivamente decrescente</li>
+          <li>Últimos escalões: limite mínimo de cerca de 1.000 euros</li>
+        </ul>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          As deduções por dependentes, pensões de alimentos e por pessoas com deficiência não estão sujeitas a este limite global, sendo sempre aplicáveis na sua totalidade. Esta salvaguarda garante que as famílias com dependentes a cargo não sejam penalizadas pelo mecanismo de limitação.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">A plataforma e-Fatura</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O e-Fatura é a plataforma da Autoridade Tributária onde todas as faturas emitidas com o seu NIF são registadas e organizadas por categoria de dedução. Ao longo do ano, o contribuinte deve verificar regularmente esta plataforma para:
+        </p>
+        <ul class="list-disc pl-6 text-neutral-700 leading-relaxed mb-4 space-y-1">
+          <li>Confirmar que todas as faturas foram comunicadas</li>
+          <li>Classificar faturas pendentes (que o sistema não conseguiu categorizar automaticamente)</li>
+          <li>Reclassificar faturas em categorias mais favoráveis (por exemplo, de despesas gerais para saúde, quando justificável)</li>
+          <li>Registar faturas em papel ou de comerciantes não aderentes ao sistema eletrónico</li>
+        </ul>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O prazo para validar as faturas no e-Fatura é tipicamente até ao final de fevereiro do ano seguinte. Após este prazo, as faturas não classificadas são automaticamente colocadas na categoria de despesas gerais familiares.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Perguntas frequentes</h2>
+
+        <div class="space-y-6 mb-8">
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Quais são as principais deduções de IRS em 2026?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              As principais incluem: despesas gerais familiares (até 250 € por sujeito passivo), saúde (15% até 1.000 €), educação (30% até 800 €), habitação (15% de rendas até 502 €), lares (25% até 403,75 €), deduções por dependentes e a dedução pela exigência de fatura.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Preciso de pedir faturas com NIF para ter deduções?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              Sim. Para beneficiar das deduções de IRS, é fundamental solicitar fatura com o seu NIF em todas as compras e serviços. As faturas comunicadas à AT através do e-Fatura são automaticamente consideradas na declaração de IRS.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Existe um limite máximo global para as deduções de IRS?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              Sim. Os contribuintes com rendimentos mais elevados estão sujeitos a um limite global de deduções que varia conforme o escalão. Para rendimentos até ao 2.º escalão, não há limite global. Para escalões superiores, o limite vai sendo progressivamente reduzido.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-primary-50 border border-primary-200 rounded-xl p-6 mb-8">
+          <h2 class="text-lg font-bold text-primary-800 mb-3">Ferramentas relacionadas</h2>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/" class="text-primary-700 hover:text-primary-900 font-medium">Calculadora de Salário Líquido 2026</a> - Calcule o seu salário líquido e estime o IRS anual.</li>
+            <li><a href="/guides/escaloes-irs-2026/" class="text-primary-700 hover:text-primary-900 font-medium">Escalões de IRS 2026</a> - Entenda os escalões que determinam o seu imposto bruto.</li>
+            <li><a href="/guides/retencao-na-fonte/" class="text-primary-700 hover:text-primary-900 font-medium">Retenção na Fonte</a> - Como as deduções afetam o acerto anual do IRS.</li>
+          </ul>
+        </div>
+
+        <div class="border-t border-neutral-200 pt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Fontes</h2>
+          <ul class="space-y-1 text-sm text-neutral-600">
+            <li>Código do IRS, artigos 78.º a 87.º - Deduções à coleta</li>
+            <li>Estatuto dos Benefícios Fiscais (EBF)</li>
+            <li>Portal e-Fatura - <a href="https://faturas.portaldasfinancas.gov.pt" class="text-primary-600 hover:text-primary-700">faturas.portaldasfinancas.gov.pt</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>

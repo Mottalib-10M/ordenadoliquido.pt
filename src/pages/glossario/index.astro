@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Glossario - Termos de Salario e Impostos em Portugal | salarioliquido.pt"
+  description="Explicacoes de todos os termos importantes relacionados com salarios, IRS, Seguranca Social e deducoes fiscais em Portugal."
+  canonical="/glossario/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Calculadora", "item": "https://salarioliquido.pt/" },
+      { "@type": "ListItem", "position": 2, "name": "Glossario", "item": "https://salarioliquido.pt/glossario/" }
+    ]
+  })} />
+
+  <section class="py-12 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-neutral-500 mb-6">
+        <a href="/" class="hover:text-primary-600">Calculadora</a>
+        <span class="mx-1">/</span>
+        <span class="text-neutral-900">Glossario</span>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-4">Glossario de termos salariais e fiscais</h1>
+      <p class="text-neutral-600 mb-8">
+        Todos os termos importantes relacionados com o salario bruto, salario liquido, IRS e Seguranca Social
+        em Portugal, explicados de forma simples.
+      </p>
+
+      <div class="space-y-6">
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Salario Bruto</h2>
+          <p class="text-neutral-600">O valor total da remuneracao acordada entre o trabalhador e a entidade empregadora, antes de quaisquer descontos. Inclui o vencimento base e eventuais complementos salariais regulares. E sobre este valor que incidem as contribuicoes para a Seguranca Social e a retencao na fonte de IRS.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Salario Liquido</h2>
+          <p class="text-neutral-600">O valor que o trabalhador efetivamente recebe na sua conta bancaria apos todos os descontos obrigatorios (Seguranca Social e IRS). E o montante disponivel para o trabalhador utilizar livremente.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">IRS (Imposto sobre o Rendimento das Pessoas Singulares)</h2>
+          <p class="text-neutral-600">O imposto sobre o rendimento dos trabalhadores em Portugal. E calculado com base em escaloes progressivos: quanto maior o rendimento, maior a taxa marginal aplicada. Em 2026, os escaloes variam entre 13% e 48%. O IRS e retido mensalmente na fonte pelo empregador e ajustado na declaracao anual.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Seguranca Social (TSU)</h2>
+          <p class="text-neutral-600">A Taxa Social Unica corresponde as contribuicoes obrigatorias para o sistema de protecao social. O trabalhador por conta de outrem desconta 11% do salario bruto, enquanto a entidade empregadora contribui com 23,75%. Estas contribuicoes financiam pensoes, subsidio de desemprego, subsidio de doenca e outras prestacoes sociais.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Sobretaxa</h2>
+          <p class="text-neutral-600">Uma taxa adicional sobre o rendimento coletavel que ja foi aplicada em Portugal em anos anteriores como medida de austeridade. Atualmente nao esta em vigor, mas e um termo frequentemente associado ao calculo do IRS.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Retencao na Fonte</h2>
+          <p class="text-neutral-600">O pagamento antecipado de IRS que a entidade empregadora desconta mensalmente do salario e entrega ao Estado. A taxa de retencao depende do salario bruto, estado civil e numero de dependentes, conforme as tabelas publicadas anualmente pela Autoridade Tributaria.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Taxa Marginal</h2>
+          <p class="text-neutral-600">A taxa de imposto aplicada ao ultimo escalao de rendimento. Em Portugal, o IRS e progressivo, o que significa que diferentes partes do rendimento sao tributadas a taxas diferentes. A taxa marginal e a taxa mais alta aplicada, nao a taxa sobre todo o rendimento.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Deducao Especifica</h2>
+          <p class="text-neutral-600">Um valor fixo de 4.104 EUR que e subtraido ao rendimento bruto anual para determinar o rendimento coletavel. Aplica-se automaticamente a todos os trabalhadores dependentes (categoria A). Se as contribuicoes para a Seguranca Social forem superiores a este valor, utiliza-se o montante mais elevado.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Rendimento Coletavel</h2>
+          <p class="text-neutral-600">O valor sobre o qual incide efetivamente o IRS, apos a deducao especifica e outras deducoes aplicaveis. E calculado subtraindo ao rendimento bruto anual a deducao especifica (ou as contribuicoes para a Seguranca Social, se superiores).</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsidio de Refeicao</h2>
+          <p class="text-neutral-600">Uma prestacao paga pelo empregador para compensar as despesas de alimentacao do trabalhador. Quando pago em dinheiro, esta isento de IRS e Seguranca Social ate 6,00 EUR por dia. Quando pago em cartao de refeicao, a isencao sobe para 10,20 EUR por dia.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsidio de Ferias</h2>
+          <p class="text-neutral-600">Uma remuneracao adicional obrigatoria por lei, correspondente a um mes de retribuicao, paga antes do inicio do periodo de ferias. E o chamado 14.o mes. Esta sujeito a retencao na fonte de IRS e a contribuicoes para a Seguranca Social.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsidio de Natal</h2>
+          <p class="text-neutral-600">Uma remuneracao adicional obrigatoria por lei, correspondente a um mes de retribuicao, paga ate 15 de dezembro de cada ano. E o chamado 13.o mes. Tal como o subsidio de ferias, esta sujeito a IRS e a Seguranca Social.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Trabalho Dependente (Categoria A)</h2>
+          <p class="text-neutral-600">Rendimentos obtidos por trabalhadores por conta de outrem, ao abrigo de um contrato de trabalho. E a categoria mais comum de rendimentos em Portugal e inclui salarios, ordenados, gratificacoes e outras remuneracoes. Os trabalhadores da categoria A beneficiam da deducao especifica e das tabelas de retencao na fonte.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Abono de Familia</h2>
+          <p class="text-neutral-600">Uma prestacao social paga pela Seguranca Social as familias com filhos e jovens. O valor depende do escalao de rendimento do agregado familiar e da idade da crianca. E atribuido automaticamente e nao esta sujeito a IRS.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Minimo de Existencia</h2>
+          <p class="text-neutral-600">Um mecanismo que garante que nenhum trabalhador fique com um rendimento liquido inferior a um determinado limiar apos o pagamento de impostos. Em 2026, o minimo de existencia corresponde a 1,5 vezes o valor do IAS (Indexante dos Apoios Sociais) multiplicado por 14 meses. Este mecanismo limita a retencao de IRS para proteger os rendimentos mais baixos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

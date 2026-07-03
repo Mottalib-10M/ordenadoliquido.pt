@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: "https://salarioliquido.pt",
+  trailingSlash: 'always',  site: "https://salarioliquido.pt",
   integrations: [react(), sitemap()],
   vite: {
     plugins: [tailwindcss()],

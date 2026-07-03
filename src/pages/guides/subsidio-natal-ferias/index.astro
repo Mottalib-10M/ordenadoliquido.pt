@@ -1,0 +1,193 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://salarioliquido.pt/" },
+    { "@type": "ListItem", "position": 2, "name": "Guias", "item": "https://salarioliquido.pt/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Subsídio de Natal e Férias", "item": "https://salarioliquido.pt/guides/subsidio-natal-ferias/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quando se recebe o subsídio de Natal em Portugal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O subsídio de Natal deve ser pago até ao dia 15 de dezembro de cada ano. A entidade empregadora pode optar por pagar em duodécimos ao longo do ano (metade em duodécimos e metade em dezembro), mas apenas se houver acordo escrito com o trabalhador."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O subsídio de férias tem descontos de IRS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. Tanto o subsídio de férias como o subsídio de Natal estão sujeitos a descontos para a Segurança Social (11%) e retenção na fonte de IRS. A taxa de retenção pode ser a mesma do salário mensal ou uma taxa específica, conforme as tabelas de retenção em vigor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Tenho direito a subsídio de férias e Natal no primeiro ano de trabalho?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim, mas o valor é proporcional ao tempo trabalhado. Se começou a trabalhar em julho, por exemplo, terá direito a metade do subsídio de Natal nesse ano (6/12). O subsídio de férias é calculado de forma proporcional ao tempo de serviço prestado até 31 de dezembro do ano anterior."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Subsídio de Natal e Férias 2026 - Guia Completo | Salário Líquido PT"
+  description="Guia completo sobre o subsídio de Natal e subsídio de férias em Portugal: quando se recebe, como calcular, descontos aplicáveis e direitos dos trabalhadores."
+  canonical="/guides/subsidio-natal-ferias/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <article class="py-12 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="mb-8 text-sm text-neutral-500">
+        <ol class="flex items-center gap-1.5 flex-wrap">
+          <li><a href="/" class="hover:text-primary-600 no-underline text-neutral-500">Início</a></li>
+          <li class="before:content-['/'] before:mx-1.5"><a href="/guides/" class="hover:text-primary-600 no-underline text-neutral-500">Guias</a></li>
+          <li class="before:content-['/'] before:mx-1.5 text-neutral-900 font-medium">Subsídio de Natal e Férias</li>
+        </ol>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6">
+        Subsídio de Natal e Férias em Portugal: Tudo o Que Precisa de Saber
+      </h1>
+
+      <div class="prose prose-neutral max-w-none">
+        <p class="text-lg text-neutral-600 leading-relaxed mb-8">
+          Em Portugal, os trabalhadores por conta de outrem têm direito a receber 14 meses de salário por ano: os 12 meses regulares, o subsídio de Natal (13.º mês) e o subsídio de férias (14.º mês). Estes dois subsídios são direitos irrenunciáveis consagrados no Código do Trabalho e representam uma parte significativa do rendimento anual. Neste guia, explicamos em detalhe como funcionam, quando são pagos e quais os descontos que incidem sobre eles.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">O subsídio de Natal (13.º mês)</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O subsídio de Natal, também conhecido como 13.º mês, é uma prestação pecuniária anual a que todos os trabalhadores por conta de outrem têm direito. Este subsídio corresponde, em regra, a um mês de retribuição e deve ser pago até ao dia 15 de dezembro de cada ano.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O direito ao subsídio de Natal está previsto no artigo 263.º do Código do Trabalho e é aplicável a todos os trabalhadores, independentemente do tipo de contrato (a termo certo, a termo incerto ou sem termo). No primeiro ano de trabalho ou em caso de cessação do contrato, o valor é proporcional ao tempo de serviço prestado nesse ano civil.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          A lei permite que o subsídio de Natal seja pago em duodécimos, isto é, repartido ao longo dos 12 meses do ano. No entanto, esta modalidade só é possível por acordo escrito entre o trabalhador e o empregador, e mesmo assim, pelo menos 50% do subsídio deve ser pago até 15 de dezembro. Muitos trabalhadores preferem receber o valor inteiro em dezembro, mas a opção por duodécimos pode ajudar na gestão mensal do orçamento familiar.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">O subsídio de férias (14.º mês)</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O subsídio de férias, ou 14.º mês, é outra prestação obrigatória que corresponde à retribuição mensal do trabalhador. Este subsídio destina-se a proporcionar ao trabalhador condições económicas para usufruir plenamente do seu período de férias anuais.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          De acordo com o artigo 264.º do Código do Trabalho, o subsídio de férias deve ser pago antes do início do período de férias do trabalhador. Na prática, muitas empresas pagam este subsídio em junho ou julho, coincidindo com o período de férias de verão mais comum. Tal como o subsídio de Natal, pode ser pago em duodécimos por acordo escrito.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          É importante distinguir o subsídio de férias da retribuição do período de férias. O trabalhador tem direito a receber o salário normal durante o período de férias (continua a ser pago como em qualquer outro mês) e, adicionalmente, recebe o subsídio de férias. São, portanto, duas prestações distintas que coincidem no mesmo período.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Como calcular o valor dos subsídios</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O valor de cada subsídio corresponde, em regra, à retribuição base mensal do trabalhador acrescida de outras prestações regulares e periódicas. Isto inclui, por exemplo, diuturnidades, subsídio de isenção de horário de trabalho e outros complementos contratuais de natureza regular.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          No entanto, prestações de natureza variável ou irregular, como horas extraordinárias, comissões variáveis ou prémios de produtividade pontuais, em princípio não integram a base de cálculo dos subsídios, salvo disposição em contrário no contrato de trabalho ou na convenção coletiva aplicável.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Cálculo proporcional: primeiro ano e cessação do contrato</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Quando o trabalhador não completa um ano civil completo de trabalho, os subsídios são calculados proporcionalmente ao tempo de serviço prestado. A fórmula é simples: (Retribuição mensal ÷ 12) × número de meses completos trabalhados.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          <strong>Exemplo:</strong> Se um trabalhador com salário bruto de 1.500 euros inicia funções a 1 de abril, terá trabalhado 9 meses nesse ano civil. O subsídio de Natal proporcional será: (1.500 € ÷ 12) × 9 = 1.125 euros. O mesmo raciocínio aplica-se em caso de cessação do contrato a meio do ano.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Descontos sobre os subsídios</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Tanto o subsídio de Natal como o subsídio de férias estão sujeitos aos mesmos descontos obrigatórios que incidem sobre o salário mensal regular:
+        </p>
+        <ul class="list-disc pl-6 text-neutral-700 leading-relaxed mb-4 space-y-2">
+          <li><strong>Segurança Social (TSU):</strong> 11% do valor bruto do subsídio é descontado para a contribuição do trabalhador.</li>
+          <li><strong>Retenção na fonte de IRS:</strong> Aplica-se a taxa de retenção na fonte correspondente ao escalão do trabalhador. As tabelas de retenção na fonte publicadas anualmente pela Autoridade Tributária indicam a taxa aplicável.</li>
+        </ul>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Na prática, o valor líquido de cada subsídio é significativamente inferior ao valor bruto. Para um salário bruto de 1.500 euros, após descontar 11% de TSU (165 euros) e a retenção na fonte de IRS (que varia conforme a situação fiscal), o valor líquido pode situar-se entre 1.050 e 1.200 euros.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Pagamento em duodécimos: vantagens e desvantagens</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          A opção de receber os subsídios em duodécimos ao longo do ano tem vantagens e desvantagens que convém ponderar. A principal vantagem é ter um rendimento mensal mais elevado e estável, o que facilita o pagamento de despesas fixas como a prestação da casa, seguros ou mensalidades escolares.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Por outro lado, quem recebe em duodécimos não beneficia do "efeito psicológico" de um mês de salário extra em junho e dezembro, o que para muitas pessoas funciona como poupança forçada. Além disso, a tributação dos duodécimos pode ser diferente: quando recebidos mensalmente, os duodécimos são adicionados ao salário normal, podendo elevar a taxa de retenção na fonte mensal.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Do ponto de vista fiscal anual, o resultado final é idêntico: o IRS é calculado sobre o rendimento anual total, independentemente da forma de pagamento. A diferença está apenas na retenção mensal, que é ajustada na declaração anual de IRS.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Subsídios durante ausências e licenças</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          O direito aos subsídios pode ser afetado por determinadas ausências prolongadas. Em caso de licença sem vencimento, por exemplo, os subsídios são calculados apenas sobre os meses efetivamente trabalhados. Já durante a licença de parentalidade, o trabalhador mantém o direito aos subsídios, sendo estes pagos pela Segurança Social ou pela entidade empregadora, conforme o caso.
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Nas situações de baixa por doença, o trabalhador mantém o direito ao subsídio de Natal proporcionalmente ao período em que esteve efetivamente a trabalhar, com a Segurança Social a assumir a parcela correspondente ao período de incapacidade em determinadas condições. O subsídio de férias pode igualmente ser afetado por faltas injustificadas superiores a determinados limites.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Impacto dos subsídios no rendimento anual</h2>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          É fundamental compreender que o rendimento anual em Portugal é calculado com base em 14 meses. Quando um empregador oferece um "salário anual bruto" de 21.000 euros, isso corresponde a 1.500 euros mensais durante 14 meses (12 meses regulares + subsídio de férias + subsídio de Natal).
+        </p>
+        <p class="text-neutral-700 leading-relaxed mb-4">
+          Para efeitos de IRS, o rendimento bruto anual inclui os 14 meses. O rendimento coletável é calculado sobre os 21.000 euros (e não sobre 18.000 euros de 12 meses), após dedução da contribuição para a Segurança Social e da dedução específica. Este é um ponto frequentemente mal compreendido que pode levar a surpresas no momento da declaração de IRS.
+        </p>
+
+        <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Perguntas frequentes</h2>
+
+        <div class="space-y-6 mb-8">
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Quando se recebe o subsídio de Natal em Portugal?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              O subsídio de Natal deve ser pago até ao dia 15 de dezembro de cada ano. A entidade empregadora pode optar por pagar em duodécimos ao longo do ano, mas apenas se houver acordo escrito com o trabalhador. Mesmo neste caso, pelo menos 50% deve ser pago até 15 de dezembro.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">O subsídio de férias tem descontos de IRS?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              Sim. Tanto o subsídio de férias como o subsídio de Natal estão sujeitos a descontos para a Segurança Social (11%) e retenção na fonte de IRS. A taxa de retenção pode ser a mesma do salário mensal, conforme as tabelas de retenção em vigor.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">Tenho direito a subsídio de férias e Natal no primeiro ano de trabalho?</h3>
+            <p class="text-neutral-600 leading-relaxed">
+              Sim, mas o valor é proporcional ao tempo trabalhado. Se começou a trabalhar em julho, terá direito a metade do subsídio de Natal nesse ano (6/12). O subsídio de férias é calculado de forma proporcional ao tempo de serviço prestado.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-primary-50 border border-primary-200 rounded-xl p-6 mb-8">
+          <h2 class="text-lg font-bold text-primary-800 mb-3">Ferramentas relacionadas</h2>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/" class="text-primary-700 hover:text-primary-900 font-medium">Calculadora de Salário Líquido 2026</a> - Inclui o cálculo automático dos subsídios de Natal e férias.</li>
+            <li><a href="/guides/retencao-na-fonte/" class="text-primary-700 hover:text-primary-900 font-medium">Retenção na Fonte</a> - Entenda as taxas de retenção aplicáveis aos subsídios.</li>
+            <li><a href="/guides/taxa-social-unica-tsu/" class="text-primary-700 hover:text-primary-900 font-medium">TSU - Taxa Social Única</a> - Como a TSU incide sobre os subsídios.</li>
+          </ul>
+        </div>
+
+        <div class="border-t border-neutral-200 pt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Fontes</h2>
+          <ul class="space-y-1 text-sm text-neutral-600">
+            <li>Código do Trabalho, artigos 263.º e 264.º - Subsídio de Natal e Subsídio de Férias</li>
+            <li>Autoridade para as Condições do Trabalho (ACT) - <a href="https://www.act.gov.pt" class="text-primary-600 hover:text-primary-700">act.gov.pt</a></li>
+            <li>Código do IRS - Tributação de rendimentos de trabalho dependente</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
