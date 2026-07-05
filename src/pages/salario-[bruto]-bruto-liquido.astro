@@ -2,6 +2,21 @@
 import Layout from "../layouts/Layout.astro";
 import SalaryCalculator from "../components/SalaryCalculator";
 import { SALARIOS, type SalarioEntry } from "../lib/salarios-data";
+import {
+  derivedNumbers,
+  getBandContext,
+  getEscaloesDisplay,
+  getIrsExplanation,
+  getBudgetBreakdown,
+  getTaxTips,
+  buildFaqs,
+  getSSExplanation,
+  getComparisonText,
+  getAuthorBox,
+  getUniqueComparisons,
+  getCareerDescription,
+  getRaiseSimulation,
+} from "../lib/salary-content";
 
 export function getStaticPaths() {
   return SALARIOS.map((s) => ({
@@ -15,12 +30,25 @@ interface Props {
 }
 
 const { salario } = Astro.props;
+const d = derivedNumbers(salario);
+const bandContext = getBandContext(salario, d);
+const escaloes = getEscaloesDisplay(d.escalaoIndex);
+const irsExplanation = getIrsExplanation(salario, d);
+const budget = getBudgetBreakdown(salario.liquidoMensal);
+const tips = getTaxTips(salario, d);
+const faqs = buildFaqs(salario, d);
+const ssExplanation = getSSExplanation(salario, d);
+const comparisonText = getComparisonText(salario, d);
+const uniqueComparisons = getUniqueComparisons(salario, d);
+const careerDescription = getCareerDescription(salario);
+const raiseSimulation = getRaiseSimulation(salario, d);
+const author = getAuthorBox();
 
-const title = `Salário ${salario.brutoMensal}€ Bruto para Líquido 2026 - Simulador`;
-const description = `Descubra quanto recebe de líquido com ${salario.brutoMensal}€ brutos mensais em Portugal em 2026. Salário líquido: ${salario.liquidoMensal.toFixed(2)}€. Simulador com IRS, TSU e subsídios.`;
+const title = `Sal\u00e1rio ${salario.brutoMensal}\u20ac Bruto para L\u00edquido 2026 - Simulador`;
+const description = `Descubra quanto recebe de l\u00edquido com ${salario.brutoMensal}\u20ac brutos mensais em Portugal em 2026. Sal\u00e1rio l\u00edquido: ${salario.liquidoMensal.toFixed(2)}\u20ac. Simulador com IRS, TSU e subs\u00eddios.`;
 
 function formatEuro(val: number): string {
-  return val.toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+  return val.toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " \u20ac";
 }
 
 function formatPercent(val: number): string {
@@ -42,7 +70,7 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       "position": 2,
-      "name": `Salário ${salario.brutoMensal}€ Bruto`,
+      "name": `Sal\u00e1rio ${salario.brutoMensal}\u20ac Bruto`,
       "item": `https://salarioliquido.pt/salario-${salario.slug}-bruto-liquido/`
     }
   ]
@@ -51,7 +79,7 @@ const breadcrumbSchema = {
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": salario.faq.map((f) => ({
+  "mainEntity": faqs.map((f) => ({
     "@type": "Question",
     "name": f.pergunta,
     "acceptedAnswer": {
@@ -59,6 +87,25 @@ const faqSchema = {
       "text": f.resposta
     }
   }))
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": `Sal\u00e1rio ${salario.brutoMensal}\u20ac Bruto para L\u00edquido em Portugal 2026`,
+  "author": {
+    "@type": "Person",
+    "name": "Mottalib Radif",
+    "jobTitle": "MBA INSEAD | Especialista em Finan\u00e7as Pessoais",
+    "alumniOf": { "@type": "EducationalOrganization", "name": "INSEAD" }
+  },
+  "datePublished": "2025-12-15",
+  "dateModified": "2026-01-05",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sal\u00e1rio L\u00edquido PT",
+    "url": "https://salarioliquido.pt"
+  }
 };
 ---
 
@@ -69,6 +116,7 @@ const faqSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 
   <!-- Breadcrumb -->
   <div class="bg-neutral-50 border-b border-neutral-200">
@@ -76,7 +124,7 @@ const faqSchema = {
       <nav class="flex items-center gap-2 text-sm text-neutral-500">
         <a href="/" class="hover:text-primary-600 no-underline">Calculadora</a>
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-        <span class="text-neutral-800 font-medium">Salário {salario.brutoMensal}€ Bruto</span>
+        <span class="text-neutral-800 font-medium">Sal&aacute;rio {salario.brutoMensal}&euro; Bruto</span>
       </nav>
     </div>
   </div>
@@ -86,46 +134,64 @@ const faqSchema = {
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto">
         <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
-          Salário {salario.brutoMensal}€ Bruto para Líquido<br />
+          Sal&aacute;rio {salario.brutoMensal}&euro; Bruto para L&iacute;quido<br />
           <span class="text-primary-200">Portugal 2026</span>
         </h1>
         <p class="text-lg text-primary-100 leading-relaxed">
-          Com um salário bruto de <strong>{formatEuro(salario.brutoMensal)}</strong> mensais,
-          recebe aproximadamente <strong>{formatEuro(salario.liquidoMensal)}</strong> líquidos
-          por mês (solteiro, sem dependentes).
+          Com um sal&aacute;rio bruto de <strong>{formatEuro(salario.brutoMensal)}</strong> mensais,
+          recebe aproximadamente <strong>{formatEuro(salario.liquidoMensal)}</strong> l&iacute;quidos
+          por m&ecirc;s (solteiro, sem dependentes).
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Quick Stats -->
+  <!-- Quick Stats Cards -->
   <section class="-mt-6 relative z-10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div class="bg-white rounded-xl shadow-lg border border-neutral-200 p-5 text-center">
           <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Bruto Mensal</p>
           <p class="text-2xl font-extrabold text-neutral-900 mt-1">{formatEuro(salario.brutoMensal)}</p>
         </div>
         <div class="bg-primary-600 rounded-xl shadow-lg p-5 text-center text-white">
-          <p class="text-xs font-semibold text-primary-100 uppercase tracking-wide">Líquido Mensal</p>
+          <p class="text-xs font-semibold text-primary-100 uppercase tracking-wide">L&iacute;quido Mensal</p>
           <p class="text-2xl font-extrabold mt-1">{formatEuro(salario.liquidoMensal)}</p>
         </div>
         <div class="bg-white rounded-xl shadow-lg border border-neutral-200 p-5 text-center">
-          <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Retenção IRS</p>
+          <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Reten&ccedil;&atilde;o IRS</p>
           <p class="text-2xl font-extrabold text-neutral-900 mt-1">{formatPercent(salario.retencaoTaxa)}</p>
+          <p class="text-xs text-neutral-400 mt-1">{formatEuro(salario.retencaoMensal)}/m&ecirc;s</p>
         </div>
         <div class="bg-white rounded-xl shadow-lg border border-neutral-200 p-5 text-center">
-          <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Líquido Anual</p>
+          <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">TSU (SS 11%)</p>
+          <p class="text-2xl font-extrabold text-neutral-900 mt-1">{formatEuro(salario.tsuTrabalhador)}</p>
+          <p class="text-xs text-neutral-400 mt-1">por m&ecirc;s</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg border border-neutral-200 p-5 text-center col-span-2 md:col-span-1">
+          <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">L&iacute;quido Anual</p>
           <p class="text-2xl font-extrabold text-neutral-900 mt-1">{formatEuro(salario.liquidoAnual)}</p>
+          <p class="text-xs text-neutral-400 mt-1">14 meses</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Breakdown Table -->
+  <!-- Mini Simulator -->
+  <section class="py-10 md:py-12 bg-neutral-50 border-t border-neutral-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-2 text-center">Simule o Seu Sal&aacute;rio de {salario.brutoMensal}&euro;</h2>
+      <p class="text-neutral-500 text-center mb-8">
+        Ajuste o estado civil, dependentes e IRS Jovem para ver como o l&iacute;quido varia. O simulador usa os escal&otilde;es e tabelas de reten&ccedil;&atilde;o oficiais de 2026.
+      </p>
+      <SalaryCalculator client:idle />
+    </div>
+  </section>
+
+  <!-- Tax Breakdown Table -->
   <section class="py-10 md:py-14">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl font-bold text-neutral-900 mb-6">Detalhe do Cálculo - {salario.brutoMensal}€ Brutos</h2>
+      <h2 class="text-2xl font-bold text-neutral-900 mb-6">Detalhe do C&aacute;lculo &mdash; {salario.brutoMensal}&euro; Brutos</h2>
 
       <div class="bg-white rounded-2xl shadow-lg border border-neutral-200 overflow-hidden">
         <table class="w-full text-sm">
@@ -133,72 +199,230 @@ const faqSchema = {
             <tr class="bg-neutral-50 border-b border-neutral-200">
               <th class="text-left px-6 py-3 font-semibold text-neutral-700">Componente</th>
               <th class="text-right px-6 py-3 font-semibold text-neutral-700">Mensal</th>
-              <th class="text-right px-6 py-3 font-semibold text-neutral-700">Anual</th>
+              <th class="text-right px-6 py-3 font-semibold text-neutral-700">Anual (14 meses)</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-neutral-100">
             <tr>
-              <td class="px-6 py-3 font-medium text-neutral-800">Salário Bruto</td>
+              <td class="px-6 py-3 font-medium text-neutral-800">Sal&aacute;rio Bruto</td>
               <td class="px-6 py-3 text-right text-neutral-800 font-semibold">{formatEuro(salario.brutoMensal)}</td>
-              <td class="px-6 py-3 text-right text-neutral-600">{formatEuro(salario.brutoMensal * 14)}</td>
+              <td class="px-6 py-3 text-right text-neutral-600">{formatEuro(d.brutoAnual)}</td>
             </tr>
             <tr>
-              <td class="px-6 py-3 text-neutral-600">Segurança Social (TSU 11%)</td>
+              <td class="px-6 py-3 text-neutral-600">Seguran&ccedil;a Social (TSU 11%)</td>
               <td class="px-6 py-3 text-right text-red-600 font-semibold">-{formatEuro(salario.tsuTrabalhador)}</td>
-              <td class="px-6 py-3 text-right text-red-500">-{formatEuro(salario.tsuTrabalhador * 14)}</td>
+              <td class="px-6 py-3 text-right text-red-500">-{formatEuro(d.tsuAnual)}</td>
             </tr>
             <tr>
-              <td class="px-6 py-3 text-neutral-600">Retenção IRS ({formatPercent(salario.retencaoTaxa)})</td>
+              <td class="px-6 py-3 text-neutral-600">Reten&ccedil;&atilde;o IRS ({formatPercent(salario.retencaoTaxa)})</td>
               <td class="px-6 py-3 text-right text-red-600 font-semibold">-{formatEuro(salario.retencaoMensal)}</td>
               <td class="px-6 py-3 text-right text-red-500">-{formatEuro(salario.irsAnual)}</td>
             </tr>
+            <tr>
+              <td class="px-6 py-3 text-neutral-600">Total de Descontos</td>
+              <td class="px-6 py-3 text-right text-red-600 font-semibold">-{formatEuro(d.descontosTotaisMensal)}</td>
+              <td class="px-6 py-3 text-right text-red-500">-{formatEuro(d.descontosTotaisAnual)}</td>
+            </tr>
             <tr class="bg-primary-50">
-              <td class="px-6 py-4 font-bold text-primary-800">Salário Líquido</td>
+              <td class="px-6 py-4 font-bold text-primary-800">Sal&aacute;rio L&iacute;quido</td>
               <td class="px-6 py-4 text-right font-extrabold text-primary-700 text-lg">{formatEuro(salario.liquidoMensal)}</td>
               <td class="px-6 py-4 text-right font-bold text-primary-600">{formatEuro(salario.liquidoAnual)}</td>
             </tr>
             <tr class="bg-neutral-50">
               <td class="px-6 py-3 text-neutral-500 text-xs">Custo Empregador (incl. TSU patronal 23,75%)</td>
               <td class="px-6 py-3 text-right text-neutral-500 text-xs">{formatEuro(salario.custoEmpregadorMensal)}</td>
-              <td class="px-6 py-3 text-right text-neutral-500 text-xs">{formatEuro(salario.custoEmpregadorMensal * 14)}</td>
+              <td class="px-6 py-3 text-right text-neutral-500 text-xs">{formatEuro(d.custoEmpregadorAnual)}</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <p class="text-xs text-neutral-400 mt-3">
-        * Valores calculados para trabalhador solteiro, sem dependentes, sem IRS Jovem. Regime geral da Segurança Social, Continente.
+        * Valores calculados para trabalhador solteiro, sem dependentes, sem IRS Jovem. Regime geral da Seguran&ccedil;a Social, Continente. Atualizado para 2026.
       </p>
     </div>
   </section>
 
-  <!-- Context / SEO Content -->
+  <!-- Band Context / Unique SEO Content -->
   <section class="py-10 bg-white border-t border-neutral-100">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
-      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Salário de {salario.brutoMensal}€ Brutos em Portugal</h2>
-      <p class="text-neutral-700 leading-relaxed">{salario.descricao}</p>
-      <p class="text-neutral-700 leading-relaxed">{salario.contexto}</p>
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Sal&aacute;rio de {salario.brutoMensal}&euro; Brutos em Portugal &mdash; Contexto e An&aacute;lise</h2>
+      <p class="text-neutral-700 leading-relaxed">{bandContext}</p>
     </div>
   </section>
 
-  <!-- Calculator -->
-  <section class="py-10 md:py-14 bg-neutral-50 border-t border-neutral-100">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl font-bold text-neutral-900 mb-2 text-center">Simule o Seu Salário</h2>
-      <p class="text-neutral-500 text-center mb-8">
-        Ajuste o valor bruto, estado civil e dependentes para ver o resultado exato.
+  <!-- Career Description -->
+  <section class="py-10 bg-neutral-50 border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Perfil Profissional &mdash; Quem Ganha {salario.brutoMensal}&euro; Brutos</h2>
+      <p class="text-neutral-700 leading-relaxed">{careerDescription}</p>
+    </div>
+  </section>
+
+  <!-- Comparison with SMN -->
+  <section class="py-10 bg-white border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Compara&ccedil;&atilde;o: {salario.brutoMensal}&euro; Brutos vs. Sal&aacute;rio M&iacute;nimo</h2>
+      <p class="text-neutral-700 leading-relaxed">{comparisonText}</p>
+    </div>
+  </section>
+
+  <!-- Unique Comparisons Section -->
+  <section class="py-10 bg-white border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">An&aacute;lise Detalhada &mdash; {salario.brutoMensal}&euro; Brutos em Perspetiva</h2>
+      {uniqueComparisons.map((c) => (
+        <p class="text-neutral-700 leading-relaxed mb-3">{c.texto}</p>
+      ))}
+    </div>
+  </section>
+
+  <!-- Raise Simulation -->
+  <section class="py-10 bg-neutral-50 border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Simula&ccedil;&atilde;o de Aumento &mdash; Partindo de {salario.brutoMensal}&euro; Brutos</h2>
+      <p class="text-neutral-600 mb-6">{raiseSimulation.intro}</p>
+
+      <div class="bg-white rounded-2xl shadow-lg border border-neutral-200 overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-neutral-50 border-b border-neutral-200">
+              <th class="text-left px-4 py-3 font-semibold text-neutral-700">Aumento</th>
+              <th class="text-right px-4 py-3 font-semibold text-neutral-700">Novo Bruto</th>
+              <th class="text-right px-4 py-3 font-semibold text-neutral-700">Novo L&iacute;quido</th>
+              <th class="text-right px-4 py-3 font-semibold text-neutral-700">Ganho/m&ecirc;s</th>
+              <th class="text-right px-4 py-3 font-semibold text-neutral-700">Ganho/ano</th>
+              <th class="text-right px-4 py-3 font-semibold text-neutral-700">Taxa Marg.</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100">
+            {raiseSimulation.cenarios.map((c) => (
+              <tr>
+                <td class="px-4 py-2 font-medium text-neutral-800">{c.percentagem}</td>
+                <td class="px-4 py-2 text-right text-neutral-600">{c.novoBruto}</td>
+                <td class="px-4 py-2 text-right text-primary-700 font-semibold">{c.novoLiquido}</td>
+                <td class="px-4 py-2 text-right text-green-600 font-semibold">{c.ganhoMensal}</td>
+                <td class="px-4 py-2 text-right text-green-600">{c.ganhoAnual}</td>
+                <td class="px-4 py-2 text-right text-neutral-500">{c.taxaMarginalEfetiva}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-neutral-400 mt-3">
+        * Taxa marginal = percentagem do aumento bruto retida em impostos e contribui&ccedil;&otilde;es. Valores estimados para solteiro sem dependentes.
       </p>
-      <SalaryCalculator client:idle />
+    </div>
+  </section>
+
+  <!-- Seguranca Social Explanation -->
+  <section class="py-10 bg-white border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Seguran&ccedil;a Social (TSU) com {salario.brutoMensal}&euro; Brutos</h2>
+      <p class="text-neutral-700 leading-relaxed">{ssExplanation}</p>
+    </div>
+  </section>
+
+  <!-- How IRS Works - Escaloes -->
+  <section class="py-10 md:py-14 border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Como Funciona o IRS em Portugal &mdash; Escal&otilde;es 2026</h2>
+      <p class="text-neutral-700 leading-relaxed mb-6">{irsExplanation}</p>
+
+      <div class="bg-white rounded-2xl shadow-lg border border-neutral-200 overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-neutral-50 border-b border-neutral-200">
+              <th class="text-left px-4 py-3 font-semibold text-neutral-700">Escal&atilde;o</th>
+              <th class="text-right px-4 py-3 font-semibold text-neutral-700">De</th>
+              <th class="text-right px-4 py-3 font-semibold text-neutral-700">At&eacute;</th>
+              <th class="text-right px-4 py-3 font-semibold text-neutral-700">Taxa</th>
+              <th class="text-right px-4 py-3 font-semibold text-neutral-700">Parcela a Abater</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100">
+            {escaloes.map((e) => (
+              <tr class={e.isActive ? "bg-primary-50 font-semibold" : ""}>
+                <td class={`px-4 py-2 ${e.isActive ? "text-primary-700" : "text-neutral-700"}`}>
+                  {e.numero} {e.isActive && <span class="text-xs text-primary-500 ml-1">(o seu)</span>}
+                </td>
+                <td class="px-4 py-2 text-right text-neutral-600">{e.limiteInf}</td>
+                <td class="px-4 py-2 text-right text-neutral-600">{e.limiteSup}</td>
+                <td class={`px-4 py-2 text-right ${e.isActive ? "text-primary-700" : "text-neutral-800"}`}>{e.taxa}</td>
+                <td class="px-4 py-2 text-right text-neutral-500">{e.parcelaAbater}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-neutral-400 mt-3">
+        Com {formatEuro(salario.brutoMensal)} brutos ({formatEuro(d.brutoAnual)} anuais), o rendimento colet&aacute;vel de {formatEuro(d.rendimentoColetavel)} enquadra-se no {d.escalaoIndex}.&ordm; escal&atilde;o. O sistema de IRS portugu&ecirc;s &eacute; progressivo: cada escal&atilde;o aplica-se apenas ao rendimento que nele se enquadra, resultando numa taxa efetiva de {formatPercent(d.taxaEfetiva)} (inferior &agrave; taxa marginal de {formatPercent(d.escalaoTaxa)}).
+      </p>
+    </div>
+  </section>
+
+  <!-- Monthly Budget Table -->
+  <section class="py-10 md:py-14 bg-neutral-50 border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Or&ccedil;amento Mensal Sugerido &mdash; {formatEuro(salario.liquidoMensal)} L&iacute;quidos</h2>
+      <p class="text-neutral-600 mb-6">
+        Com um l&iacute;quido de {formatEuro(salario.liquidoMensal)} mensais (ap&oacute;s descontos de {formatEuro(d.descontosTotaisMensal)} sobre os {formatEuro(salario.brutoMensal)} brutos), a distribui&ccedil;&atilde;o or&ccedil;amental deve adaptar-se &agrave; sua realidade. Sugerimos {formatEuro(salario.liquidoMensal * 0.15)} para poupan&ccedil;a, {formatEuro(salario.liquidoMensal * 0.30)} para habita&ccedil;&atilde;o e o restante distribu&iacute;do pelas categorias essenciais.
+      </p>
+
+      <div class="bg-white rounded-2xl shadow-lg border border-neutral-200 overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-neutral-50 border-b border-neutral-200">
+              <th class="text-left px-6 py-3 font-semibold text-neutral-700">Categoria</th>
+              <th class="text-center px-6 py-3 font-semibold text-neutral-700">%</th>
+              <th class="text-right px-6 py-3 font-semibold text-neutral-700">Valor Mensal</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100">
+            {budget.map((b) => (
+              <tr>
+                <td class="px-6 py-3 text-neutral-700">{b.categoria}</td>
+                <td class="px-6 py-3 text-center text-neutral-500">{b.percentagem}</td>
+                <td class="px-6 py-3 text-right font-semibold text-neutral-800">{b.valor}</td>
+              </tr>
+            ))}
+            <tr class="bg-primary-50">
+              <td class="px-6 py-3 font-bold text-primary-800">Total</td>
+              <td class="px-6 py-3 text-center font-bold text-primary-700">100%</td>
+              <td class="px-6 py-3 text-right font-extrabold text-primary-700">{formatEuro(salario.liquidoMensal)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tax Optimization Tips -->
+  <section class="py-10 md:py-14 border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-6">Dicas de Otimiza&ccedil;&atilde;o Fiscal &mdash; {salario.brutoMensal}&euro; Brutos</h2>
+      <p class="text-neutral-600 mb-8">
+        Com {formatEuro(salario.brutoMensal)} brutos, paga {formatEuro(d.descontosTotaisMensal)} em descontos mensais (reten&ccedil;&atilde;o IRS de {formatPercent(salario.retencaoTaxa)} + TSU de 11%). O seu IRS anual estimado &eacute; de {formatEuro(salario.irsAnual)}, no {d.escalaoIndex}.&ordm; escal&atilde;o. Existem formas leg&iacute;timas de reduzir esta carga e aumentar o l&iacute;quido de {formatEuro(salario.liquidoMensal)}.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {tips.map((tip) => (
+          <div class="bg-white rounded-xl shadow border border-neutral-200 p-6">
+            <h3 class="text-lg font-bold text-neutral-800 mb-2">{tip.titulo}</h3>
+            <p class="text-sm text-neutral-600 leading-relaxed">{tip.descricao}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="py-10 md:py-14 border-t border-neutral-100">
+  <section class="py-10 md:py-14 bg-neutral-50 border-t border-neutral-100">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl font-bold text-neutral-900 mb-8">Perguntas Frequentes - {salario.brutoMensal}€ Brutos</h2>
+      <h2 class="text-2xl font-bold text-neutral-900 mb-8">Perguntas Frequentes &mdash; {salario.brutoMensal}&euro; Brutos</h2>
 
-      <div class="space-y-6">
-        {salario.faq.map((f) => (
+      <div class="space-y-4">
+        {faqs.map((f) => (
           <details class="bg-white rounded-xl shadow border border-neutral-200 overflow-hidden group">
             <summary class="px-6 py-4 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 transition-colors flex items-center justify-between list-none">
               <span>{f.pergunta}</span>
@@ -213,24 +437,101 @@ const faqSchema = {
     </div>
   </section>
 
+  <!-- Author E-E-A-T Box -->
+  <section class="py-10 border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-2xl shadow-lg border border-neutral-200 p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start">
+        <div class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
+          <span class="text-2xl font-bold text-primary-700">MR</span>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-1">Sobre o Autor</p>
+          <h3 class="text-lg font-bold text-neutral-900">{author.name}</h3>
+          <p class="text-sm text-primary-600 font-medium mb-3">{author.credentials}</p>
+          <p class="text-sm text-neutral-600 leading-relaxed">{author.bio}</p>
+          <a href="/sobre/" class="inline-block mt-3 text-sm font-semibold text-primary-600 hover:text-primary-700 no-underline">Saber mais &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources / References -->
+  <section class="py-10 bg-neutral-50 border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-neutral-900 mb-4">Fontes e Refer&ecirc;ncias Oficiais</h2>
+      <p class="text-neutral-600 mb-6">
+        Os c&aacute;lculos apresentados nesta p&aacute;gina baseiam-se nas tabelas e legisla&ccedil;&atilde;o oficiais publicadas pelas seguintes entidades portuguesas:
+      </p>
+      <ul class="space-y-4">
+        <li class="flex items-start gap-3">
+          <span class="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-primary-500"></span>
+          <div>
+            <a href="https://www.portaldasfinancas.gov.pt" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700 font-semibold no-underline hover:underline">
+              Autoridade Tribut&aacute;ria e Aduaneira (Portal das Finan&ccedil;as)
+            </a>
+            <p class="text-sm text-neutral-500 mt-1">
+              Tabelas de reten&ccedil;&atilde;o na fonte de IRS, escal&otilde;es de IRS e legisla&ccedil;&atilde;o fiscal portuguesa.
+            </p>
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-primary-500"></span>
+          <div>
+            <a href="https://www.seg-social.pt" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700 font-semibold no-underline hover:underline">
+              Seguran&ccedil;a Social
+            </a>
+            <p class="text-sm text-neutral-500 mt-1">
+              Taxas contributivas (TSU), regime geral dos trabalhadores por conta de outrem e presta&ccedil;&otilde;es sociais.
+            </p>
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-primary-500"></span>
+          <div>
+            <a href="https://www.ine.pt" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700 font-semibold no-underline hover:underline">
+              INE &mdash; Instituto Nacional de Estat&iacute;stica
+            </a>
+            <p class="text-sm text-neutral-500 mt-1">
+              Dados estat&iacute;sticos sobre sal&aacute;rios, emprego e indicadores econ&oacute;micos em Portugal.
+            </p>
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-primary-500"></span>
+          <div>
+            <a href="https://www.pordata.pt" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700 font-semibold no-underline hover:underline">
+              PORDATA &mdash; Base de Dados Portugal Contempor&acirc;neo
+            </a>
+            <p class="text-sm text-neutral-500 mt-1">
+              Estat&iacute;sticas sobre remunera&ccedil;&otilde;es, sal&aacute;rio m&iacute;nimo e m&eacute;dio nacional, e indicadores sociais.
+            </p>
+          </div>
+        </li>
+      </ul>
+      <p class="text-xs text-neutral-400 mt-6">
+        * Os valores s&atilde;o estimativas baseadas na legisla&ccedil;&atilde;o em vigor para 2026. Consulte sempre as fontes oficiais para confirma&ccedil;&atilde;o.
+      </p>
+    </div>
+  </section>
+
   <!-- Cross-links -->
   <section class="py-10 md:py-14 bg-neutral-50 border-t border-neutral-100">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl font-bold text-neutral-900 mb-6 text-center">Outros Salários</h2>
+      <h2 class="text-2xl font-bold text-neutral-900 mb-6 text-center">Outros Sal&aacute;rios &mdash; Bruto para L&iacute;quido 2026</h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {outrosSalarios.map((s) => (
           <a
             href={`/salario-${s.slug}-bruto-liquido/`}
             class="bg-white rounded-xl border border-neutral-200 p-4 text-center hover:border-primary-400 hover:shadow-md transition-all no-underline group"
           >
-            <p class="text-lg font-bold text-neutral-900 group-hover:text-primary-600">{s.brutoMensal}€</p>
-            <p class="text-xs text-neutral-500 mt-1">Líquido: {formatEuro(s.liquidoMensal)}</p>
+            <p class="text-lg font-bold text-neutral-900 group-hover:text-primary-600">{s.brutoMensal}&euro;</p>
+            <p class="text-xs text-neutral-500 mt-1">L&iacute;quido: {formatEuro(s.liquidoMensal)}</p>
           </a>
         ))}
       </div>
 
       <div class="mt-8 text-center">
-        <h3 class="text-lg font-semibold text-neutral-800 mb-4">Simuladores por Situação Fiscal</h3>
+        <h3 class="text-lg font-semibold text-neutral-800 mb-4">Simuladores por Situa&ccedil;&atilde;o Fiscal</h3>
         <div class="flex flex-wrap justify-center gap-3">
           <a href="/simulador-solteiro/" class="inline-block bg-white border border-neutral-200 rounded-lg px-4 py-2 text-sm font-medium text-neutral-700 hover:border-primary-400 hover:text-primary-600 no-underline transition-colors">Solteiro</a>
           <a href="/simulador-casado-1-titular/" class="inline-block bg-white border border-neutral-200 rounded-lg px-4 py-2 text-sm font-medium text-neutral-700 hover:border-primary-400 hover:text-primary-600 no-underline transition-colors">Casado 1 Titular</a>
