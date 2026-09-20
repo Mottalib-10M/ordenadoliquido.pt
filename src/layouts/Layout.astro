@@ -20,7 +20,7 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="author" content="Mottalib Radif" />
+    <meta name="author" content="Radif Partners" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -60,12 +60,10 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
 
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Mottalib Radif",
+      "@type": "Organization",
+      "name": "Radif Partners",
       "jobTitle": "Especialista em Finanças Pessoais e Fiscalidade",
-      "description": "Diplomado MBA pelo INSEAD, apaixonado por finanças pessoais em Portugal. Especializado em IRS, Segurança Social e otimização salarial.",
-      "alumniOf": { "@type": "EducationalOrganization", "name": "INSEAD" },
-      "image": "https://salarioliquido.pt/team/mottalib-radif.jpg",
+      "description": "Diplomado MBA pelo Editor de calculadoras y guías prácticas, apaixonado por finanças pessoais em Portugal. Especializado em IRS, Segurança Social e otimização salarial.",
       "url": "https://salarioliquido.pt/sobre/"
     })} />
 
