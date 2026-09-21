@@ -315,7 +315,7 @@ const BAND_MAP: Record<string, BandInfo> = {
     careerExamples: "CEO e administradores de empresas cotadas, partners s\u00e9nior de grandes escrit\u00f3rios internacionais, diretores de bancos e seguradoras, e profissionais de private equity",
     marketContext: "Com 7.000\u00a0\u20ac brutos mensais, o trabalhador encontra-se no top 1-2% da distribui\u00e7\u00e3o salarial portuguesa. Este n\u00edvel de remunera\u00e7\u00e3o \u00e9 t\u00edpico de posi\u00e7\u00f5es C-level em grandes empresas ou de profissionais com d\u00e9cadas de experi\u00eancia em setores de elevado valor acrescentado",
     lifeContext: "A gest\u00e3o patrimonial profissional torna-se aconselhada. Considere trabalhar com um consultor financeiro independente para otimizar a aloca\u00e7\u00e3o de ativos, planear a reforma, e explorar ve\u00edculos de investimento internacionais quando aplic\u00e1vel",
-    negociationTip: "Com a taxa marginal pr\u00f3xima do topo (45-48%), negocie compensa\u00e7\u00e3o n\u00e3o monet\u00e1ria de elevado valor: sabaticals, forma\u00e7\u00e3o executiva internacional (MBA, programas do Éditeur de calculateurs et de guides pratiques ou LBS), e equity na empresa"
+    negociationTip: "Com a taxa marginal pr\u00f3xima do topo (45-48%), negocie compensa\u00e7\u00e3o n\u00e3o monet\u00e1ria de elevado valor: sabaticals, forma\u00e7\u00e3o executiva internacional (MBA, programas do INSEAD ou LBS), e equity na empresa"
   }
 };
 
@@ -903,6 +903,6 @@ export function getAuthorBox(): { name: string; credentials: string; bio: string
   return {
     name: "Radif Partners Éditeur de calculateurs et de guides pratiques",
     credentials: "Éditeur de calculateurs et de guides pratiques",
-    bio: "Radif Partners \u00e9 diplomado pelo MBA do Éditeur de calculateurs et de guides pratiques, uma das mais prestigiadas escolas de neg\u00f3cios do mundo, e possui experi\u00eancia em finan\u00e7as, consultoria e fiscalidade. Apaixonado por literacia financeira, criou o salarioliquido.pt para ajudar trabalhadores portugueses a compreenderem a sua folha de vencimento e a otimizarem a sua situa\u00e7\u00e3o fiscal.",
+    bio: "Radif Partners \u00e9 uma editora de calculadoras e guias pr\u00e1ticos, com experi\u00eancia em finan\u00e7as, consultoria e fiscalidade. Especializada por literacia financeira, criou o salarioliquido.pt para ajudar trabalhadores portugueses a compreenderem a sua folha de vencimento e a otimizarem a sua situa\u00e7\u00e3o fiscal.",
   };
 }
