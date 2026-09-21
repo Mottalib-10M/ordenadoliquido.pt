@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/typo-nbsp.mjs dist",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
