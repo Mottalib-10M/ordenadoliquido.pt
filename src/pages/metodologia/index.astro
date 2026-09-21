@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Metodologia: retenção na fonte de IRS, Segurança Social e subsídios"
+  description="A ordem exacta do cálculo: base de incidência contributiva, taxa social única, tabelas de retenção na fonte do IRS, subsídios de férias e de Natal e subsídio de refeição."
+>
+  <div class="max-w-3xl mx-auto">
+    <nav class="text-sm text-gray-500 mb-6">
+      <a href="/" class="hover:text-primary">Início</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-800">Metodologia</span>
+    </nav>
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Como calculamos o salário líquido</h1>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Segurança Social primeiro, IRS depois</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">O l&iacute;quido n&atilde;o resulta de uma percentagem &uacute;nica. Ao vencimento bruto aplica-se primeiro a <strong>taxa social &uacute;nica</strong> a cargo do trabalhador, sobre a remunera&ccedil;&atilde;o ilíquida e sem limite superior. S&oacute; depois entra o <strong>IRS</strong>, retido na fonte segundo as tabelas mensais.</p>
+      <p class="text-gray-700 leading-relaxed mb-3">As tabelas de reten&ccedil;&atilde;o n&atilde;o s&atilde;o escal&otilde;es simples: desde a reforma do modelo, a taxa marginal aplica-se apenas &agrave; parcela de rendimento acima de cada limite, com uma parcela a abater. &Eacute; esse mecanismo que evita as descidas de l&iacute;quido que existiam no modelo anterior quando se passava de escal&atilde;o.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Subsídios e refeição mudam o resultado</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">Os <strong>subs&iacute;dios de f&eacute;rias e de Natal</strong> podem ser pagos por inteiro ou em duodécimos. A op&ccedil;&atilde;o altera o l&iacute;quido mensal e a reten&ccedil;&atilde;o aplicada, embora o valor anual seja pr&oacute;ximo. O calculador mostra as duas leituras em vez de assumir uma.</p>
+      <p class="text-gray-700 leading-relaxed mb-3">O <strong>subs&iacute;dio de refei&ccedil;&atilde;o</strong> est&aacute; isento de IRS e de Seguran&ccedil;a Social at&eacute; um limite di&aacute;rio, mais elevado quando pago em cart&atilde;o do que em dinheiro. Acima desse limite, o excedente &eacute; tributado como rendimento normal.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">O que o calculador não faz</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">N&atilde;o considera deduções &agrave; coleta, dependentes, IRS Jovem além do caso padrão, trabalho independente, ajudas de custo, seguros de sa&uacute;de nem planos de pensões. Pressup&otilde;e um &uacute;nico contrato de trabalho por conta de outrem.</p>
+      <p class="text-gray-700 leading-relaxed mb-3">&Eacute; uma estimativa documentada, n&atilde;o um recibo de vencimento. O apuramento final faz-se na declara&ccedil;&atilde;o anual de IRS.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Quando actualizamos</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">As tabelas de reten&ccedil;&atilde;o e as taxas contributivas s&atilde;o publicadas com o Or&ccedil;amento do Estado e entram em vigor em Janeiro, por vezes com revis&atilde;o a meio do ano. Actualizamos a partir dos despachos publicados, nunca de not&iacute;cias. Cada p&aacute;gina indica a data da &uacute;ltima revis&atilde;o, retirada do hist&oacute;rico do site.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">De onde vêm os números</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">Todas as taxas e limites provêm das seguintes fontes oficiais:</p>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2">
+        <li><a class="underline" href="https://www.portaldasfinancas.gov.pt/pt/listarTabelasRetencao.action" rel="nofollow noopener" target="_blank">Portal das Finanças &mdash; Tabelas de retenção na fonte</a></li>
+        <li><a class="underline" href="https://www.seg-social.pt/documents/10152/13352/Taxas_contributivas" rel="nofollow noopener" target="_blank">Segurança Social &mdash; Taxas contributivas</a></li>
+        <li><a class="underline" href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/" rel="nofollow noopener" target="_blank">Portal das Finanças &mdash; Código do IRS</a></li>
+        <li><a class="underline" href="https://www.dgert.gov.pt/salario-minimo-nacional" rel="nofollow noopener" target="_blank">DGERT &mdash; Retribuição mínima mensal garantida</a></li>
+      </ul>
+    </section>
+  </div>
+</Layout>
