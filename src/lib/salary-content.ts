@@ -912,6 +912,6 @@ export function getAuthorBox(): { name: string; credentials: string; bio: string
   return {
     name: "Radif Partners Éditeur de calculateurs et de guides pratiques",
     credentials: "Éditeur de calculateurs et de guides pratiques",
-    bio: "Radif Partners \u00e9 uma editora de calculadoras e guias pr\u00e1ticos, com experi\u00eancia em finan\u00e7as, consultoria e fiscalidade. Especializada por literacia financeira, criou o salarioliquido.pt para ajudar trabalhadores portugueses a compreenderem a sua folha de vencimento e a otimizarem a sua situa\u00e7\u00e3o fiscal.",
+    bio: "Radif Partners \u00e9 uma editora de calculadoras e guias pr\u00e1ticos, com experi\u00eancia em finan\u00e7as, consultoria e fiscalidade. Especializada por literacia financeira, criou o ordenadoliquido.pt para ajudar trabalhadores portugueses a compreenderem a sua folha de vencimento e a otimizarem a sua situa\u00e7\u00e3o fiscal.",
   };
 }

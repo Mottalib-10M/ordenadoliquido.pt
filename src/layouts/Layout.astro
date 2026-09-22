@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { title, description, canonical } = Astro.props;
-const siteUrl = "https://salarioliquido.pt";
+const siteUrl = "https://ordenadoliquido.pt";
 const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
 ---
 
@@ -28,7 +28,7 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_PT" />
-    <meta property="og:site_name" content="Salário Líquido PT" />
+    <meta property="og:site_name" content="Ordenado Líquido" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -64,11 +64,11 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
       "name": "Radif Partners",
       "jobTitle": "Especialista em Finanças Pessoais e Fiscalidade",
       "description": "Editora de calculadoras e guias práticos, especializada em finanças pessoais em Portugal. Especializado em IRS, Segurança Social e otimização salarial.",
-      "url": "https://salarioliquido.pt/sobre/"
+      "url": "https://ordenadoliquido.pt/sobre/"
     })} />
 
     <!-- Plausible Analytics -->
-    <script defer data-domain="salarioliquido.pt" src="https://plausible.io/js/script.js"></script>
+    <script defer data-domain="ordenadoliquido.pt" src="https://plausible.io/js/script.js"></script>
 
     <!--
       Pas de GA4 ici : l'identifiant etait reste a l'etat de gabarit
@@ -171,7 +171,7 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
           </div>
         </div>
         <div class="border-t border-neutral-800 mt-8 pt-8 text-center text-xs">
-          <p>&copy; {new Date().getFullYear()} salarioliquido.pt, Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} ordenadoliquido.pt, Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>
