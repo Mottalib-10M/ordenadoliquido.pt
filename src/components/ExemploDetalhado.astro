@@ -1,0 +1,111 @@
+---
+/**
+ * Un salaire reel, decompose ligne a ligne.
+ *
+ * La page d'accueil expliquait les notions (brut, net, progressivite) mais ne
+ * montrait aucun calcul mene jusqu'au bout. C'est pourtant ce que cherche le
+ * visiteur qui doute du chiffre affiche par le simulateur : pouvoir suivre
+ * l'operation et retrouver le meme resultat.
+ *
+ * Les montants viennent du moteur (engine.ts), jamais ecrits a la main : un
+ * tableau fige finirait par contredire le simulateur au premier changement de
+ * bareme, et c'est exactement ainsi qu'on a decouvert que l'exoneration IRS
+ * Jovem ne s'appliquait pas a la retenue mensuelle.
+ */
+import { calculateSalary } from '../lib/engine';
+
+interface Props {
+  bruto?: number;
+}
+const { bruto = 1500 } = Astro.props;
+
+const r = calculateSalary({
+  grossMonthly: bruto,
+  maritalStatus: 'solteiro',
+  dependents: 0,
+  irsJovem: 0,
+});
+
+const eur = (v: number) =>
+  v.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+const pc = (v: number) =>
+  (v * 100).toLocaleString('pt-PT', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' %';
+
+const taxaEfetiva = bruto > 0 ? (bruto - r.netMonthly) / bruto : 0;
+const custoEmpresa = r.grossMonthly + r.tsuEmployer;
+
+const linhas = [
+  { rotulo: 'Salário bruto mensal', valor: eur(r.grossMonthly), forte: true },
+  { rotulo: 'Contribuição para a Segurança Social', nota: '11 % do bruto, sem limite superior', valor: '− ' + eur(r.tsuEmployee) },
+  { rotulo: 'Retenção na fonte de IRS', nota: 'tabela de não casado, sem dependentes', valor: '− ' + eur(r.retencaoMensal) },
+  { rotulo: 'Salário líquido mensal', valor: eur(r.netMonthly), forte: true },
+];
+---
+
+<section class="max-w-3xl mx-auto mt-12 border-t border-neutral-200 pt-8">
+  <h2 class="text-2xl font-bold text-neutral-900 mb-3">
+    Um exemplo seguido até ao fim: {eur(bruto)} brutos
+  </h2>
+  <p class="text-neutral-700 leading-relaxed mb-5">
+    A ordem das operações não é indiferente. A Segurança Social desconta primeiro, sobre o
+    bruto ilíquido, e só depois se aplica a retenção de IRS. Inverter os dois passos
+    sobrestima o imposto, e é o erro mais frequente de quem refaz a conta à mão.
+  </p>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <tbody>
+        {linhas.map((l) => (
+          <tr class={`border-b border-neutral-200 last:border-0 ${l.forte ? 'font-semibold' : ''}`}>
+            <td class="py-2 pr-3 text-neutral-800">
+              {l.rotulo}
+              {l.nota && <span class="block text-xs font-normal text-neutral-500">{l.nota}</span>}
+            </td>
+            <td class="py-2 text-right tabular-nums whitespace-nowrap text-neutral-900">{l.valor}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="text-neutral-700 leading-relaxed mt-5">
+    A taxa efetiva é de {pc(taxaEfetiva)}, bem abaixo da taxa marginal do escalão: esta
+    última aplica-se apenas à parcela de rendimento que o excede, e não a todo o salário.
+    É por isso que subir de escalão nunca faz descer o líquido, ao contrário do que se
+    receia com frequência.
+  </p>
+
+  <h3 class="text-lg font-bold text-neutral-900 mt-8 mb-2">Os catorze meses</h3>
+  <p class="text-neutral-700 leading-relaxed">
+    O ano de trabalho em Portugal conta catorze meses de remuneração: os doze meses
+    normais, mais o subsídio de férias e o subsídio de Natal. Ambos sofrem a mesma
+    contribuição de 11 % para a Segurança Social e são tributados em IRS, mas à parte do
+    salário do mês, o que evita empurrar esse mês para uma taxa superior. Com
+    {' '}{eur(bruto)} brutos, o rendimento líquido anual ronda
+    {' '}{eur(r.netAnnual)}.
+  </p>
+  <p class="text-neutral-700 leading-relaxed mt-3">
+    Se optar por receber os subsídios em duodécimos, o valor anual é praticamente o mesmo,
+    mas distribuído: o líquido de cada mês sobe e desaparecem os dois meses reforçados. A
+    escolha comunica-se à entidade empregadora e pode incidir sobre metade de cada subsídio.
+  </p>
+
+  <h3 class="text-lg font-bold text-neutral-900 mt-8 mb-2">O que custa à empresa</h3>
+  <p class="text-neutral-700 leading-relaxed">
+    Ao salário bruto acresce a contribuição patronal de 23,75 %, que não aparece no recibo
+    de vencimento mas é um custo real. Neste exemplo, o custo mensal total para a entidade
+    empregadora é de {eur(custoEmpresa)}, ou seja cerca de
+    {' '}{pc((custoEmpresa - r.netMonthly) / custoEmpresa)} entre o que a empresa despende e
+    o que o trabalhador recebe. Conhecer este número é útil numa negociação salarial: é
+    sobre ele que a empresa raciocina, e não sobre o líquido.
+  </p>
+
+  <h3 class="text-lg font-bold text-neutral-900 mt-8 mb-2">A retenção não é o imposto final</h3>
+  <p class="text-neutral-700 leading-relaxed">
+    O valor retido todos os meses é um adiantamento, calculado por tabelas que aproximam o
+    imposto devido. O montante definitivo apura-se na declaração anual, sobre o rendimento
+    do ano inteiro, e é aí que entram as deduções à coleta: saúde, educação, habitação,
+    lares. Se a soma das retenções exceder o imposto devido, há reembolso; caso contrário,
+    há valor a pagar. É esta diferença que explica os reembolsos de junho.
+  </p>
+</section>

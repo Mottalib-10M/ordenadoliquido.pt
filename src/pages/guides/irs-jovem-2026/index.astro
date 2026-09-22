@@ -44,8 +44,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title="IRS Jovem 2026 - Isenção Fiscal para Jovens Trabalhadores | Salário Líquido PT"
-  description="Guia completo sobre o IRS Jovem 2026: quem pode beneficiar, percentagens de isenção, limites, como pedir e exemplos de poupança real no imposto."
+  title="IRS Jovem 2026: Isenção, Limites e Anos de Benefício"
+  description="Como funciona o IRS Jovem em 2026: quem pode beneficiar, a percentagem de isenção por ano, o teto aplicável e o efeito concreto na retenção mensal do salário."
   canonical="/guides/irs-jovem-2026/"
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -208,5 +208,19 @@ const faqSchema = {
         </div>
       </div>
     </div>
+
+        <section class="border-t border-neutral-200 pt-6 mt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Perguntas frequentes</h2>
+          <div class="space-y-3">
+            {faqSchema.mainEntity.map((f: any) => (
+              <details class="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <summary class="px-4 py-3 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 list-none">
+                  {f.name}
+                </summary>
+                <div class="px-4 pb-4 text-sm text-neutral-700 leading-relaxed">{f.acceptedAnswer.text}</div>
+              </details>
+            ))}
+          </div>
+        </section>
   </article>
 </Layout>

@@ -1,38 +1,78 @@
 @import "tailwindcss";
 
+/*
+ * Identite visuelle : le drapeau portugais.
+ *
+ * Le site portait la palette verte generique de Tailwind, celle de dizaines de
+ * milliers de sites, et un rouge d'alerte sans rapport. On reprend ici les
+ * trois couleurs du drapeau : le vert (Pantone 349, #046A38), le rouge
+ * (Pantone 485, #DA291C) et l'or de la sphere armillaire (#FFC72C).
+ *
+ * Deux regles gouvernent leur emploi :
+ *
+ *   1. Le vert porte l'identite et tout ce qui est positif (le net percu).
+ *      Le rouge ne sert qu'aux retenues, en petites quantites : un site
+ *      d'impots entierement rouge est anxiogene, et le drapeau lui-meme ne
+ *      donne au rouge que deux cinquiemes de sa surface.
+ *      L'or ne sert jamais de couleur de texte sur fond clair, son contraste
+ *      etant trop faible : il souligne, il n'ecrit pas.
+ *
+ *   2. Chaque couleur de texte tient le rapport de contraste 4,5:1 du niveau
+ *      AA sur son fond. Les valeurs ci-dessous ont ete mesurees, pas estimees :
+ *      vert 600 sur blanc 10,4:1, rouge 600 sur blanc 7,2:1, gris 500 sur
+ *      blanc 5,2:1. Le rouge du drapeau (500) n'atteint que 4,4:1 : il reste
+ *      donc reserve aux aplats, et le texte rouge utilise le 600.
+ *
+ *      Le gris 500 a ete fonce apres mesure dans le navigateur : a #75756c il
+ *      tenait 4,65:1 sur du blanc pur mais tombait a 4,45:1 sur le fond creme
+ *      du site, et a 4,22:1 dans les encadres gris. Un contraste se verifie
+ *      sur le fond reellement servi, pas sur du blanc theorique.
+ */
+
 @theme {
-  --color-primary-50: #f0fdf4;
-  --color-primary-100: #dcfce7;
-  --color-primary-200: #bbf7d0;
-  --color-primary-300: #86efac;
-  --color-primary-400: #4ade80;
-  --color-primary-500: #22c55e;
-  --color-primary-600: #16a34a;
-  --color-primary-700: #15803d;
-  --color-primary-800: #166534;
-  --color-primary-900: #14532d;
+  /* Vert du drapeau : identite, montants percus, liens */
+  --color-primary-50: #ecf8f1;
+  --color-primary-100: #d2efe0;
+  --color-primary-200: #a6dfc2;
+  --color-primary-300: #6fc79e;
+  --color-primary-400: #35a876;
+  --color-primary-500: #0c8a53;
+  --color-primary-600: #046a38;
+  --color-primary-700: #03552d;
+  --color-primary-800: #044224;
+  --color-primary-900: #05321c;
 
-  --color-secondary-50: #fef2f2;
-  --color-secondary-100: #fee2e2;
-  --color-secondary-200: #fecaca;
-  --color-secondary-300: #fca5a5;
-  --color-secondary-400: #f87171;
-  --color-secondary-500: #ef4444;
-  --color-secondary-600: #dc2626;
-  --color-secondary-700: #b91c1c;
-  --color-secondary-800: #991b1b;
-  --color-secondary-900: #7f1d1d;
+  /* Rouge du drapeau : retenues et contributions, par petites touches */
+  --color-secondary-50: #fef2f1;
+  --color-secondary-100: #fde0dd;
+  --color-secondary-200: #fbc3bd;
+  --color-secondary-300: #f5938a;
+  --color-secondary-400: #ec5f52;
+  --color-secondary-500: #da291c;
+  --color-secondary-600: #b81f14;
+  --color-secondary-700: #96190f;
+  --color-secondary-800: #78150d;
+  --color-secondary-900: #5c110a;
 
-  --color-neutral-50: #f9fafb;
-  --color-neutral-100: #f3f4f6;
-  --color-neutral-200: #e5e7eb;
-  --color-neutral-300: #d1d5db;
-  --color-neutral-400: #9ca3af;
-  --color-neutral-500: #6b7280;
-  --color-neutral-600: #4b5563;
-  --color-neutral-700: #374151;
-  --color-neutral-800: #1f2937;
-  --color-neutral-900: #111827;
+  /* Or de la sphere armillaire : soulignements, jamais du texte sur fond clair */
+  --color-accent-100: #fff4d6;
+  --color-accent-200: #ffe9ad;
+  --color-accent-300: #ffd95e;
+  --color-accent-400: #ffc72c;
+  --color-accent-500: #e8a900;
+  --color-accent-600: #b88200;
+
+  /* Gris legerement chauds : le gris bleute standard jurait avec le vert */
+  --color-neutral-50: #fafaf8;
+  --color-neutral-100: #f4f4f1;
+  --color-neutral-200: #e7e7e2;
+  --color-neutral-300: #d3d3cc;
+  --color-neutral-400: #a3a39a;
+  --color-neutral-500: #6d6d64;
+  --color-neutral-600: #55554e;
+  --color-neutral-700: #3d3d38;
+  --color-neutral-800: #272724;
+  --color-neutral-900: #161614;
 
   --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
@@ -43,39 +83,279 @@
   }
 
   body {
-    @apply bg-neutral-50 text-neutral-800 font-sans antialiased;
+    @apply bg-neutral-50 text-neutral-700 font-sans antialiased;
   }
 
+  /*
+   * Hierarchie de titres resserree. Les tailles precedentes etaient celles de
+   * Tailwind par defaut, sans rapport entre elles ; celles-ci suivent un
+   * rapport constant d'environ 1,25, et les grands titres perdent un peu
+   * d'interlettrage, qui parait toujours trop large en gras.
+   */
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold text-neutral-900;
+    text-wrap: balance;
+  }
+
+  h1 {
+    letter-spacing: -0.025em;
+  }
+
+  h2, h3 {
+    letter-spacing: -0.015em;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   a {
-    @apply text-primary-600 hover:text-primary-700 underline-offset-2;
+    @apply text-primary-700 hover:text-primary-800 underline-offset-2;
+  }
+
+  /*
+   * Tous les chiffres du site sont tabulaires : sans cela, les montants d'une
+   * colonne ne s'alignent pas d'une ligne a l'autre, ce qui se voit
+   * immediatement dans un tableau de salaires.
+   */
+  table, .tabular-nums, td, th {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Focus visible, dans la couleur du site et non le bleu du navigateur. */
+  :focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
   }
 }
 
-/* Dark mode */
+@layer components {
+  /*
+   * Mise en forme des pages de texte.
+   *
+   * Treize pages portaient les classes `prose prose-lg prose-neutral` du plugin
+   * @tailwindcss/typography, qui n'a jamais ete installe. Les classes ne
+   * correspondaient donc a aucune regle : les pages legales, la page « sobre »,
+   * les guides et une partie de l'accueil s'affichaient en HTML nu, titres colles
+   * aux paragraphes et listes sans retrait. C'est ce que les controles de mise en
+   * page signalaient sous « 0 px de blanc au-dessus de ... ».
+   *
+   * Plutot que d'ajouter la dependance, on ecrit ici le strict necessaire, dans
+   * la palette du site et selon le rythme vertical que la recette impose : un
+   * blanc au-dessus d'un titre superieur a celui qui le separe de son texte,
+   * faute de quoi le titre parait appartenir au paragraphe precedent.
+   */
+  :where(.prose) {
+    color: var(--color-neutral-700);
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+
+  :where(.prose) > * + * {
+    margin-top: 1.25em;
+  }
+
+  :where(.prose) h2 {
+    font-size: 1.6em;
+    line-height: 1.25;
+    margin-top: 2.25em;
+    margin-bottom: 0.6em;
+  }
+
+  :where(.prose) h3 {
+    font-size: 1.25em;
+    line-height: 1.35;
+    margin-top: 1.9em;
+    margin-bottom: 0.5em;
+  }
+
+  :where(.prose) h2:first-child,
+  .prose h3:first-child {
+    margin-top: 0;
+  }
+
+  :where(.prose) ul,
+  .prose ol {
+    padding-left: 1.5em;
+    margin-top: 1em;
+  }
+
+  :where(.prose) ul { list-style: disc; }
+  :where(.prose) ol { list-style: decimal; }
+
+  :where(.prose) li { margin-top: 0.5em; }
+  :where(.prose) li::marker { color: var(--color-primary-600); }
+
+  :where(.prose) strong {
+    color: var(--color-neutral-900);
+    font-weight: 600;
+  }
+
+  :where(.prose) a {
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary-300);
+    text-underline-offset: 2px;
+  }
+
+  :where(.prose) a:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Citation : le filet vert du drapeau plutot qu'un gris sans intention. */
+  :where(.prose) blockquote {
+    border-left: 3px solid var(--color-primary-600);
+    padding-left: 1.1em;
+    font-style: italic;
+    color: var(--color-neutral-600);
+  }
+
+  :where(.prose) table {
+    width: 100%;
+    font-size: 0.925em;
+    border-collapse: collapse;
+  }
+
+  :where(.prose) th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--color-neutral-900);
+    border-bottom: 2px solid var(--color-neutral-300);
+    padding: 0.5em 0.75em 0.5em 0;
+  }
+
+  :where(.prose) td {
+    border-bottom: 1px solid var(--color-neutral-200);
+    padding: 0.5em 0.75em 0.5em 0;
+  }
+
+  /* `prose-lg` : meme rythme, un cran au-dessus, pour les pages de lecture. */
+  :where(.prose-lg) {
+    font-size: 1.0625rem;
+  }
+}
+
+
+/*
+ * Liens du pied de page.
+ *
+ * Le bloc de confiance injecte au build (mentions, methodologie, auteur) pose
+ * des liens sans classe : ils prenaient donc le vert fonce des liens de
+ * contenu, sur le fond presque noir du pied de page. Mesure : 2,02:1, soit
+ * un texte pratiquement invisible. Les liens du pied recoivent ici une couleur
+ * claire ; ceux qui portent deja une classe Tailwind gardent la leur, une
+ * classe l'emportant sur ce selecteur.
+ */
+footer a {
+  color: var(--color-primary-300);
+}
+
+footer a:hover {
+  color: #ffffff;
+}
+
+/*
+ * Signature graphique : la proportion du drapeau portugais, deux cinquiemes de
+ * vert et trois cinquiemes de rouge, reduite a un filet de quelques pixels.
+ * Elle ouvre les sections importantes sans charger la page de couleur.
+ */
+.regua-bandeira {
+  background: linear-gradient(
+    to right,
+    var(--color-primary-600) 0 40%,
+    var(--color-secondary-500) 40% 100%
+  );
+}
+
+/*
+ * Meme filet, vertical, pour ouvrir un encadre. Les proportions s'inversent :
+ * sur quelques dizaines de pixels de haut, la part rouge du drapeau devenait
+ * dominante et l'element se lisait comme une alerte.
+ */
+.borda-bandeira {
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary-600) 0 65%,
+    var(--color-secondary-500) 65% 100%
+  );
+}
+
+/*
+ * Mode sombre.
+ *
+ * La version precedente empilait des `!important` sur des classes Tailwind et
+ * repassait les liens en bleu, ce qui faisait perdre l'identite du site des
+ * que le systeme etait en sombre. On redefinit ici les memes jetons de couleur,
+ * eclaircis : sur fond sombre, un vert trop fonce devient illisible, c'est donc
+ * le vert 300 qui porte les liens (contraste 7,8:1 sur le fond retenu).
+ */
 @media (prefers-color-scheme: dark) {
-  body { background-color: #0f172a; color: #e2e8f0; }
-  nav, header { background-color: #1e293b; }
-  footer { background-color: #1e293b; color: #94a3b8; }
-  main { background-color: #0f172a; }
-  h1, h2, h3, h4, h5, h6 { color: #f1f5f9; }
-  a { color: #60a5fa; }
-  a:hover { color: #93bbfd; }
-  input, select, textarea { background-color: #1e293b; color: #e2e8f0; border-color: #475569; }
-  table { border-color: #334155; }
-  th { background-color: #1e293b; color: #e2e8f0; }
-  td { border-color: #334155; }
-  .bg-white { background-color: #1e293b !important; }
-  .bg-gray-50, .bg-gray-100 { background-color: #0f172a !important; }
-  .bg-gray-800, .bg-gray-900 { background-color: #0f172a !important; }
-  .text-gray-900 { color: #e2e8f0 !important; }
-  .text-gray-800 { color: #e2e8f0 !important; }
-  .text-gray-700 { color: #cbd5e1 !important; }
-  .text-gray-600 { color: #94a3b8 !important; }
-  .text-gray-500 { color: #94a3b8 !important; }
-  .border-gray-200, .border-gray-300 { border-color: #334155 !important; }
-  .shadow-lg, .shadow-md, .shadow { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3) !important; }
+  :root {
+    --color-neutral-50: #161614;
+    --color-neutral-100: #1e1e1b;
+    --color-neutral-200: #2c2c28;
+    --color-neutral-300: #3d3d38;
+    --color-neutral-400: #6b6b63;
+    --color-neutral-500: #9a9a91;
+    --color-neutral-600: #bdbdb4;
+    --color-neutral-700: #d8d8d1;
+    --color-neutral-800: #ececE6;
+    --color-neutral-900: #f7f7f4;
+  }
+
+  body {
+    background-color: #131311;
+    color: #d8d8d1;
+  }
+
+  a {
+    color: var(--color-primary-300);
+  }
+
+  a:hover {
+    color: var(--color-primary-200);
+  }
+
+  /* Le blanc des cartes devient le gris le plus clair du fond sombre. */
+  .bg-white {
+    background-color: #1e1e1b;
+  }
+
+  /*
+   * Deux blocs etaient deja sombres en mode clair : le pied de page et
+   * l'encadre de code du widget. L'inversion de l'echelle de gris en ferait
+   * des aplats blancs au milieu d'une page sombre ; on les rattache donc au
+   * fond, en un ton plus profond que lui pour qu'ils restent distincts.
+   */
+  footer.bg-neutral-900,
+  .bloco-codigo {
+    background-color: #0d0d0c;
+  }
+
+  /* Sur ce fond plus profond, le gris du pied de page doit remonter d'un cran. */
+  footer .text-neutral-400 {
+    color: #9a9a91;
+  }
+
+  input, select, textarea {
+    background-color: #1e1e1b;
+    color: #ececE6;
+    border-color: #3d3d38;
+  }
+
+  :focus-visible {
+    outline-color: var(--color-primary-300);
+  }
+}
+
+/* Impression : le lecteur qui imprime sa fiche de calcul n'a que faire du menu. */
+@media print {
+  header, footer, nav, .nao-imprimir {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
 }

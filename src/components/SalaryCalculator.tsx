@@ -39,12 +39,16 @@ export default function SalaryCalculator() {
   return (
     <div className="w-full max-w-5xl mx-auto">
       {/* ── Input Form ── */}
-      <div className="bg-white rounded-2xl shadow-lg border border-neutral-200 p-6 md:p-8 mb-8">
-        <h2 className="text-2xl font-bold text-neutral-900 mb-6 flex items-center gap-2">
-          <svg className="w-7 h-7 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-          </svg>
-          Calcular Sal&aacute;rio L&iacute;quido
+      <div className="bg-white rounded-2xl shadow-xl shadow-primary-900/5 ring-1 ring-neutral-200 overflow-hidden mb-6">
+        <div className="regua-bandeira h-1.5" aria-hidden="true" />
+        <div className="p-6 md:p-8">
+        <h2 className="text-xl font-bold text-neutral-900 mb-6 flex items-center gap-2.5">
+          <span className="w-8 h-8 rounded-lg bg-primary-50 ring-1 ring-primary-100 flex items-center justify-center">
+            <svg className="w-5 h-5 text-primary-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+          </span>
+          A sua situa&ccedil;&atilde;o
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -61,10 +65,10 @@ export default function SalaryCalculator() {
                 step={50}
                 value={grossMonthly}
                 onChange={handleGrossChange}
-                className="w-full pl-8 pr-4 py-3 border-2 border-neutral-300 rounded-xl text-lg font-semibold
-                  focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition-colors"
+                className="w-full pl-8 pr-4 py-3 border border-neutral-300 rounded-xl text-lg font-semibold bg-neutral-50
+                  focus:bg-white focus:border-primary-600 focus:ring-4 focus:ring-primary-600/15 focus:outline-none transition-all"
               />
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 font-semibold">&euro;</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 font-semibold">&euro;</span>
             </div>
             <p className="mt-1.5 text-xs text-neutral-500">
               Sal&aacute;rio m&iacute;nimo 2026: {formatCurrency(SALARIO_MINIMO_2026)}
@@ -80,12 +84,12 @@ export default function SalaryCalculator() {
               id="marital"
               value={maritalStatus}
               onChange={(e) => setMaritalStatus(e.target.value as SalaryInput["maritalStatus"])}
-              className="w-full px-4 py-3 border-2 border-neutral-300 rounded-xl text-base
-                focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition-colors"
+              className="w-full px-4 py-3 border border-neutral-300 rounded-xl text-base bg-neutral-50
+                focus:bg-white focus:border-primary-600 focus:ring-4 focus:ring-primary-600/15 focus:outline-none transition-all"
             >
               <option value="solteiro">Solteiro / Divorciado / Vi&uacute;vo</option>
-              <option value="casado1titular">Casado &mdash; &Uacute;nico Titular</option>
-              <option value="casado2titulares">Casado &mdash; Dois Titulares</option>
+              <option value="casado1titular">Casado, &Uacute;nico Titular</option>
+              <option value="casado2titulares">Casado (dois titulares)</option>
             </select>
           </div>
 
@@ -98,8 +102,8 @@ export default function SalaryCalculator() {
               id="deps"
               value={dependents}
               onChange={(e) => setDependents(parseInt(e.target.value, 10))}
-              className="w-full px-4 py-3 border-2 border-neutral-300 rounded-xl text-base
-                focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition-colors"
+              className="w-full px-4 py-3 border border-neutral-300 rounded-xl text-base bg-neutral-50
+                focus:bg-white focus:border-primary-600 focus:ring-4 focus:ring-primary-600/15 focus:outline-none transition-all"
             >
               {[0, 1, 2, 3, 4, 5].map((n) => (
                 <option key={n} value={n}>
@@ -118,50 +122,85 @@ export default function SalaryCalculator() {
               id="irsJovem"
               value={irsJovem}
               onChange={(e) => setIrsJovem(parseInt(e.target.value, 10))}
-              className="w-full px-4 py-3 border-2 border-neutral-300 rounded-xl text-base
-                focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition-colors"
+              className="w-full px-4 py-3 border border-neutral-300 rounded-xl text-base bg-neutral-50
+                focus:bg-white focus:border-primary-600 focus:ring-4 focus:ring-primary-600/15 focus:outline-none transition-all"
             >
               <option value={0}>N&atilde;o aplic&aacute;vel</option>
-              <option value={1}>1.&ordm; ano &mdash; Isen&ccedil;&atilde;o 100%</option>
-              <option value={2}>2.&ordm; ano &mdash; Isen&ccedil;&atilde;o 75%</option>
-              <option value={3}>3.&ordm; ano &mdash; Isen&ccedil;&atilde;o 50%</option>
-              <option value={4}>4.&ordm; ano &mdash; Isen&ccedil;&atilde;o 50%</option>
-              <option value={5}>5.&ordm; ano &mdash; Isen&ccedil;&atilde;o 25%</option>
+              <option value={1}>1.&ordm; ano, Isen&ccedil;&atilde;o 100%</option>
+              <option value={2}>2.&ordm; ano, Isen&ccedil;&atilde;o 75%</option>
+              <option value={3}>3.&ordm; ano, Isen&ccedil;&atilde;o 50%</option>
+              <option value={4}>4.&ordm; ano, Isen&ccedil;&atilde;o 50%</option>
+              <option value={5}>5.&ordm; ano, Isen&ccedil;&atilde;o 25%</option>
             </select>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      {/*
+          Resultats. Trois cartes de meme poids ne disaient pas laquelle
+          repondait a la question posee. La carte du net occupe maintenant la
+          moitie de la largeur, sur le vert du drapeau, et porte en dessous la
+          repartition reelle de chaque euro brut : ce que le salarie garde, ce
+          qui part en Securite sociale, ce qui part en IRS. La barre est
+          calculee, pas decorative.
+      */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-6">
+        <div className="relative bg-primary-800 rounded-2xl shadow-xl shadow-primary-900/20 p-6 md:p-7 text-white overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-20 pointer-events-none"
+            style={{ backgroundImage: "radial-gradient(circle at 85% 15%, #ffc72c 0, transparent 55%)" }}
+            aria-hidden="true"
+          />
+          <div className="relative">
+            <p className="text-primary-200 text-xs font-semibold uppercase tracking-widest">
+              Sal&aacute;rio l&iacute;quido mensal
+            </p>
+            <p className="text-5xl md:text-6xl font-extrabold mt-2 tracking-tight tabular-nums">
+              {formatCurrency(result.netMonthly)}
+            </p>
+            <p className="text-primary-100 text-sm mt-2">
+              {formatPercent(result.grossMonthly > 0 ? result.netMonthly / result.grossMonthly : 0)} do sal&aacute;rio bruto
+            </p>
+
+            <div className="mt-6 pt-5 border-t border-white/15">
+              <Reparticao result={result} />
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-5">
+          <div className="bg-white rounded-2xl ring-1 ring-neutral-200 p-6 flex flex-col justify-center">
+            <p className="text-neutral-500 text-xs font-semibold uppercase tracking-widest">
+              L&iacute;quido anual, 14 meses
+            </p>
+            <p className="text-3xl font-extrabold text-neutral-900 mt-1.5 tabular-nums">
+              {formatCurrency(result.netAnnual)}
+            </p>
+            <p className="text-neutral-500 text-sm mt-1.5">
+              Bruto anual {formatCurrency(result.grossAnnual)}
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl ring-1 ring-neutral-200 p-6 flex flex-col justify-center">
+            <p className="text-neutral-500 text-xs font-semibold uppercase tracking-widest">
+              Custo para a empresa
+            </p>
+            <p className="text-3xl font-extrabold text-neutral-900 mt-1.5 tabular-nums">
+              {formatCurrency(result.custoEmpregadorMensal)}
+            </p>
+            <p className="text-neutral-500 text-sm mt-1.5">
+              Por ano {formatCurrency(result.custoEmpregadorAnual)}
+            </p>
           </div>
         </div>
       </div>
 
-      {/* ── Results ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        {/* Net Monthly Card */}
-        <div className="bg-primary-600 rounded-2xl shadow-lg p-6 text-white lg:col-span-1">
-          <p className="text-primary-100 text-sm font-medium uppercase tracking-wide">Sal&aacute;rio L&iacute;quido Mensal</p>
-          <p className="text-4xl font-extrabold mt-2">{formatCurrency(result.netMonthly)}</p>
-          <p className="text-primary-200 text-sm mt-2">
-            {formatPercent(result.grossMonthly > 0 ? result.netMonthly / result.grossMonthly : 0)} do bruto
-          </p>
-        </div>
-
-        {/* Net Annual Card */}
-        <div className="bg-white rounded-2xl shadow-lg border border-neutral-200 p-6 lg:col-span-1">
-          <p className="text-neutral-500 text-sm font-medium uppercase tracking-wide">L&iacute;quido Anual (14 meses)</p>
-          <p className="text-3xl font-extrabold text-neutral-900 mt-2">{formatCurrency(result.netAnnual)}</p>
-          <p className="text-neutral-400 text-sm mt-2">Bruto anual: {formatCurrency(result.grossAnnual)}</p>
-        </div>
-
-        {/* Employer Cost Card */}
-        <div className="bg-white rounded-2xl shadow-lg border border-neutral-200 p-6 lg:col-span-1">
-          <p className="text-neutral-500 text-sm font-medium uppercase tracking-wide">Custo Empregador Mensal</p>
-          <p className="text-3xl font-extrabold text-neutral-900 mt-2">{formatCurrency(result.custoEmpregadorMensal)}</p>
-          <p className="text-neutral-400 text-sm mt-2">Anual: {formatCurrency(result.custoEmpregadorAnual)}</p>
-        </div>
-      </div>
-
       {/* ── Detailed Breakdown ── */}
-      <div className="bg-white rounded-2xl shadow-lg border border-neutral-200 overflow-hidden">
-        <div className="px-6 md:px-8 py-5 bg-neutral-50 border-b border-neutral-200">
-          <h3 className="text-lg font-bold text-neutral-800">Detalhe do C&aacute;lculo</h3>
+      <div className="bg-white rounded-2xl ring-1 ring-neutral-200 overflow-hidden">
+        <div className="px-6 md:px-8 py-5 border-b border-neutral-200 flex items-center gap-3">
+          <span className="borda-bandeira w-1 h-6 rounded-full" aria-hidden="true" />
+          <h3 className="text-base font-bold text-neutral-900">Detalhe do c&aacute;lculo</h3>
         </div>
 
         <div className="divide-y divide-neutral-100">
@@ -180,7 +219,7 @@ export default function SalaryCalculator() {
           </Section>
 
           {/* IRS */}
-          <Section title="IRS &mdash; Imposto sobre o Rendimento">
+          <Section title="IRS, Imposto sobre o Rendimento">
             <Row label="Dedu&ccedil;&atilde;o Espec&iacute;fica" value={formatCurrency(result.deducaoEspecifica)} info />
             <Row label="Rendimento Colet&aacute;vel" value={formatCurrency(result.taxableIncome)} />
             <Row label="IRS Anual" value={`-${formatCurrency(result.irsAnnual)}`} negative />
@@ -201,14 +240,14 @@ export default function SalaryCalculator() {
           </Section>
 
           {/* Líquido */}
-          <div className="px-6 md:px-8 py-5 bg-primary-50 border-t-2 border-primary-200">
-            <div className="flex justify-between items-center">
-              <span className="text-lg font-bold text-primary-800">Sal&aacute;rio L&iacute;quido Mensal</span>
-              <span className="text-2xl font-extrabold text-primary-700">{formatCurrency(result.netMonthly)}</span>
+          <div className="px-6 md:px-8 py-5 bg-primary-50 border-t border-primary-200">
+            <div className="flex justify-between items-baseline gap-4">
+              <span className="text-base font-bold text-primary-900">Sal&aacute;rio l&iacute;quido mensal</span>
+              <span className="text-2xl font-extrabold text-primary-800 tabular-nums">{formatCurrency(result.netMonthly)}</span>
             </div>
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-base font-semibold text-primary-700">L&iacute;quido Anual</span>
-              <span className="text-xl font-bold text-primary-600">{formatCurrency(result.netAnnual)}</span>
+            <div className="flex justify-between items-baseline gap-4 mt-2">
+              <span className="text-sm font-semibold text-primary-800">L&iacute;quido anual</span>
+              <span className="text-lg font-bold text-primary-700 tabular-nums">{formatCurrency(result.netAnnual)}</span>
             </div>
           </div>
         </div>
@@ -219,11 +258,63 @@ export default function SalaryCalculator() {
 
 /* ── Sub-components ── */
 
+/**
+ * Ou va chaque euro du salaire brut.
+ *
+ * Les trois parts, net, Securite sociale, IRS, se deduisent du resultat du
+ * moteur et se somment exactement au brut : aucune valeur n'est saisie ici.
+ * Les couleurs sont celles du drapeau, le vert pour ce qui reste au salarie,
+ * le rouge pour l'impot, l'or pour la contribution sociale.
+ */
+function Reparticao({ result }: { result: SalaryResult }) {
+  const bruto = result.grossMonthly;
+  if (bruto <= 0) return null;
+
+  const partes = [
+    { rotulo: "L\u00edquido", valor: result.netMonthly, cor: "#6fc79e" },
+    { rotulo: "Seguran\u00e7a Social", valor: result.tsuEmployee, cor: "#ffc72c" },
+    { rotulo: "Reten\u00e7\u00e3o de IRS", valor: result.retencaoMensal, cor: "#ec5f52" },
+  ].filter((p) => p.valor > 0);
+
+  return (
+    <div>
+      <div className="flex h-2.5 rounded-full overflow-hidden bg-white/20" role="presentation">
+        {partes.map((p) => (
+          <div
+            key={p.rotulo}
+            style={{ width: `${(p.valor / bruto) * 100}%`, backgroundColor: p.cor }}
+            title={`${p.rotulo}: ${formatCurrency(p.valor)}`}
+          />
+        ))}
+      </div>
+      <dl className="mt-3 space-y-1.5">
+        {partes.map((p) => (
+          <div key={p.rotulo} className="flex items-center gap-2 text-sm">
+            <span
+              className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+              style={{ backgroundColor: p.cor }}
+              aria-hidden="true"
+            />
+            <dt className="text-primary-100">{p.rotulo}</dt>
+            <dd className="ml-auto font-semibold tabular-nums">
+              {formatCurrency(p.valor)}
+              <span className="text-primary-200 font-normal ml-2">
+                {formatPercent(p.valor / bruto)}
+              </span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="px-6 md:px-8 py-4">
       <h4
-        className="text-sm font-bold text-neutral-500 uppercase tracking-wider mb-3"
+        className="text-[11px] font-bold text-neutral-500 uppercase tracking-widest mb-3"
         dangerouslySetInnerHTML={{ __html: title }}
       />
       <div className="space-y-2">{children}</div>
@@ -245,7 +336,7 @@ function Row({
   info?: boolean;
 }) {
   const valueColor = negative
-    ? "text-secondary-600"
+    ? "text-secondary-700"
     : positive
       ? "text-primary-600"
       : info
@@ -258,7 +349,7 @@ function Row({
         className="text-sm text-neutral-600"
         dangerouslySetInnerHTML={{ __html: label }}
       />
-      <span className={`text-sm font-semibold ${valueColor}`}>{value}</span>
+      <span className={`text-sm font-semibold tabular-nums ${valueColor}`}>{value}</span>
     </div>
   );
 }

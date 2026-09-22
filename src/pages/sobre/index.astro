@@ -1,9 +1,47 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+const faqs = [
+  {
+    "pergunta": "Quem está por trás deste site?",
+    "resposta": "O site é editado pela Radif Partners, que publica calculadoras e guias práticos de finanças pessoais em vários países. A metodologia de cálculo está publicada numa página própria, e cada valor remete para a fonte oficial de onde foi retirado. Não somos uma entidade oficial nem substituímos a Autoridade Tributária."
+  },
+  {
+    "pergunta": "O site é gratuito? Como se financia?",
+    "resposta": "O acesso é gratuito e não exige registo. O site financia-se por publicidade, nunca colocada acima da calculadora. Nenhum dado introduzido é vendido nem partilhado: o cálculo executa-se no seu navegador e os valores não são enviados para servidor algum."
+  },
+  {
+    "pergunta": "Os meus dados salariais ficam guardados?",
+    "resposta": "Não. O salário que introduz é processado localmente, no navegador, e desaparece assim que fecha a página. Não existe base de dados de valores introduzidos, nem associação a qualquer identificador pessoal. A medição de audiência regista páginas vistas e origem do tráfego, nunca o conteúdo dos campos do simulador."
+  },
+  {
+    "pergunta": "Com que frequência os valores são atualizados?",
+    "resposta": "As tabelas de retenção e as taxas contributivas são atualizadas assim que publicadas oficialmente, normalmente em janeiro. Não antecipamos alterações anunciadas mas ainda não publicadas: um valor a mais na página vale menos do que um valor certo. Cada página mostra a data da sua última revisão."
+  },
+  {
+    "pergunta": "Encontrei um valor que me parece errado. O que faço?",
+    "resposta": "Escreva-nos com a página em causa e o valor que esperava. Verificamos contra a fonte oficial e, se o erro se confirmar, corrigimos e a data de revisão da página muda em conformidade. Correções desta origem são a forma mais rápida de melhorar o site."
+  },
+  {
+    "pergunta": "Posso usar a calculadora no meu próprio site?",
+    "resposta": "Sim. Existe uma versão incorporável, pensada para ser inserida num iframe, sem publicidade e com o mesmo motor de cálculo. É de utilização livre, desde que mantenha a ligação de atribuição que acompanha o widget. Basta copiar o código de incorporação disponível na página dedicada; não é necessário registo nem chave de acesso."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.pergunta,
+    "acceptedAnswer": { "@type": "Answer", "text": f.resposta }
+  }))
+};
+
+import FontesOficiais from '../../components/FontesOficiais.astro';
 ---
 
 <Layout
-  title="Sobre nos - Calculadora de Salario Liquido Portugal | salarioliquido.pt"
+  title="Sobre o Simulador de Salário Líquido Português 2026"
   description="Saiba mais sobre a equipa por detras do salarioliquido.pt, a nossa missao e a nossa experiencia em tecnologia financeira e calculo salarial em Portugal."
   canonical="/sobre/"
 >
@@ -85,4 +123,21 @@ import Layout from '../../layouts/Layout.astro';
       </div>
     </div>
   </section>
+
+  <section class="max-w-3xl mx-auto mt-12 border-t border-neutral-200 pt-8">
+    <h2 class="text-2xl font-bold text-neutral-900 mb-4">Perguntas frequentes</h2>
+    <div class="space-y-3">
+      {faqs.map((f) => (
+        <details class="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+          <summary class="px-4 py-3 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 list-none">
+            {f.pergunta}
+          </summary>
+          <div class="px-4 pb-4 text-sm text-neutral-700 leading-relaxed">{f.resposta}</div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <FontesOficiais />
 </Layout>

@@ -1,10 +1,53 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+const faqs = [
+  {
+    "pergunta": "Qual a diferença entre salário bruto e salário líquido?",
+    "resposta": "O salário bruto é o valor acordado no contrato, antes de qualquer desconto. O líquido é o que chega efetivamente à conta, depois de retirados os 11% de contribuição para a Segurança Social e a retenção na fonte de IRS. Entre um e outro há tipicamente uma diferença de 20% a 35%, consoante o escalão e a situação familiar do trabalhador."
+  },
+  {
+    "pergunta": "O que significa TSU e quem a paga?",
+    "resposta": "TSU é a Taxa Social Única, a contribuição para a Segurança Social. Paga-a o trabalhador, na proporção de 11% do salário bruto, e também a entidade empregadora, na proporção de 23,75%. A parte do trabalhador aparece no recibo de vencimento; a do empregador não, mas é um custo real da empresa e explica o desvio entre o custo do trabalho e o que o trabalhador recebe."
+  },
+  {
+    "pergunta": "O que é o rendimento coletável?",
+    "resposta": "É o valor sobre o qual o imposto incide efetivamente, e não o salário bruto. Obtém-se subtraindo ao rendimento anual a dedução específica ou o total das contribuições para a Segurança Social, consoante o que for mais elevado. É por isso que dois salários brutos iguais podem gerar impostos diferentes: o que conta é o que resta depois destas deduções."
+  },
+  {
+    "pergunta": "Retenção na fonte e IRS são a mesma coisa?",
+    "resposta": "Não. A retenção na fonte é um adiantamento mensal, calculado por tabelas que aproximam o imposto devido. O IRS é o imposto final, apurado na declaração anual sobre o rendimento do ano inteiro. Se a retenção foi superior ao imposto devido, há reembolso; se foi inferior, há valor a pagar. A retenção é uma estimativa, o IRS é a conta certa."
+  },
+  {
+    "pergunta": "O que distingue a dedução específica das deduções à coleta?",
+    "resposta": "A dedução específica retira-se ao rendimento antes de calcular o imposto, reduzindo a base tributável. As deduções à coleta, saúde, educação, habitação, lares, retiram-se ao imposto já calculado, e têm limites próprios por categoria. Um euro de dedução à coleta vale portanto mais do que um euro de dedução específica."
+  },
+  {
+    "pergunta": "O que são os duodécimos dos subsídios?",
+    "resposta": "São os subsídios de férias e de Natal pagos em parcelas mensais, em vez de por inteiro nos meses habituais. O valor anual é praticamente o mesmo, mas o líquido mensal muda, tal como a retenção aplicada. O trabalhador pode optar por receber metade em duodécimos e metade por inteiro."
+  },
+  {
+    "pergunta": "O que é a taxa efetiva e em que difere da taxa marginal?",
+    "resposta": "A taxa efetiva é o que paga em média sobre todo o rendimento. A taxa marginal é a que se aplica ao último euro ganho, e é sempre superior num sistema por escalões. É esta distinção que explica por que um aumento parece render menos do que se esperava: é tributado no topo do rendimento, não na média."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.pergunta,
+    "acceptedAnswer": { "@type": "Answer", "text": f.resposta }
+  }))
+};
+
+import FontesOficiais from '../../components/FontesOficiais.astro';
+import ContextoFolha from '../../components/ContextoFolha.astro';
 ---
 
 <Layout
-  title="Glossario - Termos de Salario e Impostos em Portugal | salarioliquido.pt"
-  description="Explicacoes de todos os termos importantes relacionados com salarios, IRS, Seguranca Social e deducoes fiscais em Portugal."
+  title="Glossário de Termos de Salário e IRS em Portugal 2026"
+  description="Todos os termos do recibo de vencimento explicados: bruto, líquido, TSU, retenção na fonte, rendimento coletável, duodécimos, taxa efetiva e taxa marginal."
   canonical="/glossario/"
 >
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -26,86 +69,119 @@ import Layout from '../../layouts/Layout.astro';
 
       <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-4">Glossario de termos salariais e fiscais</h1>
       <p class="text-neutral-600 mb-8">
-        Todos os termos importantes relacionados com o salario bruto, salario liquido, IRS e Seguranca Social
+        Todos os termos importantes relacionados com o salário bruto, salário líquido, IRS e Segurança Social
         em Portugal, explicados de forma simples.
       </p>
 
       <div class="space-y-6">
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Salario Bruto</h2>
-          <p class="text-neutral-600">O valor total da remuneracao acordada entre o trabalhador e a entidade empregadora, antes de quaisquer descontos. Inclui o vencimento base e eventuais complementos salariais regulares. E sobre este valor que incidem as contribuicoes para a Seguranca Social e a retencao na fonte de IRS.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Salário Bruto</h2>
+          <p class="text-neutral-600">O valor total da remuneração acordada entre o trabalhador e a entidade empregadora, antes de quaisquer descontos. Inclui o vencimento base e eventuais complementos salariais regulares. E sobre este valor que incidem as contribuições para a Segurança Social e a retenção na fonte de IRS.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: num contrato que indica 1 500 € mensais, esse é o valor bruto. É sobre ele que incidem os 11 % de Segurança Social e é dele que parte todo o cálculo, nunca do líquido.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Salario Liquido</h2>
-          <p class="text-neutral-600">O valor que o trabalhador efetivamente recebe na sua conta bancaria apos todos os descontos obrigatorios (Seguranca Social e IRS). E o montante disponivel para o trabalhador utilizar livremente.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Salário Líquido</h2>
+          <p class="text-neutral-600">O valor que o trabalhador efetivamente recebe na sua conta bancária após todos os descontos obrigatórios (Segurança Social e IRS). E o montante disponivel para o trabalhador utilizar livremente.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com 1 500 € brutos, um solteiro sem dependentes recebe cerca de 1 115 € líquidos. A diferença de 385 € reparte-se entre 165 € de Segurança Social e cerca de 220 € de retenção de IRS.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">IRS (Imposto sobre o Rendimento das Pessoas Singulares)</h2>
-          <p class="text-neutral-600">O imposto sobre o rendimento dos trabalhadores em Portugal. E calculado com base em escaloes progressivos: quanto maior o rendimento, maior a taxa marginal aplicada. Em 2026, os escaloes variam entre 13% e 48%. O IRS e retido mensalmente na fonte pelo empregador e ajustado na declaracao anual.</p>
+          <p class="text-neutral-600">O imposto sobre o rendimento dos trabalhadores em Portugal. E calculado com base em escalões progressivos: quanto maior o rendimento, maior a taxa marginal aplicada. Em 2026, os escalões variam entre 13% e 48%. O IRS e retido mensalmente na fonte pelo empregador e ajustado na declaração anual.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: sobre 1 500 € brutos mensais, o IRS retido ronda os 220 € por mês. O imposto definitivo pode ser inferior, porque as deduções à coleta só entram na declaração anual.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Seguranca Social (TSU)</h2>
-          <p class="text-neutral-600">A Taxa Social Unica corresponde as contribuicoes obrigatorias para o sistema de protecao social. O trabalhador por conta de outrem desconta 11% do salario bruto, enquanto a entidade empregadora contribui com 23,75%. Estas contribuicoes financiam pensoes, subsidio de desemprego, subsidio de doenca e outras prestacoes sociais.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Segurança Social (TSU)</h2>
+          <p class="text-neutral-600">A Taxa Social Única corresponde as contribuições obrigatorias para o sistema de protecao social. O trabalhador por conta de outrem desconta 11% do salário bruto, enquanto a entidade empregadora contribui com 23,75%. Estas contribuições financiam pensoes, subsídio de desemprego, subsídio de doenca e outras prestacoes sociais.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: sobre 1 500 € brutos, o trabalhador desconta 165 € e a empresa paga mais 356,25 €. O custo total do posto de trabalho é portanto de 1 856,25 €, e não de 1 500 €.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">Sobretaxa</h2>
-          <p class="text-neutral-600">Uma taxa adicional sobre o rendimento coletavel que ja foi aplicada em Portugal em anos anteriores como medida de austeridade. Atualmente nao esta em vigor, mas e um termo frequentemente associado ao calculo do IRS.</p>
+          <p class="text-neutral-600">Uma taxa adicional sobre o rendimento coletável que ja foi aplicada em Portugal em anos anteriores como medida de austeridade. Atualmente nao esta em vigor, mas e um termo frequentemente associado ao cálculo do IRS.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: a sobretaxa extraordinária foi eliminada e já não se aplica aos rendimentos de 2026. Continua a aparecer em simuladores desatualizados, que devolvem por isso um líquido inferior ao real.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Retencao na Fonte</h2>
-          <p class="text-neutral-600">O pagamento antecipado de IRS que a entidade empregadora desconta mensalmente do salario e entrega ao Estado. A taxa de retencao depende do salario bruto, estado civil e numero de dependentes, conforme as tabelas publicadas anualmente pela Autoridade Tributaria.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Retenção na Fonte</h2>
+          <p class="text-neutral-600">O pagamento antecipado de IRS que a entidade empregadora desconta mensalmente do salário e entrega ao Estado. A taxa de retenção depende do salário bruto, estado civil e numero de dependentes, conforme as tabelas publicadas anualmente pela Autoridade Tributaria.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: a tabela pode reter 220 € num mês em que o imposto realmente devido seria de 200 €. Os 20 € de excesso regressam sob a forma de reembolso, no ano seguinte, após a declaração anual.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">Taxa Marginal</h2>
-          <p class="text-neutral-600">A taxa de imposto aplicada ao ultimo escalao de rendimento. Em Portugal, o IRS e progressivo, o que significa que diferentes partes do rendimento sao tributadas a taxas diferentes. A taxa marginal e a taxa mais alta aplicada, nao a taxa sobre todo o rendimento.</p>
+          <p class="text-neutral-600">A taxa de imposto aplicada ao ultimo escalão de rendimento. Em Portugal, o IRS e progressivo, o que significa que diferentes partes do rendimento sao tributadas a taxas diferentes. A taxa marginal e a taxa mais alta aplicada, nao a taxa sobre todo o rendimento.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com uma taxa marginal de 35 %, um aumento de 100 € brutos deixa 65 € antes da Segurança Social. A taxa média paga sobre o conjunto do salário continua muito abaixo desse valor.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Deducao Especifica</h2>
-          <p class="text-neutral-600">Um valor fixo de 4.104 EUR que e subtraido ao rendimento bruto anual para determinar o rendimento coletavel. Aplica-se automaticamente a todos os trabalhadores dependentes (categoria A). Se as contribuicoes para a Seguranca Social forem superiores a este valor, utiliza-se o montante mais elevado.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Dedução Específica</h2>
+          <p class="text-neutral-600">Um valor fixo de 4.104 EUR que e subtraido ao rendimento bruto anual para determinar o rendimento coletável. Aplica-se automaticamente a todos os trabalhadores dependentes (categoria A). Se as contribuições para a Segurança Social forem superiores a este valor, utiliza-se o montante mais elevado.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: quem desconta 2 310 € de Segurança Social num ano beneficia desse valor como dedução, por ser superior aos 4 104 € apenas quando o salário o justifica; aplica-se sempre o montante mais elevado dos dois.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Rendimento Coletavel</h2>
-          <p class="text-neutral-600">O valor sobre o qual incide efetivamente o IRS, apos a deducao especifica e outras deducoes aplicaveis. E calculado subtraindo ao rendimento bruto anual a deducao especifica (ou as contribuicoes para a Seguranca Social, se superiores).</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Rendimento Coletável</h2>
+          <p class="text-neutral-600">O valor sobre o qual incide efetivamente o IRS, após a dedução específica e outras deducoes aplicaveis. E calculado subtraindo ao rendimento bruto anual a dedução específica (ou as contribuições para a Segurança Social, se superiores).</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com 21 000 € de rendimento anual e 2 310 € de contribuições, o rendimento coletável é de cerca de 16 896 € depois da dedução específica. É sobre esse valor, e não sobre os 21 000 €, que incidem os escalões.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsidio de Refeicao</h2>
-          <p class="text-neutral-600">Uma prestacao paga pelo empregador para compensar as despesas de alimentacao do trabalhador. Quando pago em dinheiro, esta isento de IRS e Seguranca Social ate 6,00 EUR por dia. Quando pago em cartao de refeicao, a isencao sobe para 10,20 EUR por dia.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsídio de Refeição</h2>
+          <p class="text-neutral-600">Uma prestacao paga pelo empregador para compensar as despesas de alimentacao do trabalhador. Quando pago em dinheiro, esta isento de IRS e Segurança Social ate 6,00 EUR por dia. Quando pago em cartao de refeição, a isenção sobe para 10,20 EUR por dia.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: 22 dias úteis a 6 € por dia em cartão representam 132 € por mês isentos de IRS e de Segurança Social. Pago em dinheiro, o limite isento é mais baixo e o excedente passa a ser tributado.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsidio de Ferias</h2>
-          <p class="text-neutral-600">Uma remuneracao adicional obrigatoria por lei, correspondente a um mes de retribuicao, paga antes do inicio do periodo de ferias. E o chamado 14.o mes. Esta sujeito a retencao na fonte de IRS e a contribuicoes para a Seguranca Social.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsídio de Férias</h2>
+          <p class="text-neutral-600">Uma remuneração adicional obrigatoria por lei, correspondente a um mês de retribuicao, paga antes do inicio do periodo de férias. E o chamado 14.o mês. Esta sujeito a retenção na fonte de IRS e a contribuições para a Segurança Social.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com 1 500 € brutos, o subsídio de férias é de 1 500 € brutos, dos quais se descontam 165 € de Segurança Social e a retenção de IRS aplicável, o que deixa cerca de 1 115 € líquidos.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsidio de Natal</h2>
-          <p class="text-neutral-600">Uma remuneracao adicional obrigatoria por lei, correspondente a um mes de retribuicao, paga ate 15 de dezembro de cada ano. E o chamado 13.o mes. Tal como o subsidio de ferias, esta sujeito a IRS e a Seguranca Social.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsídio de Natal</h2>
+          <p class="text-neutral-600">Uma remuneração adicional obrigatoria por lei, correspondente a um mês de retribuicao, paga ate 15 de dezembro de cada ano. E o chamado 13.o mês. Tal como o subsídio de férias, esta sujeito a IRS e a Segurança Social.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: pago por inteiro, acrescenta cerca de 1 115 € líquidos em dezembro. Em duodécimos, esses mesmos 1 115 € repartem-se por doze meses, a cerca de 93 € por mês.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">Trabalho Dependente (Categoria A)</h2>
-          <p class="text-neutral-600">Rendimentos obtidos por trabalhadores por conta de outrem, ao abrigo de um contrato de trabalho. E a categoria mais comum de rendimentos em Portugal e inclui salarios, ordenados, gratificacoes e outras remuneracoes. Os trabalhadores da categoria A beneficiam da deducao especifica e das tabelas de retencao na fonte.</p>
+          <p class="text-neutral-600">Rendimentos obtidos por trabalhadores por conta de outrem, ao abrigo de um contrato de trabalho. E a categoria mais comum de rendimentos em Portugal e inclui salarios, ordenados, gratificacoes e outras remuneracoes. Os trabalhadores da categoria A beneficiam da dedução específica e das tabelas de retenção na fonte.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Abono de Familia</h2>
-          <p class="text-neutral-600">Uma prestacao social paga pela Seguranca Social as familias com filhos e jovens. O valor depende do escalao de rendimento do agregado familiar e da idade da crianca. E atribuido automaticamente e nao esta sujeito a IRS.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Abono de Família</h2>
+          <p class="text-neutral-600">Uma prestacao social paga pela Segurança Social as familias com filhos e jovens. O valor depende do escalão de rendimento do agregado familiar e da idade da crianca. E atribuido automaticamente e nao esta sujeito a IRS.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-2">Minimo de Existencia</h2>
-          <p class="text-neutral-600">Um mecanismo que garante que nenhum trabalhador fique com um rendimento liquido inferior a um determinado limiar apos o pagamento de impostos. Em 2026, o minimo de existencia corresponde a 1,5 vezes o valor do IAS (Indexante dos Apoios Sociais) multiplicado por 14 meses. Este mecanismo limita a retencao de IRS para proteger os rendimentos mais baixos.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-2">Mínimo de Existência</h2>
+          <p class="text-neutral-600">Um mecanismo que garante que nenhum trabalhador fique com um rendimento líquido inferior a um determinado limiar após o pagamento de impostos. Em 2026, o mínimo de existencia corresponde a 1,5 vezes o valor do IAS (Indexante dos Apoios Sociais) multiplicado por 14 meses. Este mecanismo limita a retenção de IRS para proteger os rendimentos mais baixos.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: um rendimento anual ao nível do salário mínimo fica protegido por este mecanismo, que garante que o imposto nunca reduz o rendimento abaixo do limiar considerado indispensável.</p>
         </div>
       </div>
     </div>
   </section>
+
+  <section class="max-w-3xl mx-auto mt-12 border-t border-neutral-200 pt-8">
+    <h2 class="text-2xl font-bold text-neutral-900 mb-4">Perguntas frequentes</h2>
+    <div class="space-y-3">
+      {faqs.map((f) => (
+        <details class="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+          <summary class="px-4 py-3 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 list-none">
+            {f.pergunta}
+          </summary>
+          <div class="px-4 pb-4 text-sm text-neutral-700 leading-relaxed">{f.resposta}</div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <FontesOficiais />
+  <ContextoFolha
+    referencia={1500}
+  />
 </Layout>

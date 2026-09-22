@@ -44,8 +44,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Deduções de IRS 2026 - Todas as Deduções e Benefícios Fiscais | Salário Líquido PT"
-  description="Guia completo sobre deduções de IRS em Portugal para 2026: despesas dedutíveis, limites, como pedir faturas com NIF e estratégias para maximizar o seu reembolso."
+  title="Deduções de IRS 2026: Saúde, Educação e Habitação em PT"
+  description="Todas as deduções à coleta do IRS em 2026: saúde, educação, habitação, lares e PPR, com os limites de cada categoria e a forma como o e-Fatura as regista."
   canonical="/guides/deducoes-irs/"
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -217,5 +217,19 @@ const faqSchema = {
         </div>
       </div>
     </div>
+
+        <section class="border-t border-neutral-200 pt-6 mt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Perguntas frequentes</h2>
+          <div class="space-y-3">
+            {faqSchema.mainEntity.map((f: any) => (
+              <details class="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <summary class="px-4 py-3 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 list-none">
+                  {f.name}
+                </summary>
+                <div class="px-4 pb-4 text-sm text-neutral-700 leading-relaxed">{f.acceptedAnswer.text}</div>
+              </details>
+            ))}
+          </div>
+        </section>
   </article>
 </Layout>

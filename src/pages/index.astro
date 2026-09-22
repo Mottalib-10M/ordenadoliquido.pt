@@ -1,32 +1,53 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import SalaryCalculator from "../components/SalaryCalculator";
+import FontesOficiais from '../components/FontesOficiais.astro';
+import ExemploDetalhado from '../components/ExemploDetalhado.astro';
 ---
 
 <Layout
-  title="Calculadora de Salário Líquido Portugal 2026 - IRS, TSU, Subsídios"
+  title="Salário Líquido 2026: Simulador de IRS, TSU e Subsídios"
   description="Calcule o seu salário líquido em Portugal para 2026. Simulador gratuito com escalões de IRS, TSU, subsídio de Natal, subsídio de férias, IRS Jovem e deduções."
   canonical="/"
 >
-  <!-- Hero -->
-  <section class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white py-12 md:py-16">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto">
-        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
-          Calculadora de Sal&aacute;rio L&iacute;quido<br />
-          <span class="text-primary-200">Portugal 2026</span>
+  <!--
+    Hero. La version precedente etait un degrade vert sur trois nuances, le
+    motif le plus commun du web, avec un titre centre et rien d'autre. Ici le
+    vert du drapeau est pose en aplat profond, releve d'un voile en radiale et
+    d'un filet d'or ; le titre passe a gauche, ou commence la lecture, et un
+    bandeau de reperes chiffres remplace le vide.
+  -->
+  <section class="relative bg-primary-800 text-white overflow-hidden">
+    <div
+      class="absolute inset-0 opacity-[0.18]"
+      style="background-image: radial-gradient(circle at 18% 22%, #35a876 0, transparent 45%), radial-gradient(circle at 88% 12%, #ffc72c 0, transparent 38%);"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-24 md:pt-20 md:pb-28">
+      <div class="max-w-3xl">
+        <p class="inline-flex items-center gap-2 rounded-full bg-white/10 ring-1 ring-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-accent-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-400" aria-hidden="true"></span>
+          Tabelas oficiais de 2026
+        </p>
+        <h1 class="mt-5 text-4xl md:text-6xl font-extrabold leading-[1.05] text-white">
+          Sal&aacute;rio l&iacute;quido em Portugal,<br />
+          <span class="text-accent-400">calculado ao c&ecirc;ntimo</span>
         </h1>
-        <p class="text-lg md:text-xl text-primary-100 leading-relaxed">
-          Descubra quanto vai receber ao final do m&ecirc;s. Simule o seu sal&aacute;rio l&iacute;quido
-          com os escal&otilde;es de IRS, contribui&ccedil;&otilde;es para a Seguran&ccedil;a Social (TSU),
-          subs&iacute;dios e dedu&ccedil;&otilde;es atualizados para 2026.
+        <p class="mt-5 text-lg md:text-xl text-primary-100 leading-relaxed max-w-2xl">
+          Quanto chega mesmo &agrave; conta ao fim do m&ecirc;s. IRS, Seguran&ccedil;a Social,
+          subs&iacute;dios de Natal e de f&eacute;rias, IRS Jovem e custo para a empresa,
+          tudo detalhado linha a linha.
         </p>
       </div>
     </div>
+
+    <div class="regua-bandeira h-1.5" aria-hidden="true"></div>
   </section>
 
-  <!-- Calculator -->
-  <section class="py-10 md:py-14 -mt-6">
+  <!-- Le calculateur chevauche le hero : c'est lui qu'on vient chercher. -->
+  <section class="pb-12 md:pb-16 -mt-16 relative z-10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <SalaryCalculator client:idle />
     </div>
@@ -53,22 +74,22 @@ import SalaryCalculator from "../components/SalaryCalculator";
       </p>
 
       <ul class="list-disc pl-6 space-y-1">
-        <li><strong>At&eacute; 7.703&euro;</strong> &mdash; taxa de 13,25%</li>
-        <li><strong>De 7.703&euro; a 11.623&euro;</strong> &mdash; taxa de 18%</li>
-        <li><strong>De 11.623&euro; a 16.472&euro;</strong> &mdash; taxa de 23%</li>
-        <li><strong>De 16.472&euro; a 21.321&euro;</strong> &mdash; taxa de 26%</li>
-        <li><strong>De 21.321&euro; a 27.146&euro;</strong> &mdash; taxa de 32,75%</li>
-        <li><strong>De 27.146&euro; a 39.791&euro;</strong> &mdash; taxa de 37%</li>
-        <li><strong>De 39.791&euro; a 51.997&euro;</strong> &mdash; taxa de 43,5%</li>
-        <li><strong>De 51.997&euro; a 81.199&euro;</strong> &mdash; taxa de 45%</li>
-        <li><strong>Superior a 81.199&euro;</strong> &mdash; taxa de 48%</li>
+        <li><strong>At&eacute; 7.703&euro;</strong>, taxa de 13,25%</li>
+        <li><strong>De 7.703&euro; a 11.623&euro;</strong>, taxa de 18%</li>
+        <li><strong>De 11.623&euro; a 16.472&euro;</strong>, taxa de 23%</li>
+        <li><strong>De 16.472&euro; a 21.321&euro;</strong>, taxa de 26%</li>
+        <li><strong>De 21.321&euro; a 27.146&euro;</strong>, taxa de 32,75%</li>
+        <li><strong>De 27.146&euro; a 39.791&euro;</strong>, taxa de 37%</li>
+        <li><strong>De 39.791&euro; a 51.997&euro;</strong>, taxa de 43,5%</li>
+        <li><strong>De 51.997&euro; a 81.199&euro;</strong>, taxa de 45%</li>
+        <li><strong>Superior a 81.199&euro;</strong>, taxa de 48%</li>
       </ul>
 
       <p>
         &Eacute; importante compreender que estas taxas s&atilde;o marginais, ou seja, aplicam-se apenas &agrave; por&ccedil;&atilde;o de rendimento que se encontra dentro de cada escal&atilde;o. Por exemplo, se o seu rendimento colet&aacute;vel anual &eacute; de 15.000&euro;, os primeiros 7.703&euro; s&atilde;o tributados a 13,25%, os seguintes 3.920&euro; (at&eacute; 11.623&euro;) a 18%, e os restantes 3.377&euro; a 23%. A parcela a abater simplifica este c&aacute;lculo, permitindo aplicar a taxa do escal&atilde;o correspondente ao total e subtrair um valor fixo.
       </p>
 
-      <h3 class="text-xl font-bold text-neutral-900 mt-10 mb-4">Seguran&ccedil;a Social (TSU) &mdash; Contribui&ccedil;&otilde;es Obrigat&oacute;rias</h3>
+      <h3 class="text-xl font-bold text-neutral-900 mt-10 mb-4">Seguran&ccedil;a Social (TSU), Contribui&ccedil;&otilde;es Obrigat&oacute;rias</h3>
 
       <p>
         Todos os trabalhadores por conta de outrem em Portugal est&atilde;o obrigados a contribuir para a Seguran&ccedil;a Social. Esta contribui&ccedil;&atilde;o, conhecida como Taxa Social &Uacute;nica (TSU), divide-se em duas partes: a parte do trabalhador, que corresponde a <strong>11%</strong> do sal&aacute;rio bruto, e a parte da entidade empregadora, que &eacute; de <strong>23,75%</strong>. A contribui&ccedil;&atilde;o do trabalhador &eacute; descontada diretamente do sal&aacute;rio, enquanto a do empregador constitui um custo adicional para a empresa.
@@ -129,7 +150,7 @@ import SalaryCalculator from "../components/SalaryCalculator";
         </li>
       </ul>
 
-      <h3 class="text-xl font-bold text-neutral-900 mt-10 mb-4">IRS Jovem &mdash; Regime Especial para Jovens Trabalhadores</h3>
+      <h3 class="text-xl font-bold text-neutral-900 mt-10 mb-4">IRS Jovem, Regime Especial para Jovens Trabalhadores</h3>
 
       <p>
         O regime de IRS Jovem foi criado para incentivar a entrada dos jovens no mercado de trabalho e promover a sua autonomia financeira. Este regime permite uma isen&ccedil;&atilde;o parcial de IRS durante os primeiros cinco anos de obten&ccedil;&atilde;o de rendimentos do trabalho, aplic&aacute;vel a jovens at&eacute; aos 35 anos de idade.
@@ -146,7 +167,7 @@ import SalaryCalculator from "../components/SalaryCalculator";
       <h3 class="text-xl font-bold text-neutral-900 mt-10 mb-4">Sal&aacute;rio M&iacute;nimo Nacional em 2026</h3>
 
       <p>
-        O sal&aacute;rio m&iacute;nimo nacional (Retribui&ccedil;&atilde;o M&iacute;nima Mensal Garantida &mdash; RMMG) em 2026 &eacute; de <strong>870&euro; mensais</strong>. Este valor &eacute; fixado anualmente pelo Governo, ap&oacute;s concerta&ccedil;&atilde;o social com os parceiros sociais. O sal&aacute;rio m&iacute;nimo tem vindo a subir de forma consistente nos &uacute;ltimos anos, passando de 665&euro; em 2021 para os atuais 870&euro;.
+        O sal&aacute;rio m&iacute;nimo nacional (Retribui&ccedil;&atilde;o M&iacute;nima Mensal Garantida, RMMG) em 2026 &eacute; de <strong>870&euro; mensais</strong>. Este valor &eacute; fixado anualmente pelo Governo, ap&oacute;s concerta&ccedil;&atilde;o social com os parceiros sociais. O sal&aacute;rio m&iacute;nimo tem vindo a subir de forma consistente nos &uacute;ltimos anos, passando de 665&euro; em 2021 para os atuais 870&euro;.
       </p>
 
       <p>
@@ -181,4 +202,6 @@ import SalaryCalculator from "../components/SalaryCalculator";
 
     </div>
   </section>
+  <ExemploDetalhado bruto={1500} />
+  <FontesOficiais />
 </Layout>

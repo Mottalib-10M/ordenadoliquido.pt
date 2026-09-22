@@ -20,7 +20,7 @@ const faqSchema = {
       "name": "Quantos escalões de IRS existem em 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Em 2026, existem 9 escalões de IRS em Portugal. As taxas marginais variam entre 13% para rendimentos até 7.703€ e 48% para rendimentos superiores a 81.199€, acrescida de uma taxa adicional de solidariedade para rendimentos muito elevados."
+        "text": "Em 2026, existem 9 escalões de IRS em Portugal. As taxas marginais variam entre 13% para rendimentos até 7.703€ e 48% para rendimentos superiores a 81.199€, acrescida de uma taxa adicional de solidariedade para rendimentos muito elevados. Cada escalão tem a sua própria taxa, aplicada apenas à parcela de rendimento que nele cai: passar de escalão nunca faz descer o líquido, ao contrário do que se pensa com frequência."
       }
     },
     {
@@ -36,7 +36,7 @@ const faqSchema = {
       "name": "O que é o rendimento coletável para efeitos de IRS?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "O rendimento coletável é o valor sobre o qual efetivamente incide o imposto. Calcula-se subtraindo ao rendimento bruto anual a dedução específica (4.104€ ou o montante das contribuições para a Segurança Social, se superior) e eventuais abatimentos legais."
+        "text": "O rendimento coletável é o valor sobre o qual efetivamente incide o imposto. Calcula-se subtraindo ao rendimento bruto anual a dedução específica (4.104€ ou o montante das contribuições para a Segurança Social, se superior) e eventuais abatimentos legais. É por isso que dois salários brutos iguais podem gerar impostos diferentes: o que conta não é o bruto, mas o que resta depois da dedução específica e das contribuições obrigatórias."
       }
     }
   ]
@@ -44,8 +44,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Escalões de IRS 2026 - Tabelas e Taxas Atualizadas | Salário Líquido PT"
-  description="Guia completo sobre os escalões de IRS em Portugal para 2026. Conheça as taxas marginais, como calcular o imposto e exemplos práticos para diferentes rendimentos."
+  title="Escalões de IRS 2026: Tabelas, Taxas e Rendimento Coletável"
+  description="Os nove escalões de IRS em 2026, com as taxas marginais e o rendimento coletável de cada um. Porque passar de escalão nunca faz descer o salário líquido."
   canonical="/guides/escaloes-irs-2026/"
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -236,5 +236,19 @@ const faqSchema = {
         </div>
       </div>
     </div>
+
+        <section class="border-t border-neutral-200 pt-6 mt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Perguntas frequentes</h2>
+          <div class="space-y-3">
+            {faqSchema.mainEntity.map((f: any) => (
+              <details class="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <summary class="px-4 py-3 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 list-none">
+                  {f.name}
+                </summary>
+                <div class="px-4 pb-4 text-sm text-neutral-700 leading-relaxed">{f.acceptedAnswer.text}</div>
+              </details>
+            ))}
+          </div>
+        </section>
   </article>
 </Layout>

@@ -20,7 +20,7 @@ const faqSchema = {
       "name": "Qual é a taxa de TSU que o trabalhador paga em 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Em 2026, o trabalhador por conta de outrem desconta 11% do seu salário bruto para a Segurança Social. Este desconto é obrigatório e é efetuado automaticamente pela entidade empregadora antes do pagamento do salário líquido."
+        "text": "Em 2026, o trabalhador por conta de outrem desconta 11% do seu salário bruto para a Segurança Social. Este desconto é obrigatório e é efetuado automaticamente pela entidade empregadora antes do pagamento do salário líquido. Esta contribuição não tem limite superior: ao contrário do que acontece noutros países, incide sobre a totalidade da remuneração, por mais elevada que seja. Dá direito a pensão, subsídio de desemprego e subsídio de doença."
       }
     },
     {
@@ -28,7 +28,7 @@ const faqSchema = {
       "name": "Quanto paga o empregador de TSU?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A entidade empregadora paga 23,75% do salário bruto do trabalhador como contribuição patronal para a Segurança Social. Este valor é um custo adicional ao salário e não é descontado ao trabalhador."
+        "text": "A entidade empregadora paga 23,75% do salário bruto do trabalhador como contribuição patronal para a Segurança Social. Este valor é um custo adicional ao salário e não é descontado ao trabalhador. Somando as duas parcelas, cada euro de salário bruto custa cerca de 1,24 euros à empresa. É esta diferença que explica o desvio entre o custo do trabalho e o que o trabalhador recebe efetivamente."
       }
     },
     {
@@ -36,7 +36,7 @@ const faqSchema = {
       "name": "A TSU incide sobre o subsídio de férias e Natal?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sim. A TSU incide sobre todas as remunerações do trabalhador, incluindo o subsídio de férias e o subsídio de Natal. A taxa de 11% para o trabalhador e 23,75% para o empregador aplicam-se da mesma forma sobre estes subsídios."
+        "text": "Sim. A TSU incide sobre todas as remunerações do trabalhador, incluindo o subsídio de férias e o subsídio de Natal. A taxa de 11% para o trabalhador e 23,75% para o empregador aplicam-se da mesma forma sobre estes subsídios. Em contrapartida, o subsídio de refeição está isento até ao limite legal diário, mais elevado quando pago em cartão do que em dinheiro; acima desse limite, o excedente é tributado como remuneração normal."
       }
     }
   ]
@@ -44,8 +44,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Taxa Social Única (TSU) 2026 - Guia Completo | Salário Líquido PT"
-  description="Guia completo sobre a TSU em Portugal: taxas do trabalhador e do empregador, base de incidência, isenções e como a contribuição para a Segurança Social afeta o seu salário."
+  title="Taxa Social Única 2026: os 11% e os 23,75% Explicados"
+  description="A TSU em 2026: os 11% descontados ao trabalhador e os 23,75% pagos pela empresa, sobre que remunerações incidem, e a que prestações sociais dão direito."
   canonical="/guides/taxa-social-unica-tsu/"
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -220,5 +220,19 @@ const faqSchema = {
         </div>
       </div>
     </div>
+
+        <section class="border-t border-neutral-200 pt-6 mt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Perguntas frequentes</h2>
+          <div class="space-y-3">
+            {faqSchema.mainEntity.map((f: any) => (
+              <details class="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <summary class="px-4 py-3 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 list-none">
+                  {f.name}
+                </summary>
+                <div class="px-4 pb-4 text-sm text-neutral-700 leading-relaxed">{f.acceptedAnswer.text}</div>
+              </details>
+            ))}
+          </div>
+        </section>
   </article>
 </Layout>

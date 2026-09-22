@@ -166,6 +166,7 @@ export function calculateSalary(input: SalaryInput): SalaryResult {
 
   /* ── IRS Jovem ── */
   let irsJovemDesconto = 0;
+  const irsAnnualAntesJovem = irsAnnual;
   if (irsJovem >= 1 && irsJovem <= 5) {
     const escalao = IRS_JOVEM_ESCALOES[irsJovem - 1];
     const isencao = round2(irsAnnual * escalao.isencaoPercentagem);
@@ -177,7 +178,17 @@ export function calculateSalary(input: SalaryInput): SalaryResult {
   const taxRate = grossAnnual > 0 ? round2((irsAnnual / grossAnnual) * 100) / 100 : 0;
 
   /* ── Retenção na fonte mensal ── */
-  const retencaoTaxa = getTaxaRetencao(grossMonthly, maritalStatus, dependents);
+  // O IRS Jovem reduz a retenção MENSAL, e não apenas o acerto anual, desde que
+  // o trabalhador comunique a situação ao empregador. Sem esta correção, a
+  // página dedicada ao regime mostrava exatamente o mesmo líquido que a de um
+  // solteiro sem benefício — o desconto existia no IRS anual mas nunca chegava
+  // ao salário do mês.
+  const retencaoTaxaTabela = getTaxaRetencao(grossMonthly, maritalStatus, dependents);
+  const reducaoJovem =
+    irsJovemDesconto > 0 && irsAnnualAntesJovem > 0
+      ? irsJovemDesconto / irsAnnualAntesJovem
+      : 0;
+  const retencaoTaxa = round2(retencaoTaxaTabela * (1 - reducaoJovem) * 10000) / 10000;
   const retencaoMensal = round2(grossMonthly * retencaoTaxa);
 
   /* ── Subsídio de Natal (13.º mês) — taxado à taxa média ── */

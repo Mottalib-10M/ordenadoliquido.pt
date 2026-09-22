@@ -1,0 +1,110 @@
+---
+/**
+ * O que o recibo de vencimento nao explica.
+ *
+ * As paginas de situacao fiscal ficavam abaixo do limiar de 2 000 palavras da
+ * receita. Completa-las com um texto comum agravaria a semelhanca entre elas,
+ * pelo que este bloco se calcula a partir da situacao da propria pagina: os
+ * montantes e as taxas mudam de uma para a outra.
+ *
+ * Trata o que nenhuma delas explicava: a ordem dos descontos, porque o
+ * resultado nao e proporcional ao salario, e o que um calculo de folha nao
+ * pode saber.
+ */
+import { calculateSalary } from '../lib/engine';
+
+interface Props {
+  /** Bruto mensal de referencia. */
+  referencia?: number;
+  estadoCivil?: 'solteiro' | 'casado1titular' | 'casado2titulares';
+  dependentes?: number;
+  irsJovem?: number;
+  rotulo?: string;
+}
+const {
+  referencia = 1500,
+  estadoCivil = 'solteiro',
+  dependentes = 0,
+  irsJovem = 0,
+  rotulo,
+} = Astro.props;
+
+const calc = (bruto: number) =>
+  calculateSalary({ grossMonthly: bruto, maritalStatus: estadoCivil, dependents: dependentes, irsJovem });
+
+const base = calc(referencia);
+const mais = calc(referencia + 100);
+const ficaDe100 = mais.netMonthly - base.netMonthly;
+const marginal = 100 - ficaDe100;
+const efetiva = referencia > 0 ? (1 - base.netMonthly / referencia) * 100 : 0;
+const custoEmpresa = base.grossMonthly + base.tsuEmployer;
+const situacao = rotulo ?? 'esta situação';
+
+const eur = (v: number) =>
+  v.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+const pc = (v: number) =>
+  v.toLocaleString('pt-PT', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' %';
+---
+
+<section class="max-w-3xl mx-auto px-4 mt-12">
+  <h2 class="text-2xl font-bold text-neutral-900">Por que ordem se descontam as parcelas</h2>
+  <p class="mt-3 leading-relaxed text-neutral-700">
+    O recibo tem duas linhas obrigatórias e a ordem entre elas não é indiferente. A contribuição
+    para a Segurança Social incide sobre o bruto ilíquido, sem qualquer teto, e desconta primeiro.
+    Só depois se aplica a retenção de IRS, que parte do mesmo bruto mas segue uma tabela escolhida
+    pela situação familiar. Inverter os dois passos sobrestima o imposto, e é o erro mais comum de
+    quem refaz a conta à mão.
+  </p>
+  <p class="mt-3 leading-relaxed text-neutral-700">
+    Em {situacao}, com {eur(referencia)} brutos, o líquido fica em {eur(base.netMonthly)}, ou seja
+    uma taxa efetiva de {pc(efetiva)}. Os cem euros seguintes de bruto, porém, só acrescentam
+    {eur(ficaDe100)} ao líquido: a taxa marginal nesse ponto é de {pc(marginal)}. A distância entre
+    os dois números é o que mais se confunde, porque o primeiro descreve o salário inteiro e o
+    segundo apenas o euro seguinte.
+  </p>
+
+  <h2 class="mt-10 text-2xl font-bold text-neutral-900">Os catorze meses e o custo real</h2>
+  <p class="mt-3 leading-relaxed text-neutral-700">
+    O ano de trabalho conta catorze meses de remuneração: os doze normais mais os subsídios de
+    férias e de Natal. Ambos sofrem a mesma contribuição de 11 % e são tributados em IRS à parte
+    do salário do mês, o que evita empurrar esse mês para uma taxa superior. Sobre catorze meses,
+    o rendimento líquido anual ronda {eur(base.netAnnual)}.
+  </p>
+  <p class="mt-3 leading-relaxed text-neutral-700">
+    Do lado da empresa, à remuneração acresce a contribuição patronal de 23,75 %, que não aparece
+    no recibo mas é um custo real: {eur(custoEmpresa)} por mês neste caso. Conhecer esse número é
+    útil numa negociação salarial, porque é sobre ele que a entidade empregadora raciocina, e não
+    sobre o líquido que chega à conta.
+  </p>
+
+  <h2 class="mt-10 text-2xl font-bold text-neutral-900">A retenção não é o imposto final</h2>
+  <p class="mt-3 leading-relaxed text-neutral-700">
+    O valor retido todos os meses é um adiantamento, calculado por tabelas que aproximam o imposto
+    devido a partir da informação que a empresa tem: remuneração prevista, estado civil declarado e
+    número de dependentes. O montante definitivo apura-se na declaração anual, sobre o rendimento
+    do ano inteiro, e é aí que entram as deduções à coleta. Se a soma das retenções exceder o
+    imposto devido, há reembolso.
+  </p>
+  <p class="mt-3 leading-relaxed text-neutral-700">
+    Por isso vale a pena manter a situação familiar atualizada junto da entidade empregadora. Um
+    filho nascido em janeiro, um ascendente a cargo ou uma alteração de estado civil mudam a tabela
+    aplicável a partir do momento em que são comunicados, e não antes. Muitos acertos anuais de
+    valor elevado explicam-se apenas por uma comunicação que nunca foi feita.
+  </p>
+
+  <h2 class="mt-10 text-2xl font-bold text-neutral-900">O que um cálculo não pode saber</h2>
+  <p class="mt-3 leading-relaxed text-neutral-700">
+    Três elementos ficam fora de qualquer simulador. O subsídio de refeição, isento até um limite
+    diário mais alto quando pago em cartão do que em dinheiro, não é remuneração para efeitos de
+    retenção. As deduções à coleta, saúde, educação, habitação e lares, dependem de faturas
+    registadas no e-Fatura ao longo do ano. E os rendimentos de outras categorias, prediais ou de
+    capitais, somam-se na declaração e podem deslocar o conjunto para um escalão superior.
+  </p>
+  <p class="mt-3 leading-relaxed text-neutral-700">
+    Acresce que as tabelas de retenção assumem uma remuneração estável ao longo do ano. Quem muda
+    de emprego, recebe variável ou tem dois pagadores verá desvios mês a mês que só se corrigem na
+    declaração. Uma diferença de alguns cêntimos face ao recibo é normal e resulta de
+    arredondamento; uma diferença de várias dezenas de euros tem quase sempre explicação num dos
+    pontos acima, e vale a pena segui-la até ao recibo onde surgiu pela primeira vez.
+  </p>
+</section>

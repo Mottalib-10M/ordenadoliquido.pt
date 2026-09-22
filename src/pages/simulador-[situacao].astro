@@ -18,8 +18,8 @@ interface Props {
 
 const { situacao } = Astro.props;
 
-const title = `Simulador Salário ${situacao.label} 2026 - Bruto Líquido`;
-const description = `Simulador de salário líquido para ${situacao.label.toLowerCase()} em Portugal 2026. Calcule o seu vencimento após IRS, TSU e deduções. ${situacao.descricao.slice(0, 120)}...`;
+const title = situacao.tituloSeo;
+const description = situacao.descricaoSeo;
 
 function formatEuro(val: number): string {
   return val.toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
@@ -95,6 +95,10 @@ const webAppSchema = {
   },
   "inLanguage": "pt-PT"
 };
+import FontesOficiais from '../components/FontesOficiais.astro';
+import ComoSeCalcula from '../components/ComoSeCalcula.astro';
+import ComparacaoSituacoes from '../components/ComparacaoSituacoes.astro';
+import ContextoFolha from '../components/ContextoFolha.astro';
 ---
 
 <Layout
@@ -118,23 +122,25 @@ const webAppSchema = {
   </div>
 
   <!-- Hero -->
-  <section class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white py-10 md:py-14">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto">
-        <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
-          Simulador Salário {situacao.label}<br />
-          <span class="text-primary-200">Portugal 2026</span>
+  <section class="relative bg-primary-800 text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.18]" style="background-image: radial-gradient(circle at 18% 22%, #35a876 0, transparent 45%), radial-gradient(circle at 88% 12%, #ffc72c 0, transparent 38%);" aria-hidden="true"></div>
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div class="max-w-3xl">
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-[1.08] text-white">
+          Simulador de salário {situacao.label.toLowerCase()}<br />
+          <span class="text-accent-400">Portugal 2026</span>
         </h1>
-        <p class="text-lg text-primary-100 leading-relaxed">
-          Calcule o salário líquido para a situação de <strong>{situacao.label.toLowerCase()}</strong>.
-          Descubra quanto recebe após IRS, Segurança Social e deduções.
+        <p class="mt-4 text-lg text-primary-100 leading-relaxed max-w-2xl">
+          Calcule o salário líquido na situação de <strong class="text-white font-semibold">{situacao.label.toLowerCase()}</strong>:
+          quanto recebe depois do IRS, da Segurança Social e das deduções que lhe são próprias.
         </p>
       </div>
     </div>
+    <div class="regua-bandeira h-1.5" aria-hidden="true"></div>
   </section>
 
   <!-- Calculator -->
-  <section class="py-10 md:py-14 -mt-6">
+  <section class="py-10 md:py-14">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <SalaryCalculator client:idle />
     </div>
@@ -176,8 +182,8 @@ const webAppSchema = {
             {exemplosSalarios.map((ex) => (
               <tr class="hover:bg-neutral-50 transition-colors">
                 <td class="px-5 py-3 font-medium text-neutral-800">{formatEuro(ex.bruto)}</td>
-                <td class="px-5 py-3 text-right text-red-500">-{formatEuro(ex.tsu)}</td>
-                <td class="px-5 py-3 text-right text-red-500">-{formatEuro(ex.retencaoMensal)}</td>
+                <td class="px-5 py-3 text-right text-secondary-700">-{formatEuro(ex.tsu)}</td>
+                <td class="px-5 py-3 text-right text-secondary-700">-{formatEuro(ex.retencaoMensal)}</td>
                 <td class="px-5 py-3 text-right text-neutral-600">{formatPercent(ex.retencaoTaxa)}</td>
                 <td class="px-5 py-3 text-right font-bold text-primary-700">{formatEuro(ex.liquido)}</td>
               </tr>
@@ -186,7 +192,7 @@ const webAppSchema = {
         </table>
       </div>
 
-      <p class="text-xs text-neutral-400 mt-3">
+      <p class="text-xs text-neutral-500 mt-3">
         * Valores para {situacao.label.toLowerCase()}, {situacao.dependentes} dependentes{situacao.irsJovem > 0 ? `, IRS Jovem ${situacao.irsJovem}.º ano` : ""}. Regime geral, Continente, 2026.
       </p>
     </div>
@@ -202,7 +208,7 @@ const webAppSchema = {
           <details class="bg-white rounded-xl shadow border border-neutral-200 overflow-hidden group">
             <summary class="px-6 py-4 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 transition-colors flex items-center justify-between list-none">
               <span>{f.pergunta}</span>
-              <svg class="w-5 h-5 text-neutral-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="w-5 h-5 text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
             </summary>
             <div class="px-6 pb-4 text-neutral-600 leading-relaxed">
               {f.resposta}
@@ -244,4 +250,30 @@ const webAppSchema = {
       </div>
     </div>
   </section>
+  <ComoSeCalcula intro={situacao.calculo.intro} etapas={situacao.calculo.etapas} exemplos={situacao.calculo.exemplos} atencao={situacao.calculo.atencao} />
+  <section class="max-w-3xl mx-auto mt-12 border-t border-neutral-200 pt-8">
+    <h2 class="text-2xl font-bold text-neutral-900 mb-3">Erros frequentes nesta situação</h2>
+    <ul class="space-y-3">
+      {situacao.errosFrequentes.map((e) => (
+        <li class="flex gap-3">
+          <span class="mt-2 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+          <p class="text-neutral-700 leading-relaxed">{e}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="max-w-3xl mx-auto mt-12 border-t border-neutral-200 pt-8">
+    <h2 class="text-2xl font-bold text-neutral-900 mb-3">O acerto anual nesta situação</h2>
+    <p class="text-neutral-700 leading-relaxed">{situacao.acertoAnual}</p>
+  </section>
+  <ComparacaoSituacoes slugAtual={situacao.slug} />
+  <FontesOficiais />
+  <ContextoFolha
+    referencia={1500}
+    estadoCivil={situacao.estadoCivil}
+    dependentes={situacao.dependentes}
+    irsJovem={situacao.irsJovem}
+    rotulo={situacao.label.toLowerCase()}
+  />
 </Layout>

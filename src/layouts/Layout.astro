@@ -70,38 +70,38 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
     <!-- Plausible Analytics -->
     <script defer data-domain="salarioliquido.pt" src="https://plausible.io/js/script.js"></script>
 
-    <!-- TODO: Replace G-XXXXXXXXXX with your real GA4 Measurement ID from https://analytics.google.com -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
+    <!--
+      Pas de GA4 ici : l'identifiant etait reste a l'etat de gabarit
+      (G-XXXXXXXXXX), donc deux requetes vers googletagmanager a chaque page
+      pour une mesure qui n'arrivait nulle part. Plausible, ci-dessus, mesure
+      l'audience sans cookie ni identifiant personnel.
+    -->
   </head>
   <body class="min-h-screen flex flex-col">
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-blue-700 focus:rounded-lg focus:shadow-lg focus:ring-2 focus:ring-blue-500">Skip to content</a>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-primary-700 focus:rounded-lg focus:shadow-lg focus:ring-2 focus:ring-primary-600">Saltar para o conte&uacute;do</a>
     <!-- Header -->
-    <header class="bg-white border-b border-neutral-200 sticky top-0 z-50">
+    <header class="bg-white/95 backdrop-blur border-b border-neutral-200 sticky top-0 z-50">
+      <!-- Filet aux proportions du drapeau, seule couleur permanente de l'en-tete. -->
+      <div class="regua-bandeira h-1" aria-hidden="true"></div>
       <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-2 no-underline">
-          <div class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center">
-            <span class="text-white font-bold text-sm">&euro;</span>
-          </div>
-          <span class="text-lg font-bold text-neutral-900">Sal&aacute;rio L&iacute;quido <span class="text-primary-600">PT</span></span>
+        <a href="/" class="flex items-center gap-2.5 no-underline group">
+          <span class="w-9 h-9 rounded-xl bg-primary-700 flex items-center justify-center shadow-sm ring-1 ring-primary-800/20 group-hover:bg-primary-800 transition-colors">
+            <span class="text-accent-400 font-bold text-base leading-none">&euro;</span>
+          </span>
+          <span class="text-[17px] font-bold text-neutral-900 tracking-tight">Sal&aacute;rio L&iacute;quido <span class="text-primary-700">PT</span></span>
         </a>
-        <div class="hidden sm:flex items-center gap-6 text-sm font-medium">
-          <a href="/" class="text-neutral-600 hover:text-primary-600 no-underline">Calculadora</a>
-          <a href="/guides/" class="text-neutral-600 hover:text-primary-600 no-underline">Guias</a>
-          <a href="/faq/" class="text-neutral-600 hover:text-primary-600 no-underline">FAQ</a>
-          <a href="/legal/" class="text-neutral-600 hover:text-primary-600 no-underline">Avisos Legais</a>
-          <a href="/privacidade/" class="text-neutral-600 hover:text-primary-600 no-underline">Privacidade</a>
+        <div class="hidden md:flex items-center gap-7 text-sm font-medium">
+          <a href="/" class="text-neutral-600 hover:text-primary-700 no-underline relative py-1 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-accent-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left">Calculadora</a>
+          <a href="/guides/" class="text-neutral-600 hover:text-primary-700 no-underline relative py-1 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-accent-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left">Guias</a>
+          <a href="/faq/" class="text-neutral-600 hover:text-primary-700 no-underline relative py-1 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-accent-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left">FAQ</a>
+          <a href="/legal/" class="text-neutral-600 hover:text-primary-700 no-underline relative py-1 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-accent-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left">Avisos Legais</a>
+          <a href="/privacidade/" class="text-neutral-600 hover:text-primary-700 no-underline relative py-1 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-accent-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left">Privacidade</a>
         </div>
         <!-- Mobile hamburger menu -->
         <button
           type="button"
           id="mobile-menu-btn"
-          class="sm:hidden p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+          class="md:hidden p-2 rounded-lg hover:bg-neutral-100 transition-colors"
           aria-label="Abrir menu"
           aria-expanded="false"
           aria-controls="mobile-menu"
@@ -117,14 +117,14 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
       <!-- Mobile menu panel -->
       <div
         id="mobile-menu"
-        class="sm:hidden hidden border-t border-neutral-200 bg-white shadow-lg"
+        class="md:hidden hidden border-t border-neutral-200 bg-white shadow-lg"
       >
         <div class="px-4 py-3 space-y-1">
-          <a href="/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline transition-colors">Calculadora</a>
-          <a href="/guides/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline transition-colors">Guias</a>
-          <a href="/faq/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline transition-colors">FAQ</a>
-          <a href="/legal/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline transition-colors">Avisos Legais</a>
-          <a href="/privacidade/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline transition-colors">Privacidade</a>
+          <a href="/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-800 no-underline transition-colors">Calculadora</a>
+          <a href="/guides/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-800 no-underline transition-colors">Guias</a>
+          <a href="/faq/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-800 no-underline transition-colors">FAQ</a>
+          <a href="/legal/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-800 no-underline transition-colors">Avisos Legais</a>
+          <a href="/privacidade/" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-800 no-underline transition-colors">Privacidade</a>
         </div>
       </div>
     </header>
@@ -136,27 +136,33 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
 
     <!-- Footer -->
     <footer class="bg-neutral-900 text-neutral-400 mt-16">
+      <div class="regua-bandeira h-1" aria-hidden="true"></div>
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           <div>
-            <h3 class="text-white font-bold text-lg mb-3">Sal&aacute;rio L&iacute;quido PT</h3>
+            <div class="flex items-center gap-2.5 mb-3">
+              <span class="w-8 h-8 rounded-lg bg-primary-700 flex items-center justify-center">
+                <span class="text-accent-400 font-bold text-sm leading-none">&euro;</span>
+              </span>
+              <h3 class="text-white font-bold text-lg m-0">Sal&aacute;rio L&iacute;quido PT</h3>
+            </div>
             <p class="text-sm leading-relaxed">
               Calculadora gratuita de sal&aacute;rio l&iacute;quido para Portugal.
               Valores atualizados para 2026 com escal&otilde;es de IRS, TSU e dedu&ccedil;&otilde;es.
             </p>
           </div>
           <div>
-            <h4 class="text-white font-semibold mb-3">Liga&ccedil;&otilde;es</h4>
+            <h4 class="text-accent-400 font-semibold text-xs uppercase tracking-widest mb-4">Liga&ccedil;&otilde;es</h4>
             <ul class="space-y-2 text-sm">
-              <li><a href="/" class="hover:text-white no-underline text-neutral-400">Calculadora</a></li>
-              <li><a href="/guides/" class="hover:text-white no-underline text-neutral-400">Guias</a></li>
-              <li><a href="/faq/" class="hover:text-white no-underline text-neutral-400">Perguntas Frequentes</a></li>
-              <li><a href="/legal/" class="hover:text-white no-underline text-neutral-400">Avisos Legais</a></li>
-              <li><a href="/privacidade/" class="hover:text-white no-underline text-neutral-400">Pol&iacute;tica de Privacidade</a></li>
+              <li><a href="/" class="hover:text-white no-underline text-neutral-400 transition-colors">Calculadora</a></li>
+              <li><a href="/guides/" class="hover:text-white no-underline text-neutral-400 transition-colors">Guias</a></li>
+              <li><a href="/faq/" class="hover:text-white no-underline text-neutral-400 transition-colors">Perguntas Frequentes</a></li>
+              <li><a href="/legal/" class="hover:text-white no-underline text-neutral-400 transition-colors">Avisos Legais</a></li>
+              <li><a href="/privacidade/" class="hover:text-white no-underline text-neutral-400 transition-colors">Pol&iacute;tica de Privacidade</a></li>
             </ul>
           </div>
           <div>
-            <h4 class="text-white font-semibold mb-3">Informa&ccedil;&atilde;o</h4>
+            <h4 class="text-accent-400 font-semibold text-xs uppercase tracking-widest mb-4">Informa&ccedil;&atilde;o</h4>
             <p class="text-sm leading-relaxed">
               Esta ferramenta &eacute; meramente indicativa. Os valores apresentados s&atilde;o estimativas
               baseadas nos escal&otilde;es e tabelas oficiais de 2026. Consulte sempre um contabilista
@@ -165,7 +171,7 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
           </div>
         </div>
         <div class="border-t border-neutral-800 mt-8 pt-8 text-center text-xs">
-          <p>&copy; {new Date().getFullYear()} salarioliquido.pt &mdash; Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} salarioliquido.pt, Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

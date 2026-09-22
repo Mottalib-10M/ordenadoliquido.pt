@@ -19,12 +19,16 @@ function eur(v: number): string {
   return v.toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "\u00a0\u20ac";
 }
 
+// toFixed() ecrit toujours un point decimal, quelle que soit la langue. Sur une
+// page portugaise, le texte visible finissait corrige en « 10,0 % » par
+// typo-nbsp tandis que le JSON-LD gardait « 10.0% » : la reponse declaree a
+// Google ne correspondait alors plus au texte de la page (RECETTE §4, §7).
 function pct(v: number): string {
-  return (v * 100).toFixed(1) + "%";
+  return pctRaw(v) + "%";
 }
 
 function pctRaw(v: number): string {
-  return (v * 100).toFixed(1);
+  return (v * 100).toLocaleString("pt-PT", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 }
 
 /* ================================================================== */
@@ -773,11 +777,16 @@ export function buildFaqs(s: SalarioEntry, d: DerivedNumbers): FaqItem[] {
   const incrementoBruto = raisedBruto - s.brutoMensal;
   const marginRateOnRaise = incrementoBruto > 0 ? 1 - (netDiff / incrementoBruto) : 0;
 
+  // Trois angles distincts sur la meme question, pour que dix pages de salaire
+  // ne servent pas la meme reponse (RECETTE §4) : le premier explique pourquoi
+  // le taux marginal depasse le taux moyen, le deuxieme raisonne en pouvoir
+  // d'achat horaire, le troisieme situe le gain sur l'annee et les subsidios.
   const q5Variations = [
-    `Se o seu sal\u00e1rio subisse 10% para ${eur(raisedBruto)} brutos, o l\u00edquido mensal subiria ${eur(netDiff)} (de ${eur(s.liquidoMensal)} para ${eur(raisedLiquidoMensal)}). A taxa efetiva sobre o aumento \u00e9 de ${pct(marginRateOnRaise)}: dos ${eur(incrementoBruto)} de aumento bruto, ${eur(incrementoBruto - netDiff)} ficam retidos. Ganho anual: ${eur(netDiff * 14)}.`,
-    `Um aumento de 10% (de ${eur(s.brutoMensal)} para ${eur(raisedBruto)} brutos) geraria +${eur(netDiff)} l\u00edquidos/m\u00eas. Dos ${eur(incrementoBruto)} adicionais brutos, apenas ${eur(netDiff)} chegam \u00e0 conta (efici\u00eancia de ${pct(1 - marginRateOnRaise)}). Em termos hor\u00e1rios, passaria de ${eur(d.liquidoHora)} para ${eur(raisedLiquidoMensal / 176)}/hora.`,
-    `Com +10% (${eur(incrementoBruto)} brutos adicionais), o novo l\u00edquido seria ${eur(raisedLiquidoMensal)}/m\u00eas (+${eur(netDiff)}). A progressividade do IRS absorve ${pct(marginRateOnRaise)} do aumento. Anualmente: +${eur(netDiff * 14)} l\u00edquidos (de ${eur(s.liquidoAnual)} para ${eur(raisedLiquidoAnual)}).`,
+    `Se o seu sal\u00e1rio subisse 10% para ${eur(raisedBruto)} brutos, o l\u00edquido mensal subiria ${eur(netDiff)} (de ${eur(s.liquidoMensal)} para ${eur(raisedLiquidoMensal)}). A taxa efetiva sobre esse aumento \u00e9 de ${pct(marginRateOnRaise)}: dos ${eur(incrementoBruto)} brutos adicionais, ${eur(incrementoBruto - netDiff)} ficam retidos entre TSU e IRS. \u00c9 mais do que a taxa m\u00e9dia que paga hoje, porque o aumento \u00e9 tributado no topo do rendimento e n\u00e3o na m\u00e9dia: esse \u00e9 o efeito de um sistema por escal\u00f5es.`,
+    `Um aumento de 10% (de ${eur(s.brutoMensal)} para ${eur(raisedBruto)} brutos) geraria +${eur(netDiff)} l\u00edquidos por m\u00eas. Dos ${eur(incrementoBruto)} adicionais, apenas ${eur(netDiff)} chegam \u00e0 conta, uma efici\u00eancia de ${pct(1 - marginRateOnRaise)}. Em termos hor\u00e1rios, passaria de ${eur(d.liquidoHora)} para ${eur(raisedLiquidoMensal / 176)} por hora trabalhada, um ganho que se nota sobretudo se negociar tamb\u00e9m o hor\u00e1rio ou o subs\u00eddio de refei\u00e7\u00e3o.`,
+    `Com +10% (${eur(incrementoBruto)} brutos adicionais), o novo l\u00edquido seria ${eur(raisedLiquidoMensal)} por m\u00eas, ou seja +${eur(netDiff)}. A progressividade do IRS absorve ${pct(marginRateOnRaise)} do aumento. No ano, o rendimento passaria de ${eur(s.liquidoAnual)} para ${eur(raisedLiquidoAnual)}, isto \u00e9 +${eur(netDiff * 14)} l\u00edquidos, contando os catorze meses com subs\u00eddios de f\u00e9rias e de Natal.`,
   ];
+
 
   faqs.push({
     pergunta: `Se o meu sal\u00e1rio de ${s.brutoMensal}\u00a0\u20ac subisse 10%, quanto mais receberia l\u00edquido?`,

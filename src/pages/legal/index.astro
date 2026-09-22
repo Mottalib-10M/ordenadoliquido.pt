@@ -1,10 +1,12 @@
 ---
+import LegalIdentity from '../../components/LegalIdentity.astro';
+import { LEGAL, CONTACT_EMAIL } from '../../data/site-config';
 import Layout from "../../layouts/Layout.astro";
 ---
 
 <Layout
-  title="Avisos Legais - Salário Líquido PT"
-  description="Avisos legais, termos de utilização e informação sobre a calculadora de salário líquido para Portugal."
+  title="Avisos Legais e Termos de Utilização | Salário Líquido"
+  description="Condições de utilização do simulador, limites da informação prestada, propriedade intelectual e responsabilidade editorial do site Salário Líquido Portugal."
   canonical="/legal/"
 >
   <section class="py-12 md:py-16">
@@ -14,6 +16,12 @@ import Layout from "../../layouts/Layout.astro";
       </h1>
 
       <div class="prose prose-lg prose-neutral max-w-none">
+        <h2>Identifica&ccedil;&atilde;o do Editor</h2>
+        <LegalIdentity mode="publisher" lang="pt" />
+
+        <h2>Alojamento</h2>
+        <LegalIdentity mode="hosting" lang="pt" />
+
         <h2>Termos de Utiliza&ccedil;&atilde;o</h2>
         <p>
           O website salarioliquido.pt disponibiliza uma calculadora de sal&aacute;rio l&iacute;quido para Portugal,
@@ -68,8 +76,10 @@ import Layout from "../../layouts/Layout.astro";
 
         <h2>Contacto</h2>
         <p>
-          Para quest&otilde;es relacionadas com estes termos, por favor entre em contacto atrav&eacute;s do
-          email disponibilizado no website.
+          Para quest&otilde;es relacionadas com estes termos, escreva para <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+          Se considerar que os seus dados pessoais n&atilde;o foram tratados corretamente, pode apresentar
+          reclama&ccedil;&atilde;o junto da {LEGAL.supervisoryAuthority}, atrav&eacute;s de
+          <a href={LEGAL.supervisoryAuthorityUrl} rel="nofollow noopener" target="_blank">{LEGAL.supervisoryAuthorityUrl}</a>.
         </p>
 
         <p class="text-sm text-neutral-500 mt-8">

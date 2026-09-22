@@ -1,0 +1,166 @@
+---
+/**
+ * « Comment le calcul est fait » + exemples chiffres, pour les pages de
+ * situation fiscale.
+ *
+ * Ces pages portaient le simulateur, une description et une FAQ, mais rien
+ * n'expliquait l'enchainement des operations ni ne le montrait sur un cas
+ * reel. C'est pourtant ce que cherche quelqu'un qui doute du resultat affiche :
+ * pouvoir refaire le calcul a la main et retrouver le meme chiffre.
+ *
+ * Les montants ne sont PAS ecrits dans les donnees : chaque ligne declare un
+ * cas (brut, etat civil, personnes a charge, annee d'IRS Jovem) et le champ
+ * voulu, et la valeur est calculee ici par le moteur du site. La premiere
+ * version de ce composant portait des chiffres saisis a la main : la page
+ * « solteiro » affichait 1 156,50 € sous un simulateur qui, pour le meme cas,
+ * calculait 1 114,50 €. Un tableau fige finit toujours par contredire le
+ * moteur, et le lecteur ne peut pas savoir lequel des deux croire.
+ *
+ * Les commentaires acceptent les memes valeurs sous forme de champs entre
+ * accolades, {liquidoAnual:a} par exemple, pour la meme raison.
+ */
+import { calculateSalary } from '../lib/engine';
+import type { SalaryResult } from '../lib/engine';
+import type { Caso, Exemplo, Linha } from '../lib/exemplos';
+
+interface Etapa {
+  titulo: string;
+  texto: string;
+}
+interface Props {
+  intro: string;
+  etapas: Etapa[];
+  exemplos: Exemplo[];
+  atencao?: string;
+}
+const { intro, etapas, exemplos, atencao } = Astro.props;
+
+const eur = (v: number) =>
+  v.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+const eurRedondo = (v: number) =>
+  Math.round(v).toLocaleString('pt-PT', { maximumFractionDigits: 0 }) + ' €';
+const pc = (v: number) =>
+  (v * 100).toLocaleString('pt-PT', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' %';
+
+function resolver(casos: Record<string, Caso>): Record<string, SalaryResult & { caso: Caso }> {
+  const out: Record<string, SalaryResult & { caso: Caso }> = {};
+  for (const [k, c] of Object.entries(casos)) {
+    out[k] = {
+      ...calculateSalary({
+        grossMonthly: c.bruto,
+        maritalStatus: c.estadoCivil,
+        dependents: c.dependentes,
+        irsJovem: c.irsJovem,
+      }),
+      caso: c,
+    };
+  }
+  return out;
+}
+
+function celula(l: Linha, r: Record<string, SalaryResult & { caso: Caso }>): string {
+  if ('soma' in l) return eur(l.soma.reduce((s, k) => s + r[k].netMonthly, 0));
+  if ('diferenca' in l) {
+    const d = r[l.diferenca[0]].netMonthly - r[l.diferenca[1]].netMonthly;
+    return (d >= 0 ? '+ ' : '− ') + eur(Math.abs(d));
+  }
+  const v = r[l.caso];
+  switch (l.campo) {
+    case 'bruto':
+      return eur(v.grossMonthly);
+    case 'tsu':
+      return '− ' + eur(v.tsuEmployee);
+    case 'retencao':
+      return '− ' + eur(v.retencaoMensal);
+    case 'liquido':
+      return eur(v.netMonthly);
+    case 'taxaEfetiva':
+      return pc(v.grossMonthly > 0 ? (v.grossMonthly - v.netMonthly) / v.grossMonthly : 0);
+  }
+}
+
+/** {campo:cle} et {campo:a-b} dans un commentaire, remplaces par la valeur du moteur. */
+function texto(modelo: string, r: Record<string, SalaryResult & { caso: Caso }>): string {
+  return modelo.replace(/\{(\w+):([\w-]+)\}/g, (_m, campo: string, args: string) => {
+    const [a, b] = args.split('-');
+    const x = r[a];
+    const y = b ? r[b] : undefined;
+    switch (campo) {
+      case 'liquidoAnual':
+        return eurRedondo(x.netAnnual);
+      case 'custoEmpresa':
+        return eurRedondo(x.grossMonthly + x.tsuEmployer);
+      case 'liquidoMensal':
+        return eur(x.netMonthly);
+      case 'taxaEfetiva':
+        return pc(x.grossMonthly > 0 ? (x.grossMonthly - x.netMonthly) / x.grossMonthly : 0);
+      case 'difMensal':
+        return eurRedondo(Math.abs(x.netMonthly - y!.netMonthly));
+      case 'difAnual':
+        return eurRedondo(Math.abs(x.netAnnual - y!.netAnnual));
+      case 'variacaoBruto':
+        return pc((y!.grossMonthly - x.grossMonthly) / x.grossMonthly);
+      case 'variacaoLiquido':
+        return pc((y!.netMonthly - x.netMonthly) / x.netMonthly);
+      default:
+        return '';
+    }
+  });
+}
+
+const calculados = exemplos.map((ex) => {
+  const r = resolver(ex.casos);
+  return {
+    titulo: ex.titulo,
+    linhas: ex.linhas.map((l) => ({ rotulo: l.rotulo, nota: l.nota, valor: celula(l, r) })),
+    comentario: texto(ex.comentario, r),
+  };
+});
+---
+
+<section class="max-w-3xl mx-auto mt-12 border-t border-neutral-200 pt-8">
+  <h2 class="text-2xl font-bold text-neutral-900 mb-3">Como é feito o cálculo</h2>
+  <p class="text-neutral-700 leading-relaxed mb-5">{intro}</p>
+
+  <ol class="space-y-4">
+    {etapas.map((e, i) => (
+      <li class="flex gap-4">
+        <span class="flex-shrink-0 w-7 h-7 rounded-full bg-primary-100 text-primary-700 font-bold text-sm flex items-center justify-center">
+          {i + 1}
+        </span>
+        <div>
+          <h3 class="font-semibold text-neutral-900">{e.titulo}</h3>
+          <p class="text-neutral-700 leading-relaxed text-sm mt-1">{e.texto}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+
+  {calculados.map((ex) => (
+    <div class="mt-8 bg-neutral-50 rounded-xl border border-neutral-200 p-5">
+      <h3 class="font-bold text-neutral-900 mb-3">{ex.titulo}</h3>
+      <table class="w-full text-sm">
+        <tbody>
+          {ex.linhas.map((l) => (
+            <tr class="border-b border-neutral-200 last:border-0">
+              <td class="py-2 pr-3 text-neutral-700">
+                {l.rotulo}
+                {l.nota && <span class="block text-xs text-neutral-500">{l.nota}</span>}
+              </td>
+              <td class="py-2 text-right font-semibold text-neutral-900 tabular-nums whitespace-nowrap">
+                {l.valor}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="text-sm text-neutral-600 leading-relaxed mt-3">{ex.comentario}</p>
+    </div>
+  ))}
+
+  {atencao && (
+    <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4">
+      <p class="text-sm text-amber-900 leading-relaxed"><strong>A reter&nbsp;:</strong> {atencao}</p>
+    </div>
+  )}
+</section>

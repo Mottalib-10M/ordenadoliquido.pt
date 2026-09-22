@@ -6,58 +6,148 @@ const guides = [
     title: "Escalões de IRS 2026",
     description: "Conheça todos os escalões de IRS em vigor para 2026, as taxas marginais e como calcular o imposto sobre o seu rendimento.",
     href: "/guides/escaloes-irs-2026/",
+    responde: "Em que escalão caio, e quanto muda se subir?",
+    chave: "Nove escalões, de 13 % a 48 %. A taxa aplica-se apenas à parcela acima de cada limite, nunca a todo o rendimento.",
     icon: "📊",
   },
   {
     title: "Taxa Social Única (TSU)",
     description: "Guia completo sobre as contribuições para a Segurança Social: quanto paga o trabalhador e o empregador.",
     href: "/guides/taxa-social-unica-tsu/",
+    responde: "Quanto desconto para a Segurança Social, e quanto paga a empresa?",
+    chave: "11 % ao trabalhador e 23,75 % à entidade empregadora, sem qualquer limite superior.",
     icon: "🏛️",
   },
   {
     title: "IRS Jovem 2026",
     description: "Saiba como funciona a isenção parcial de IRS para jovens trabalhadores até aos 35 anos.",
     href: "/guides/irs-jovem-2026/",
+    responde: "Tenho direito ao IRS Jovem, e quanto ganho com ele?",
+    chave: "Isenção decrescente ao longo dos anos de benefício, com teto em múltiplos do IAS, aplicada já na retenção mensal.",
     icon: "🎓",
   },
   {
     title: "Subsídio de Natal e Férias",
     description: "Tudo sobre o 13.º e 14.º mês: quando recebe, como é calculado e quais os descontos aplicáveis.",
     href: "/guides/subsidio-natal-ferias/",
+    responde: "Recebo os subsídios por inteiro ou em duodécimos?",
+    chave: "Catorze meses no total. O valor anual é praticamente o mesmo, mas o líquido de cada mês muda.",
     icon: "🎄",
   },
   {
     title: "Retenção na Fonte",
     description: "Entenda como funciona o adiantamento mensal de IRS e as tabelas de retenção na fonte em 2026.",
     href: "/guides/retencao-na-fonte/",
+    responde: "Porque é que o valor retido não bate certo com o imposto?",
+    chave: "A retenção é um adiantamento calculado por tabelas; o imposto definitivo apura-se na declaração anual.",
     icon: "💰",
   },
   {
     title: "Deduções de IRS",
     description: "Descubra todas as deduções e benefícios fiscais que pode utilizar para reduzir o IRS a pagar.",
     href: "/guides/deducoes-irs/",
+    responde: "Que despesas posso deduzir, e até que montante?",
+    chave: "Saúde, educação, habitação, lares e PPR, cada uma com o seu limite próprio, registadas no e-Fatura.",
     icon: "🧾",
   },
   {
     title: "Salário Mínimo em Portugal 2026",
     description: "Valor atual do salário mínimo, evolução histórica, descontos aplicáveis e líquido efetivo.",
     href: "/guides/salario-minimo-portugal/",
+    responde: "Quanto rende líquido o salário mínimo?",
+    chave: "870 € brutos em 2026, pagos catorze vezes, aos quais acresce em regra o subsídio de refeição.",
     icon: "📈",
   },
   {
     title: "Recibos Verdes vs. Conta de Outrem",
     description: "Comparação detalhada entre trabalho independente e dependente: impostos, proteção social e rendimento líquido.",
     href: "/guides/recibos-verdes-vs-conta-outrem/",
+    responde: "Compensa passar a recibos verdes?",
+    chave: "Taxas contributivas, retenção e proteção social diferem: a comparação faz-se sobre o líquido e sobre o risco.",
     icon: "⚖️",
   },
 ];
+const faqs = [
+  {
+    "pergunta": "Por onde começar se nunca li um recibo de vencimento?",
+    "resposta": "Comece pelo guia da retenção na fonte, que explica a linha que mais pesa no recibo, e siga para o da Taxa Social Única. Com esses dois, já consegue reconstituir a diferença entre o bruto do contrato e o valor que chega à conta. Os restantes guias tratam de situações específicas e podem ser lidos à medida que surgem."
+  },
+  {
+    "pergunta": "Estes guias aplicam-se a trabalhadores independentes?",
+    "resposta": "Apenas em parte. A maioria trata do regime de trabalho por conta de outrem, com retenção feita pelo empregador. O guia dedicado aos recibos verdes explica o que muda para os independentes: taxas contributivas diferentes, obrigações declarativas próprias e um mecanismo de retenção que não é o mesmo."
+  },
+  {
+    "pergunta": "Com que frequência são atualizados?",
+    "resposta": "Sempre que muda a regra que descrevem. As tabelas de retenção e as taxas contributivas são publicadas com o Orçamento do Estado e entram em vigor em janeiro, por vezes com revisão a meio do ano. Cada página indica no topo e no rodapé a data da sua última revisão, retirada do histórico do site."
+  },
+  {
+    "pergunta": "Os guias substituem o aconselhamento de um contabilista?",
+    "resposta": "Não. Explicam as regras gerais e permitem verificar um recibo ou antecipar uma decisão, mas não analisam uma situação individual. Casos com rendimentos de várias categorias, residência fiscal noutro país ou atividade independente exigem aconselhamento profissional, porque envolvem regras de acumulação e convenções fiscais que uma página geral não pode cobrir sem induzir em erro."
+  },
+  {
+    "pergunta": "De onde vêm os valores citados nos guias?",
+    "resposta": "Das publicações oficiais: Código do IRS, despachos das tabelas de retenção da Autoridade Tributária, e tabelas contributivas da Segurança Social. Cada guia lista as suas fontes no final, com ligação direta ao documento, para que qualquer número possa ser verificado na origem."
+  },
+  {
+    "pergunta": "Qual a diferença entre os guias e a calculadora?",
+    "resposta": "A calculadora dá-lhe um valor para a sua situação concreta. Os guias explicam a regra que produz esse valor, o que lhe permite perceber por que motivo o resultado é aquele e o que aconteceria se mudasse de escalão, de situação familiar ou de número de dependentes."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.pergunta,
+    "acceptedAnswer": { "@type": "Answer", "text": f.resposta }
+  }))
+};
+
+import FontesOficiais from '../../components/FontesOficiais.astro';
+import { TSU_TRABALHADOR, TSU_EMPREGADOR, ESCALOES_IRS_2026, SALARIO_MINIMO_2026, DEDUCAO_ESPECIFICA, IAS_2026, MESES_ANO } from '../../lib/baremes-2026';
+
+const euros = (v: number) =>
+  v.toLocaleString('pt-PT', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + '\u00a0\u20ac';
+const pctTSU = (v: number) =>
+  (v * 100).toLocaleString('pt-PT', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + '\u00a0%';
+
+const valores = [
+  { rotulo: 'Contribuição do trabalhador (TSU)', nota: 'sobre a remuneração ilíquida, sem teto', valor: pctTSU(TSU_TRABALHADOR) },
+  { rotulo: 'Contribuição da entidade empregadora', nota: 'custo da empresa, não aparece no recibo', valor: pctTSU(TSU_EMPREGADOR) },
+  { rotulo: 'Escalões de IRS', nota: 'taxas marginais progressivas', valor: `${ESCALOES_IRS_2026.length}` },
+  { rotulo: 'Salário mínimo nacional', nota: 'pago catorze vezes por ano', valor: euros(SALARIO_MINIMO_2026) },
+  { rotulo: 'Dedução específica', nota: 'ou o total das contribuições, se superior', valor: euros(DEDUCAO_ESPECIFICA) },
+  { rotulo: 'Indexante dos apoios sociais (IAS)', nota: 'base de vários tetos, entre os quais o IRS Jovem', valor: euros(IAS_2026) },
+  { rotulo: 'Meses de remuneração no ano', nota: 'doze meses mais os dois subsídios', valor: `${MESES_ANO}` },
+];
+
 ---
 
 <Layout
   title="Guias - Tudo sobre Salários, IRS e Impostos em Portugal"
-  description="Guias completos e atualizados sobre IRS, TSU, subsídios, deduções fiscais e tudo o que precisa saber sobre o seu salário em Portugal."
+  description="Guias práticos sobre o salário líquido em Portugal: retenção na fonte, TSU, escalões de IRS, deduções, subsídios, IRS Jovem e recibos verdes explicados."
   canonical="/guides/"
 >
+
+  <section class="max-w-3xl mx-auto mb-10">
+    <h2 class="text-2xl font-bold text-neutral-900 mb-3">Por onde começar</h2>
+    <p class="text-neutral-700 leading-relaxed">
+      Se nunca leu um recibo de vencimento com atenção, comece pela
+      <a href="/guides/taxa-social-unica-tsu/" class="text-primary-600 hover:text-primary-700 font-semibold">Taxa Social Única</a>
+      e siga para a
+      <a href="/guides/retencao-na-fonte/" class="text-primary-600 hover:text-primary-700 font-semibold">retenção na fonte</a>.
+      Com esses dois, já consegue reconstituir sozinho a diferença entre o bruto do contrato
+      e o valor que chega à conta: são as duas únicas linhas obrigatórias do recibo.
+    </p>
+    <p class="text-neutral-700 leading-relaxed mt-3">
+      Os restantes guias tratam de situações concretas e podem ser lidos à medida que surgem:
+      um aumento que faz mudar de escalão, o primeiro emprego antes dos 35 anos, a escolha
+      entre duodécimos e subsídios por inteiro, ou a hipótese de passar a trabalhador
+      independente. Cada um indica no fim as fontes oficiais em que se baseia, para que
+      qualquer número possa ser verificado na origem.
+    </p>
+  </section>
   <section class="py-12 md:py-16">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Breadcrumb -->
@@ -88,6 +178,12 @@ const guides = [
             <p class="text-sm text-neutral-600 leading-relaxed">
               {guide.description}
             </p>
+            {guide.responde && (
+              <div class="mt-3 pt-3 border-t border-neutral-100">
+                <p class="text-sm font-semibold text-neutral-800">{guide.responde}</p>
+                <p class="text-sm text-neutral-600 leading-relaxed mt-1">{guide.chave}</p>
+              </div>
+            )}
             <span class="inline-flex items-center gap-1 mt-4 text-sm font-medium text-primary-600">
               Ler guia
               <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -99,4 +195,50 @@ const guides = [
       </div>
     </div>
   </section>
+
+  <section class="max-w-3xl mx-auto mt-12 border-t border-neutral-200 pt-8">
+    <h2 class="text-2xl font-bold text-neutral-900 mb-3">Os valores de 2026 num relance</h2>
+    <p class="text-neutral-700 leading-relaxed mb-5">
+      As referências que voltam em quase todos os cálculos. São as mesmas que o simulador
+      utiliza, e não uma cópia à parte: mudam no site inteiro assim que o barème é atualizado.
+    </p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <tbody>
+          {valores.map((v) => (
+            <tr class="border-b border-neutral-200 last:border-0">
+              <td class="py-2 pr-3 text-neutral-800">
+                {v.rotulo}
+                {v.nota && <span class="block text-xs text-neutral-500">{v.nota}</span>}
+              </td>
+              <td class="py-2 text-right font-semibold tabular-nums whitespace-nowrap text-neutral-900">{v.valor}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-sm text-neutral-600 leading-relaxed mt-4">
+      A contribuição para a Segurança Social não tem limite superior em Portugal: incide
+      sobre a totalidade da remuneração, por mais elevada que seja. É uma diferença
+      importante face a países onde existe um teto contributivo, e explica por que motivo a
+      taxa efetiva continua a subir mesmo em salários altos.
+    </p>
+  </section>
+
+  <section class="max-w-3xl mx-auto mt-12 border-t border-neutral-200 pt-8">
+    <h2 class="text-2xl font-bold text-neutral-900 mb-4">Perguntas frequentes</h2>
+    <div class="space-y-3">
+      {faqs.map((f) => (
+        <details class="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+          <summary class="px-4 py-3 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 list-none">
+            {f.pergunta}
+          </summary>
+          <div class="px-4 pb-4 text-sm text-neutral-700 leading-relaxed">{f.resposta}</div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <FontesOficiais />
 </Layout>

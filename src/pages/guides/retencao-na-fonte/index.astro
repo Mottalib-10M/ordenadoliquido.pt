@@ -44,8 +44,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Retenção na Fonte de IRS 2026 - Como Funciona | Salário Líquido PT"
-  description="Guia completo sobre a retenção na fonte de IRS em Portugal: tabelas 2026, como é calculada, fatores que influenciam a taxa e como pedir alterações."
+  title="Retenção na Fonte de IRS 2026: Como é Calculada e Porquê"
+  description="Como se calcula a retenção na fonte do IRS em 2026: as tabelas mensais, a parcela a abater, e porque o valor retido não é o imposto final que vai pagar."
   canonical="/guides/retencao-na-fonte/"
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -209,5 +209,19 @@ const faqSchema = {
         </div>
       </div>
     </div>
+
+        <section class="border-t border-neutral-200 pt-6 mt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Perguntas frequentes</h2>
+          <div class="space-y-3">
+            {faqSchema.mainEntity.map((f: any) => (
+              <details class="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <summary class="px-4 py-3 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 list-none">
+                  {f.name}
+                </summary>
+                <div class="px-4 pb-4 text-sm text-neutral-700 leading-relaxed">{f.acceptedAnswer.text}</div>
+              </details>
+            ))}
+          </div>
+        </section>
   </article>
 </Layout>

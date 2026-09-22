@@ -44,8 +44,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Subsídio de Natal e Férias 2026 - Guia Completo | Salário Líquido PT"
-  description="Guia completo sobre o subsídio de Natal e subsídio de férias em Portugal: quando se recebe, como calcular, descontos aplicáveis e direitos dos trabalhadores."
+  title="Subsídios de Natal e de Férias 2026: Cálculo e IRS"
+  description="Como são calculados os subsídios de Natal e de férias em 2026, o que muda entre recebê-los por inteiro ou em duodécimos, e como são tributados em IRS e TSU."
   canonical="/guides/subsidio-natal-ferias/"
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -189,5 +189,19 @@ const faqSchema = {
         </div>
       </div>
     </div>
+
+        <section class="border-t border-neutral-200 pt-6 mt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Perguntas frequentes</h2>
+          <div class="space-y-3">
+            {faqSchema.mainEntity.map((f: any) => (
+              <details class="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <summary class="px-4 py-3 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 list-none">
+                  {f.name}
+                </summary>
+                <div class="px-4 pb-4 text-sm text-neutral-700 leading-relaxed">{f.acceptedAnswer.text}</div>
+              </details>
+            ))}
+          </div>
+        </section>
   </article>
 </Layout>

@@ -20,7 +20,7 @@ const faqSchema = {
       "name": "Qual é o salário mínimo em Portugal em 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "O salário mínimo nacional (RMMG - Retribuição Mínima Mensal Garantida) em Portugal é de 870 euros brutos mensais em 2026, pagos 14 vezes por ano, o que totaliza 12.180 euros brutos anuais."
+        "text": "O salário mínimo nacional (RMMG - Retribuição Mínima Mensal Garantida) em Portugal é de 870 euros brutos mensais em 2026, pagos 14 vezes por ano, o que totaliza 12.180 euros brutos anuais. A este valor acresce, na maioria dos casos, o subsídio de refeição, isento de IRS e de Segurança Social até ao limite diário legal. O montante é revisto anualmente por decreto-lei, normalmente publicado em dezembro para vigorar a partir de 1 de janeiro."
       }
     },
     {
@@ -44,8 +44,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Salário Mínimo Portugal 2026 - Valor, Líquido e Evolução | Salário Líquido PT"
-  description="Guia completo sobre o salário mínimo em Portugal em 2026: valor bruto e líquido, evolução histórica, descontos, comparação europeia e impacto no custo de vida."
+  title="Salário Mínimo em Portugal 2026: Valor Bruto e Líquido"
+  description="O salário mínimo nacional em 2026, quanto rende líquido depois da TSU e do IRS, como evoluiu nos últimos anos e o que se acrescenta com o subsídio de refeição."
   canonical="/guides/salario-minimo-portugal/"
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -220,5 +220,19 @@ const faqSchema = {
         </div>
       </div>
     </div>
+
+        <section class="border-t border-neutral-200 pt-6 mt-6">
+          <h2 class="text-lg font-bold text-neutral-900 mb-3">Perguntas frequentes</h2>
+          <div class="space-y-3">
+            {faqSchema.mainEntity.map((f: any) => (
+              <details class="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <summary class="px-4 py-3 cursor-pointer font-semibold text-neutral-800 hover:text-primary-600 list-none">
+                  {f.name}
+                </summary>
+                <div class="px-4 pb-4 text-sm text-neutral-700 leading-relaxed">{f.acceptedAnswer.text}</div>
+              </details>
+            ))}
+          </div>
+        </section>
   </article>
 </Layout>
