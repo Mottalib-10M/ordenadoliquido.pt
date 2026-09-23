@@ -19,7 +19,13 @@ function formatPercent(value: number): string {
 }
 
 export default function SalaryCalculator() {
-  const [grossMonthly, setGrossMonthly] = useState<number>(1500);
+  // Le texte saisi est la source de verite ; le nombre en est derive. Sans cela, un
+  // champ vide est rejete et React y reecrit l'ancienne valeur a chaque frappe.
+  const [grossText, setGrossText] = useState<string>("1500");
+  const grossMonthly = useMemo(() => {
+    const v = parseFloat(grossText.replace(",", "."));
+    return Number.isFinite(v) && v >= 0 ? v : 0;
+  }, [grossText]);
   const [maritalStatus, setMaritalStatus] = useState<SalaryInput["maritalStatus"]>("solteiro");
   const [dependents, setDependents] = useState<number>(0);
   const [irsJovem, setIrsJovem] = useState<number>(0);
@@ -32,8 +38,7 @@ export default function SalaryCalculator() {
   const result: SalaryResult = useMemo(() => calculateSalary(input), [input]);
 
   const handleGrossChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = parseFloat(e.target.value);
-    if (!isNaN(val) && val >= 0) setGrossMonthly(val);
+    setGrossText(e.target.value);
   }, []);
 
   return (
@@ -62,8 +67,9 @@ export default function SalaryCalculator() {
                 id="gross"
                 type="number"
                 min={0}
-                step={50}
-                value={grossMonthly}
+                step="any"
+                inputMode="decimal"
+                value={grossText}
                 onChange={handleGrossChange}
                 className="w-full pl-8 pr-4 py-3 border border-neutral-300 rounded-xl text-lg font-semibold bg-neutral-50
                   focus:bg-white focus:border-primary-600 focus:ring-4 focus:ring-primary-600/15 focus:outline-none transition-all"
