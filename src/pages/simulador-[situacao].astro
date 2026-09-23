@@ -125,7 +125,7 @@ import ContextoFolha from '../components/ContextoFolha.astro';
   <section class="relative bg-primary-800 text-white overflow-hidden">
     <div class="absolute inset-0 opacity-[0.18]" style="background-image: radial-gradient(circle at 18% 22%, #35a876 0, transparent 45%), radial-gradient(circle at 88% 12%, #ffc72c 0, transparent 38%);" aria-hidden="true"></div>
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-      <div class="max-w-3xl">
+      <div class="max-w-6xl">
         <h1 class="text-3xl md:text-5xl font-extrabold leading-[1.08] text-white">
           Simulador de salário {situacao.label.toLowerCase()}<br />
           <span class="text-accent-400">Portugal 2026</span>
@@ -148,7 +148,7 @@ import ContextoFolha from '../components/ContextoFolha.astro';
 
   <!-- Situation Description -->
   <section class="py-10 bg-white border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
       <h2 class="text-2xl font-bold text-neutral-900 mb-4">Salário Líquido para {situacao.label} em 2026</h2>
       <p class="text-neutral-700 leading-relaxed">{situacao.descricao}</p>
 
@@ -162,7 +162,7 @@ import ContextoFolha from '../components/ContextoFolha.astro';
 
   <!-- Example Table -->
   <section class="py-10 md:py-14 bg-neutral-50 border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-neutral-900 mb-6">
         Tabela de Salários - {situacao.label}
       </h2>
@@ -200,7 +200,7 @@ import ContextoFolha from '../components/ContextoFolha.astro';
 
   <!-- FAQ -->
   <section class="py-10 md:py-14 border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-neutral-900 mb-8">Perguntas Frequentes - {situacao.label}</h2>
 
       <div class="space-y-6">
@@ -223,7 +223,7 @@ import ContextoFolha from '../components/ContextoFolha.astro';
   <section class="py-10 md:py-14 bg-neutral-50 border-t border-neutral-100">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-neutral-900 mb-6 text-center">Outras Situações Fiscais</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-6xl mx-auto">
         {outrasSituacoes.map((s) => (
           <a
             href={`/simulador-${s.slug}/`}
@@ -251,7 +251,7 @@ import ContextoFolha from '../components/ContextoFolha.astro';
     </div>
   </section>
   <ComoSeCalcula intro={situacao.calculo.intro} etapas={situacao.calculo.etapas} exemplos={situacao.calculo.exemplos} atencao={situacao.calculo.atencao} />
-  <section class="max-w-3xl mx-auto mt-12 border-t border-neutral-200 pt-8">
+  <section class="max-w-6xl mx-auto mt-12 border-t border-neutral-200 pt-8">
     <h2 class="text-2xl font-bold text-neutral-900 mb-3">Erros frequentes nesta situação</h2>
     <ul class="space-y-3">
       {situacao.errosFrequentes.map((e) => (
@@ -263,7 +263,7 @@ import ContextoFolha from '../components/ContextoFolha.astro';
     </ul>
   </section>
 
-  <section class="max-w-3xl mx-auto mt-12 border-t border-neutral-200 pt-8">
+  <section class="max-w-6xl mx-auto mt-12 border-t border-neutral-200 pt-8">
     <h2 class="text-2xl font-bold text-neutral-900 mb-3">O acerto anual nesta situação</h2>
     <p class="text-neutral-700 leading-relaxed">{situacao.acertoAnual}</p>
   </section>

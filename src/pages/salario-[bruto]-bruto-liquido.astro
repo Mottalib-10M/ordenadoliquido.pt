@@ -136,7 +136,7 @@ const articleSchema = {
   <section class="relative bg-primary-800 text-white overflow-hidden">
     <div class="absolute inset-0 opacity-[0.18]" style="background-image: radial-gradient(circle at 18% 22%, #35a876 0, transparent 45%), radial-gradient(circle at 88% 12%, #ffc72c 0, transparent 38%);" aria-hidden="true"></div>
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-      <div class="max-w-3xl">
+      <div class="max-w-6xl">
         <h1 class="text-3xl md:text-5xl font-extrabold leading-[1.08] text-white">
           {formatEuro(salario.brutoMensal)} brutos<br />
           <span class="text-accent-400">quanto fica l&iacute;quido</span>
@@ -195,7 +195,7 @@ const articleSchema = {
 
   <!-- Tax Breakdown Table -->
   <section class="py-10 md:py-14">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-neutral-900 mb-6">Detalhe do C&aacute;lculo, {salario.brutoMensal}&euro; Brutos</h2>
 
       <div class="bg-white rounded-2xl shadow-lg border border-neutral-200 overflow-hidden">
@@ -250,7 +250,7 @@ const articleSchema = {
 
   <!-- Band Context / Unique SEO Content -->
   <section class="py-10 bg-white border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
       <h2 class="text-2xl font-bold text-neutral-900 mb-4">Sal&aacute;rio de {salario.brutoMensal}&euro; Brutos em Portugal, Contexto e An&aacute;lise</h2>
       <p class="text-neutral-700 leading-relaxed">{bandContext}</p>
     </div>
@@ -258,7 +258,7 @@ const articleSchema = {
 
   <!-- Career Description -->
   <section class="py-10 bg-neutral-50 border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
       <h2 class="text-2xl font-bold text-neutral-900 mb-4">Perfil Profissional, Quem Ganha {salario.brutoMensal}&euro; Brutos</h2>
       <p class="text-neutral-700 leading-relaxed">{careerDescription}</p>
     </div>
@@ -266,7 +266,7 @@ const articleSchema = {
 
   <!-- Comparison with SMN -->
   <section class="py-10 bg-white border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
       <h2 class="text-2xl font-bold text-neutral-900 mb-4">Compara&ccedil;&atilde;o: {salario.brutoMensal}&euro; Brutos vs. Sal&aacute;rio M&iacute;nimo</h2>
       <p class="text-neutral-700 leading-relaxed">{comparisonText}</p>
     </div>
@@ -274,7 +274,7 @@ const articleSchema = {
 
   <!-- Unique Comparisons Section -->
   <section class="py-10 bg-white border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
       <h2 class="text-2xl font-bold text-neutral-900 mb-4">An&aacute;lise Detalhada, {salario.brutoMensal}&euro; Brutos em Perspetiva</h2>
       {uniqueComparisons.map((c) => (
         <p class="text-neutral-700 leading-relaxed mb-3">{c.texto}</p>
@@ -284,7 +284,7 @@ const articleSchema = {
 
   <!-- Raise Simulation -->
   <section class="py-10 bg-neutral-50 border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-neutral-900 mb-4">Simula&ccedil;&atilde;o de Aumento, Partindo de {salario.brutoMensal}&euro; Brutos</h2>
       <p class="text-neutral-600 mb-6">{raiseSimulation.intro}</p>
 
@@ -322,7 +322,7 @@ const articleSchema = {
 
   <!-- Seguranca Social Explanation -->
   <section class="py-10 bg-white border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-neutral max-w-none">
       <h2 class="text-2xl font-bold text-neutral-900 mb-4">Seguran&ccedil;a Social (TSU) com {salario.brutoMensal}&euro; Brutos</h2>
       <p class="text-neutral-700 leading-relaxed">{ssExplanation}</p>
     </div>
@@ -330,7 +330,7 @@ const articleSchema = {
 
   <!-- How IRS Works - Escaloes -->
   <section class="py-10 md:py-14 border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-neutral-900 mb-4">Como Funciona o IRS em Portugal, Escal&otilde;es 2026</h2>
       <p class="text-neutral-700 leading-relaxed mb-6">{irsExplanation}</p>
 
@@ -368,7 +368,7 @@ const articleSchema = {
 
   <!-- Monthly Budget Table -->
   <section class="py-10 md:py-14 bg-neutral-50 border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-neutral-900 mb-4">Or&ccedil;amento Mensal Sugerido, {formatEuro(salario.liquidoMensal)} L&iacute;quidos</h2>
       <p class="text-neutral-600 mb-6">
         Com um l&iacute;quido de {formatEuro(salario.liquidoMensal)} mensais (ap&oacute;s descontos de {formatEuro(d.descontosTotaisMensal)} sobre os {formatEuro(salario.brutoMensal)} brutos), a distribui&ccedil;&atilde;o or&ccedil;amental deve adaptar-se &agrave; sua realidade. Sugerimos {formatEuro(salario.liquidoMensal * 0.15)} para poupan&ccedil;a, {formatEuro(salario.liquidoMensal * 0.30)} para habita&ccedil;&atilde;o e o restante distribu&iacute;do pelas categorias essenciais.
@@ -404,7 +404,7 @@ const articleSchema = {
 
   <!-- Tax Optimization Tips -->
   <section class="py-10 md:py-14 border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-neutral-900 mb-6">Dicas de Otimiza&ccedil;&atilde;o Fiscal, {salario.brutoMensal}&euro; Brutos</h2>
       <p class="text-neutral-600 mb-8">
         Com {formatEuro(salario.brutoMensal)} brutos, paga {formatEuro(d.descontosTotaisMensal)} em descontos mensais (reten&ccedil;&atilde;o IRS de {formatPercent(salario.retencaoTaxa)} + TSU de 11%). O seu IRS anual estimado &eacute; de {formatEuro(salario.irsAnual)}, no {d.escalaoIndex}.&ordm; escal&atilde;o. Existem formas leg&iacute;timas de reduzir esta carga e aumentar o l&iacute;quido de {formatEuro(salario.liquidoMensal)}.
@@ -423,7 +423,7 @@ const articleSchema = {
 
   <!-- FAQ -->
   <section class="py-10 md:py-14 bg-neutral-50 border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-neutral-900 mb-8">Perguntas Frequentes, {salario.brutoMensal}&euro; Brutos</h2>
 
       <div class="space-y-4">
@@ -444,7 +444,7 @@ const articleSchema = {
 
   <!-- Author E-E-A-T Box -->
   <section class="py-10 border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-white rounded-2xl shadow-lg border border-neutral-200 p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start">
         <div class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
           <span class="text-2xl font-bold text-primary-700">MR</span>
@@ -462,7 +462,7 @@ const articleSchema = {
 
   <!-- Sources / References -->
   <section class="py-10 bg-neutral-50 border-t border-neutral-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-neutral-900 mb-4">Fontes e Refer&ecirc;ncias Oficiais</h2>
       <p class="text-neutral-600 mb-6">
         Os c&aacute;lculos apresentados nesta p&aacute;gina baseiam-se nas tabelas e legisla&ccedil;&atilde;o oficiais publicadas pelas seguintes entidades portuguesas:
