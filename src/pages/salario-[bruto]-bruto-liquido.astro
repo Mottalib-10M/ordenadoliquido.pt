@@ -47,12 +47,12 @@ const author = getAuthorBox();
 // Titre 59-60 et description 151-153 caracteres, dans les bornes de la recette
 // (§6). Le montant liquide passe par le formateur portugais : toFixed() ecrit
 // un point decimal, qui ne correspondrait pas au texte de la page (§4).
-const liquidoFmt = salario.liquidoMensal.toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const liquidoFmt = salario.liquidoMensal.toLocaleString("pt-PT", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 const title = `Sal\u00e1rio ${salario.brutoMensal}\u00a0\u20ac Bruto para L\u00edquido 2026 | IRS, TSU, Subs\u00eddios`;
-const description = `Quanto recebe de l\u00edquido com ${salario.brutoMensal}\u00a0\u20ac brutos mensais em Portugal em 2026? O simulador indica ${liquidoFmt}\u00a0\u20ac por m\u00eas, com IRS, TSU e os dois subs\u00eddios inclu\u00eddos.`;
+const description = `Quanto recebe de l\u00edquido com ${salario.brutoMensal}\u00a0\u20ac brutos mensais em Portugal em 2026? O simulador indica ${liquidoFmt}\u00a0\u20ac por m\u00eas, com IRS, TSU e os dois subs\u00eddios anuais inclu\u00eddos.`;
 
 function formatEuro(val: number): string {
-  return val.toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " \u20ac";
+  return val.toLocaleString("pt-PT", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " \u20ac";
 }
 
 function formatPercent(val: number): string {

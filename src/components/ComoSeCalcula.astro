@@ -36,11 +36,11 @@ interface Props {
 const { intro, etapas, exemplos, atencao } = Astro.props;
 
 const eur = (v: number) =>
-  v.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+  v.toLocaleString('pt-PT', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' €';
 const eurRedondo = (v: number) =>
   Math.round(v).toLocaleString('pt-PT', { maximumFractionDigits: 0 }) + ' €';
 const pc = (v: number) =>
-  (v * 100).toLocaleString('pt-PT', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' %';
+  (v * 100).toLocaleString('pt-PT', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' %';
 
 function resolver(casos: Record<string, Caso>): Record<string, SalaryResult & { caso: Caso }> {
   const out: Record<string, SalaryResult & { caso: Caso }> = {};

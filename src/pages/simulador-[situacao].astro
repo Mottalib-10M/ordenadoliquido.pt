@@ -22,7 +22,7 @@ const title = situacao.tituloSeo;
 const description = situacao.descricaoSeo;
 
 function formatEuro(val: number): string {
-  return val.toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+  return val.toLocaleString("pt-PT", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " €";
 }
 
 function formatPercent(val: number): string {

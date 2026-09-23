@@ -16,7 +16,7 @@ import { SALARIOS, type SalarioEntry } from "./salarios-data";
 /* ================================================================== */
 
 function eur(v: number): string {
-  return v.toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "\u00a0\u20ac";
+  return v.toLocaleString("pt-PT", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + "\u00a0\u20ac";
 }
 
 // toFixed() ecrit toujours un point decimal, quelle que soit la langue. Sur une

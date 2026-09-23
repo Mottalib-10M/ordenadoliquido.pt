@@ -108,9 +108,9 @@ import FontesOficiais from '../../components/FontesOficiais.astro';
 import { TSU_TRABALHADOR, TSU_EMPREGADOR, ESCALOES_IRS_2026, SALARIO_MINIMO_2026, DEDUCAO_ESPECIFICA, IAS_2026, MESES_ANO } from '../../lib/baremes-2026';
 
 const euros = (v: number) =>
-  v.toLocaleString('pt-PT', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + '\u00a0\u20ac';
+  v.toLocaleString('pt-PT', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + '\u00a0\u20ac';
 const pctTSU = (v: number) =>
-  (v * 100).toLocaleString('pt-PT', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + '\u00a0%';
+  (v * 100).toLocaleString('pt-PT', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + '\u00a0%';
 
 const valores = [
   { rotulo: 'Contribuição do trabalhador (TSU)', nota: 'sobre a remuneração ilíquida, sem teto', valor: pctTSU(TSU_TRABALHADOR) },

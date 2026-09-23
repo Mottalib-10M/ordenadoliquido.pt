@@ -6,7 +6,7 @@ function formatCurrency(value: number): string {
   return new Intl.NumberFormat("pt-PT", {
     style: "currency",
     currency: "EUR",
-    minimumFractionDigits: 2,
+    minimumFractionDigits: 0,
   }).format(value);
 }
 
@@ -22,10 +22,17 @@ export default function SalaryCalculator() {
   // Le texte saisi est la source de verite ; le nombre en est derive. Sans cela, un
   // champ vide est rejete et React y reecrit l'ancienne valeur a chaque frappe.
   const [grossText, setGrossText] = useState<string>("1500");
+  // Le champ en cours de saisie n'est jamais mis en forme : y reecrire pendant la
+  // frappe est la panne corrigee deux fois aujourd'hui.
+  const [emEdicao, setEmEdicao] = useState(false);
   const grossMonthly = useMemo(() => {
-    const v = parseFloat(grossText.replace(",", "."));
+    const v = parseFloat(grossText.replace(/\s|\u00a0|\u202f/g, "").replace(",", "."));
     return Number.isFinite(v) && v >= 0 ? v : 0;
   }, [grossText]);
+  // Entier, milliers separes par l'espace du portugais. Champ vide reste vide.
+  const grossAfixado = emEdicao || grossText === ""
+    ? grossText
+    : Math.round(grossMonthly).toLocaleString("pt-PT");
   const [maritalStatus, setMaritalStatus] = useState<SalaryInput["maritalStatus"]>("solteiro");
   const [dependents, setDependents] = useState<number>(0);
   const [irsJovem, setIrsJovem] = useState<number>(0);
@@ -38,7 +45,9 @@ export default function SalaryCalculator() {
   const result: SalaryResult = useMemo(() => calculateSalary(input), [input]);
 
   const handleGrossChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setGrossText(e.target.value);
+    // On accepte les chiffres, la virgule, le point et l'espace ; le reste est
+    // ecarte pour qu'un collage depuis un tableur ne casse pas la saisie.
+    setGrossText(e.target.value.replace(/[^\d.,\s\u00a0\u202f]/g, ""));
   }, []);
 
   return (
@@ -65,12 +74,12 @@ export default function SalaryCalculator() {
             <div className="relative">
               <input
                 id="gross"
-                type="number"
-                min={0}
-                step="any"
+                type="text"
                 inputMode="decimal"
-                value={grossText}
+                value={grossAfixado}
                 onChange={handleGrossChange}
+                onFocus={() => setEmEdicao(true)}
+                onBlur={() => setEmEdicao(false)}
                 className="w-full pl-8 pr-4 py-3 border border-neutral-300 rounded-xl text-lg font-semibold bg-neutral-50
                   focus:bg-white focus:border-primary-600 focus:ring-4 focus:ring-primary-600/15 focus:outline-none transition-all"
               />
