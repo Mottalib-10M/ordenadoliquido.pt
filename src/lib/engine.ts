@@ -1,5 +1,5 @@
 /**
- * Motor de cálculo salarial para Portugal — 2026
+ * Motor de cálculo salarial para Portugal, 2026
  * Calcula salário líquido a partir do bruto, incluindo TSU, IRS,
  * retenção na fonte, subsídio de Natal e subsídio de férias.
  */
@@ -181,7 +181,7 @@ export function calculateSalary(input: SalaryInput): SalaryResult {
   // O IRS Jovem reduz a retenção MENSAL, e não apenas o acerto anual, desde que
   // o trabalhador comunique a situação ao empregador. Sem esta correção, a
   // página dedicada ao regime mostrava exatamente o mesmo líquido que a de um
-  // solteiro sem benefício — o desconto existia no IRS anual mas nunca chegava
+  // solteiro sem benefício, o desconto existia no IRS anual mas nunca chegava
   // ao salário do mês.
   const retencaoTaxaTabela = getTaxaRetencao(grossMonthly, maritalStatus, dependents);
   const reducaoJovem =
@@ -191,14 +191,14 @@ export function calculateSalary(input: SalaryInput): SalaryResult {
   const retencaoTaxa = round2(retencaoTaxaTabela * (1 - reducaoJovem) * 10000) / 10000;
   const retencaoMensal = round2(grossMonthly * retencaoTaxa);
 
-  /* ── Subsídio de Natal (13.º mês) — taxado à taxa média ── */
+  /* ── Subsídio de Natal (13.º mês), taxado à taxa média ── */
   const subsidioNatalBruto = grossMonthly;
   const tsuSubNatal = round2(subsidioNatalBruto * TSU_TRABALHADOR);
   const taxaMedia = grossAnnual > 0 ? irsAnnual / (grossAnnual - tsuEmployeeAnnual) : 0;
   const irsSubNatal = round2(subsidioNatalBruto * taxaMedia);
   const subsidioNatalLiquido = round2(subsidioNatalBruto - tsuSubNatal - irsSubNatal);
 
-  /* ── Subsídio de Férias (14.º mês) — taxado à taxa de retenção normal ── */
+  /* ── Subsídio de Férias (14.º mês), taxado à taxa de retenção normal ── */
   const subsidioFeriasBruto = grossMonthly;
   const tsuSubFerias = round2(subsidioFeriasBruto * TSU_TRABALHADOR);
   const irsSubFerias = round2(subsidioFeriasBruto * retencaoTaxa);

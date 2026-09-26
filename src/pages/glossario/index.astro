@@ -1,4 +1,5 @@
 ---
+import { CITAVEIS } from '../../data/blocos-citaveis';
 import Layout from '../../layouts/Layout.astro';
 const faqs = [
   {
@@ -68,6 +69,10 @@ import ContextoFolha from '../../components/ContextoFolha.astro';
       </nav>
 
       <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-4">Glossario de termos salariais e fiscais</h1>
+      {/* §21 : o paragrafo que um motor de resposta pode extrair, antes do
+          resto do corpo. O chapeu tem uma linha : nao se extrai. */}
+      <p class="mb-8 text-neutral-700 leading-relaxed">{CITAVEIS['/glossario/']}</p>
+
       <p class="text-neutral-600 mb-8">
         Todos os termos importantes relacionados com o salário bruto, salário líquido, IRS e Segurança Social
         em Portugal, explicados de forma simples.

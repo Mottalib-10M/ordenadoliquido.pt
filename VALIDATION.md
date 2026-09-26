@@ -1,4 +1,4 @@
-# VALIDATION — ordenadoliquido.pt
+# VALIDATION, ordenadoliquido.pt
 
 ## Metodologia
 
@@ -11,7 +11,7 @@ Os cálculos deste simulador baseiam-se nos escalões de IRS, taxas de TSU e tab
 
 ---
 
-## Caso de validação n.°1 — Solteiro, sem dependentes, 1 500 € bruto
+## Caso de validação n.°1, Solteiro, sem dependentes, 1 500 € bruto
 
 **Dados de entrada:**
 - Salário bruto mensal: 1 500 €
@@ -27,7 +27,7 @@ Os cálculos deste simulador baseiam-se nos escalões de IRS, taxas de TSU e tab
 
 ---
 
-## Caso de validação n.°2 — Casado, 2 titulares, 2 dependentes, 2 500 € bruto
+## Caso de validação n.°2, Casado, 2 titulares, 2 dependentes, 2 500 € bruto
 
 **Dados de entrada:**
 - Salário bruto mensal: 2 500 €
@@ -42,7 +42,7 @@ Os cálculos deste simulador baseiam-se nos escalões de IRS, taxas de TSU e tab
 
 ---
 
-## Caso de validação n.°3 — IRS Jovem, 1 200 € bruto
+## Caso de validação n.°3, IRS Jovem, 1 200 € bruto
 
 **Dados de entrada:**
 - Salário bruto mensal: 1 200 €
@@ -79,9 +79,9 @@ Os cálculos deste simulador baseiam-se nos escalões de IRS, taxas de TSU e tab
 
 ## Data files
 
-- baremes-2026.ts — IRS brackets, TSU rates, withholding tables, IRS Jovem
-- salarios-data.ts — 12 salary entries with pre-calculated examples
-- situacoes-data.ts — 4 situation entries (marital status variants)
+- baremes-2026.ts, IRS brackets, TSU rates, withholding tables, IRS Jovem
+- salarios-data.ts, 12 salary entries with pre-calculated examples
+- situacoes-data.ts, 4 situation entries (marital status variants)
 
 ## Quality gates
 

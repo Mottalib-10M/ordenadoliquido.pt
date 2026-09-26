@@ -8,6 +8,11 @@ interface Props {
 const { title, description, canonical } = Astro.props;
 const siteUrl = "https://ordenadoliquido.pt";
 const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
+// §11 : la vignette de partage. Son nom suit le chemin de la page, ce que le
+// script og-cards.py de la trame respecte. Sans elle, une page partagée sortait
+// en lien nu (relevé du 2026-09-26).
+const cheminOg = (canonical ?? '/').replace(/^\/+|\/+$/g, '').replace(/\//g, '-');
+const ogImage = `https://ordenadoliquido.pt/og/${cheminOg || 'accueil'}.png`;
 ---
 
 <!doctype html>
@@ -29,6 +34,13 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_PT" />
     <meta property="og:site_name" content="Ordenado Líquido" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

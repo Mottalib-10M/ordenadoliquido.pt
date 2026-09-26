@@ -1,4 +1,5 @@
 ---
+import { CITAVEIS } from '../../data/blocos-citaveis';
 import Layout from "../../layouts/Layout.astro";
 
 const guides = [
@@ -161,6 +162,10 @@ const valores = [
       <h1 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-4">
         Guias sobre Salários e Impostos
       </h1>
+      {/* §21 : o paragrafo que um motor de resposta pode extrair, antes do
+          resto do corpo. O chapeu tem uma linha : nao se extrai. */}
+      <p class="mb-8 text-neutral-700 leading-relaxed">{CITAVEIS['/guides/']}</p>
+
       <p class="text-lg text-neutral-600 mb-10 max-w-3xl leading-relaxed">
         Artigos detalhados para o ajudar a compreender como funcionam os impostos, contribuições e cálculos salariais em Portugal. Tudo explicado de forma simples e atualizado para 2026.
       </p>

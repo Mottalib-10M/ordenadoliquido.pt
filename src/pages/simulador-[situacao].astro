@@ -1,4 +1,5 @@
 ---
+import { CITAVEIS_SIMULADOR } from '../data/blocos-citaveis';
 import Layout from "../layouts/Layout.astro";
 import SalaryCalculator from "../components/SalaryCalculator";
 import { SITUACOES, type SituacaoEntry } from "../lib/situacoes-data";
@@ -130,6 +131,10 @@ import ContextoFolha from '../components/ContextoFolha.astro';
           Simulador de salário {situacao.label.toLowerCase()}<br />
           <span class="text-accent-400">Portugal 2026</span>
         </h1>
+      {/* §21 : o paragrafo que um motor de resposta pode extrair, antes do
+          resto do corpo. O chapeu tem uma linha : nao se extrai. */}
+      <p class="mb-8 text-neutral-700 leading-relaxed">{CITAVEIS_SIMULADOR[Astro.params.situacao!]}</p>
+
         <p class="mt-4 text-lg text-primary-100 leading-relaxed max-w-2xl">
           Calcule o salário líquido na situação de <strong class="text-white font-semibold">{situacao.label.toLowerCase()}</strong>:
           quanto recebe depois do IRS, da Segurança Social e das deduções que lhe são próprias.

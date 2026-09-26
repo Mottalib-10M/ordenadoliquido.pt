@@ -1,5 +1,5 @@
 /**
- * Baremes fiscais para Portugal — Ano 2026
+ * Baremes fiscais para Portugal, Ano 2026
  * Escalões de IRS, TSU, deduções e tabelas de retenção na fonte
  */
 
@@ -39,7 +39,7 @@ export const TSU_EMPREGADOR = 0.2375;
 /** Dedução específica (rendimentos categoria A) */
 export const DEDUCAO_ESPECIFICA = 4_104;
 
-/** Dedução pessoal e familiar — por titular/dependente */
+/** Dedução pessoal e familiar, por titular/dependente */
 export const DEDUCAO_FAMILIAR_POR_PESSOA = 250;
 
 /** Salário mínimo nacional mensal em 2026 */
@@ -60,7 +60,7 @@ export interface IrsJovemEscalao {
 }
 
 /**
- * IRS Jovem — regime de isenção parcial nos primeiros 5 anos
+ * IRS Jovem, regime de isenção parcial nos primeiros 5 anos
  * de obtenção de rendimentos do trabalho (aplicável a jovens até 35 anos).
  * Baseado no IAS (Indexante dos Apoios Sociais) 2026: €522,50 (estimado).
  */
@@ -74,7 +74,7 @@ export const IRS_JOVEM_ESCALOES: IrsJovemEscalao[] = [
   { ano: 5, isencaoPercentagem: 0.25, limiteIsencao: 20 * IAS_2026 },
 ];
 
-/* ──────── Tabelas de Retenção na Fonte (simplificadas) — 2026 ──────── */
+/* ──────── Tabelas de Retenção na Fonte (simplificadas), 2026 ──────── */
 
 export type EstadoCivil = "solteiro" | "casado1titular" | "casado2titulares";
 

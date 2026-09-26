@@ -2,7 +2,7 @@
   "name": "salarioliquido-pt",
   "type": "module",
   "version": "1.0.0",
-  "description": "Calculadora de Salário Líquido em Portugal — IRS, TSU, Subsídios 2026",
+  "description": "Calculadora de Salário Líquido em Portugal, IRS, TSU, Subsídios 2026",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
