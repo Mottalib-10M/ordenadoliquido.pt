@@ -10,6 +10,15 @@
 
 import { ESCALOES_IRS_2026, DEDUCAO_ESPECIFICA, IRS_JOVEM_ESCALOES, IAS_2026 } from "./baremes-2026";
 import { SALARIOS, type SalarioEntry } from "./salarios-data";
+import { calculateSalary } from "./engine";
+
+/** Valores de referência lidos no motor, para que as comparações acompanhem as tabelas do ano. */
+const ref = (bruto: number, dependents = 0) =>
+  calculateSalary({ grossMonthly: bruto, maritalStatus: "solteiro", dependents, irsJovem: 0 });
+const LIQ_SMN = ref(920).netMonthly;
+const REF_1500 = ref(1500);
+const REF_3000 = ref(3000);
+const RET_2500_1DEP = ref(2500, 1).retencaoTaxa;
 
 /* ================================================================== */
 /*  Tiny formatters                                                    */
@@ -122,7 +131,7 @@ function getAdjacentSalaries(slug: string): { prev: SalarioEntry | null; next: S
 
 const MEDIANA_BRUTA_PT = 1100; // INE 2025 estimate
 const MEDIA_BRUTA_PT = 1450;  // Pordata 2025 estimate
-const SMN_2026 = 870;
+const SMN_2026 = 920;
 
 /* ================================================================== */
 /*  5bis. Unique Comparisons helper                                    */
@@ -137,7 +146,7 @@ export function getUniqueComparisons(s: SalarioEntry, d: DerivedNumbers): Unique
   const { prev, next } = getAdjacentSalaries(s.slug);
   const variationIndex = Math.floor(s.brutoMensal / 1000) % 5;
 
-  // Comparison to minimum wage (870 EUR)
+  // Comparison to minimum wage (920 EUR)
   const ratioSMN = s.brutoMensal / SMN_2026;
   const dailyNet = d.liquidoDiario;
   const diffToMedian = s.brutoMensal - MEDIANA_BRUTA_PT;
@@ -240,16 +249,16 @@ const BAND_MAP: Record<string, BandInfo> = {
   "820": {
     bandLabel: "abaixo do sal\u00e1rio m\u00ednimo",
     careerExamples: "est\u00e1gios profissionais, contratos a tempo parcial e trabalhadores sazonais na restaura\u00e7\u00e3o, agricultura ou turismo",
-    marketContext: "Este valor situa-se abaixo do sal\u00e1rio m\u00ednimo nacional de 870\u00a0\u20ac em 2026, sendo aplic\u00e1vel essencialmente a trabalhadores a tempo parcial ou a est\u00e1gios IEFP. Segundo dados do INE, cerca de 12% dos contratos em Portugal s\u00e3o a tempo parcial",
+    marketContext: "Este valor situa-se abaixo do sal\u00e1rio m\u00ednimo nacional de 920\u00a0\u20ac em 2026, sendo aplic\u00e1vel essencialmente a trabalhadores a tempo parcial ou a est\u00e1gios IEFP. Segundo dados do INE, cerca de 12% dos contratos em Portugal s\u00e3o a tempo parcial",
     lifeContext: "Com um sal\u00e1rio l\u00edquido nesta faixa, a gest\u00e3o or\u00e7amental torna-se priorit\u00e1ria. \u00c9 fundamental aproveitar todos os apoios sociais dispon\u00edveis, como o complemento solid\u00e1rio para idosos, abono de fam\u00edlia e tarifas sociais de energia e \u00e1gua",
-    negociationTip: "Considere negociar a convers\u00e3o para contrato a tempo inteiro ao sal\u00e1rio m\u00ednimo de 870\u00a0\u20ac, o que garantiria cobertura total da Seguran\u00e7a Social e acesso a todas as presta\u00e7\u00f5es sociais"
+    negociationTip: "Considere negociar a convers\u00e3o para contrato a tempo inteiro ao sal\u00e1rio m\u00ednimo de 920\u00a0\u20ac, o que garantiria cobertura total da Seguran\u00e7a Social e acesso a todas as presta\u00e7\u00f5es sociais"
   },
   "1000": {
     bandLabel: "pr\u00f3ximo do sal\u00e1rio m\u00ednimo",
     careerExamples: "assistentes administrativos, operadores de loja, t\u00e9cnicos de apoio ao cliente, rececionistas e auxiliares de educa\u00e7\u00e3o",
-    marketContext: "Um sal\u00e1rio de 1.000\u00a0\u20ac brutos representa cerca de 1,15 vezes o sal\u00e1rio m\u00ednimo nacional. Segundo o Relat\u00f3rio \u00danico do Minist\u00e9rio do Trabalho, este \u00e9 o patamar salarial mais comum em Portugal, abrangendo quase 30% dos trabalhadores do setor privado",
+    marketContext: "Um sal\u00e1rio de 1.000\u00a0\u20ac brutos representa cerca de 1,09 vezes o sal\u00e1rio m\u00ednimo nacional. Segundo o Relat\u00f3rio \u00danico do Minist\u00e9rio do Trabalho, este \u00e9 o patamar salarial mais comum em Portugal, abrangendo quase 30% dos trabalhadores do setor privado",
     lifeContext: "Este n\u00edvel salarial permite cobrir despesas b\u00e1sicas, embora com margens apertadas nas grandes cidades como Lisboa e Porto, onde o custo da habita\u00e7\u00e3o pode absorver mais de 40% do rendimento l\u00edquido",
-    negociationTip: "Pode beneficiar do subs\u00eddio de alimenta\u00e7\u00e3o em cart\u00e3o refei\u00e7\u00e3o (isento at\u00e9 10,20\u00a0\u20ac/dia), o que acrescenta at\u00e9 224,40\u00a0\u20ac l\u00edquidos mensais ao seu rendimento efetivo"
+    negociationTip: "Pode beneficiar do subs\u00eddio de alimenta\u00e7\u00e3o em cart\u00e3o refei\u00e7\u00e3o (isento at\u00e9 10,46\u00a0\u20ac/dia), o que acrescenta at\u00e9 230,12\u00a0\u20ac l\u00edquidos mensais ao seu rendimento efetivo"
   },
   "1200": {
     bandLabel: "ligeiramente acima da mediana nacional",
@@ -261,16 +270,16 @@ const BAND_MAP: Record<string, BandInfo> = {
   "1500": {
     bandLabel: "acima da m\u00e9dia nacional",
     careerExamples: "t\u00e9cnicos especializados, enfermeiros, professores com tempo de servi\u00e7o, programadores j\u00fanior, gestores de loja e t\u00e9cnicos de manuten\u00e7\u00e3o industrial",
-    marketContext: "O patamar de 1.500\u00a0\u20ac brutos representa cerca de 1,7 vezes o sal\u00e1rio m\u00ednimo, posicionando-se acima da m\u00e9dia nacional. Segundo dados da Pordata, a remunera\u00e7\u00e3o m\u00e9dia mensal em Portugal rondava os 1.450\u00a0\u20ac em 2025, pelo que 1.500\u00a0\u20ac j\u00e1 supera essa refer\u00eancia",
+    marketContext: "O patamar de 1.500\u00a0\u20ac brutos representa cerca de 1,6 vezes o sal\u00e1rio m\u00ednimo, posicionando-se acima da m\u00e9dia nacional. Segundo dados da Pordata, a remunera\u00e7\u00e3o m\u00e9dia mensal em Portugal rondava os 1.450\u00a0\u20ac em 2025, pelo que 1.500\u00a0\u20ac j\u00e1 supera essa refer\u00eancia",
     lifeContext: "A este n\u00edvel salarial, come\u00e7a a ser poss\u00edvel poupar de forma consistente, especialmente fora de Lisboa e Porto. Uma taxa de poupan\u00e7a de 10-15% do l\u00edquido \u00e9 realista, permitindo construir um fundo de emerg\u00eancia ou investir em PPR",
-    negociationTip: "Ao negociar aumento, pe\u00e7a uma revis\u00e3o anual indexada \u00e0 infla\u00e7\u00e3o mais produtividade. A diferen\u00e7a de 1.500\u00a0\u20ac para 1.800\u00a0\u20ac brutos traduz-se em aproximadamente mais 185\u00a0\u20ac l\u00edquidos mensais"
+    negociationTip: "Ao negociar aumento, pe\u00e7a uma revis\u00e3o anual indexada \u00e0 infla\u00e7\u00e3o mais produtividade. A diferen\u00e7a de 1.500\u00a0\u20ac para 1.800\u00a0\u20ac brutos traduz-se em aproximadamente mais 195\u00a0\u20ac l\u00edquidos mensais"
   },
   "1800": {
     bandLabel: "na faixa de profissionais qualificados",
     careerExamples: "engenheiros j\u00fanior, contabilistas certificados, gestores de projeto j\u00fanior, t\u00e9cnicos superiores da administra\u00e7\u00e3o p\u00fablica, designers s\u00e9nior e analistas financeiros",
     marketContext: "Com 1.800\u00a0\u20ac brutos, o trabalhador situa-se claramente acima da m\u00e9dia nacional. Este patamar \u00e9 t\u00edpico de profissionais com 3-5 anos de experi\u00eancia ou de fun\u00e7\u00f5es t\u00e9cnicas que requerem forma\u00e7\u00e3o superior. No setor p\u00fablico, corresponde aproximadamente \u00e0 posi\u00e7\u00e3o remuner\u00e1toria 11-14 da tabela \u00fanica",
     lifeContext: "Este sal\u00e1rio permite manter um n\u00edvel de vida confort\u00e1vel em qualquer cidade portuguesa, incluindo Lisboa e Porto, embora a poupan\u00e7a para habita\u00e7\u00e3o pr\u00f3pria requeira disciplina financeira",
-    negociationTip: "Nesta faixa, os benef\u00edcios extra-salariais ganham relev\u00e2ncia fiscal: seguro de sa\u00fade (cerca de 50\u00a0\u20ac/m\u00eas por pessoa) e cart\u00e3o refei\u00e7\u00e3o (224,40\u00a0\u20ac/m\u00eas) podem equivaler a mais 274\u00a0\u20ac l\u00edquidos mensais"
+    negociationTip: "Nesta faixa, os benef\u00edcios extra-salariais ganham relev\u00e2ncia fiscal: seguro de sa\u00fade (cerca de 50\u00a0\u20ac/m\u00eas por pessoa) e cart\u00e3o refei\u00e7\u00e3o (230,12\u00a0\u20ac/m\u00eas) podem equivaler a mais 280\u00a0\u20ac l\u00edquidos mensais"
   },
   "2000": {
     bandLabel: "no patamar de quadros m\u00e9dios",
@@ -312,7 +321,7 @@ const BAND_MAP: Record<string, BandInfo> = {
     careerExamples: "CEO de PME, diretores-gerais, m\u00e9dicos especialistas em pr\u00e1tica privada com volume elevado, partners s\u00e9nior de consultoria e advogados de grandes societ\u00e1rias",
     marketContext: "O sal\u00e1rio de 5.000\u00a0\u20ac brutos situa o trabalhador no top 3-4% dos rendimentos em Portugal. \u00c9 um valor associado a posi\u00e7\u00f5es de lideran\u00e7a executiva ou a profiss\u00f5es altamente regulamentadas com barreiras de entrada significativas",
     lifeContext: "Neste patamar, o foco financeiro deve passar da acumula\u00e7\u00e3o para a otimiza\u00e7\u00e3o. Estruture o patrim\u00f3nio entre diferentes classes de ativos: fundos de investimento, imobili\u00e1rio, obriga\u00e7\u00f5es e a\u00e7\u00f5es individuais, mantendo sempre 6-12 meses de despesas em liquidez",
-    negociationTip: "Nesta faixa, cada 500\u00a0\u20ac de aumento bruto gera apenas cerca de 300\u00a0\u20ac l\u00edquidos. Privilegie compensa\u00e7\u00e3o diferida: planos de pens\u00f5es complementares, stock options com vesting period, e b\u00f3nus plurianuais"
+    negociationTip: "Nesta faixa, cada 500\u00a0\u20ac de aumento bruto gera apenas cerca de 250\u00a0\u20ac l\u00edquidos. Privilegie compensa\u00e7\u00e3o diferida: planos de pens\u00f5es complementares, stock options com vesting period, e b\u00f3nus plurianuais"
   },
   "7000": {
     bandLabel: "no topo absoluto da tabela salarial",
@@ -376,8 +385,8 @@ export function getBandContext(s: SalarioEntry, d: DerivedNumbers): string {
 export function getCareerDescription(s: SalarioEntry): string {
   const variationIndex = Math.floor(s.brutoMensal / 1000) % 5;
   const ratioSMN = s.brutoMensal / SMN_2026;
-  const yearsExperience = Math.max(0, Math.floor((s.brutoMensal - 870) / 150));
-  const percentileEstimate = s.brutoMensal <= 870 ? 50 : s.brutoMensal <= 1100 ? 55 : s.brutoMensal <= 1500 ? 65 : s.brutoMensal <= 2000 ? 75 : s.brutoMensal <= 2500 ? 80 : s.brutoMensal <= 3500 ? 90 : s.brutoMensal <= 5000 ? 95 : 98;
+  const yearsExperience = Math.max(0, Math.floor((s.brutoMensal - 920) / 150));
+  const percentileEstimate = s.brutoMensal <= 920 ? 50 : s.brutoMensal <= 1100 ? 55 : s.brutoMensal <= 1500 ? 65 : s.brutoMensal <= 2000 ? 75 : s.brutoMensal <= 2500 ? 80 : s.brutoMensal <= 3500 ? 90 : s.brutoMensal <= 5000 ? 95 : 98;
   const hourlyBruto = s.brutoMensal / 176;
   const hourlyLiquido = s.liquidoMensal / 176;
 
@@ -635,12 +644,12 @@ export function getTaxTips(s: SalarioEntry, d: DerivedNumbers): TaxTip[] {
   }
 
   // Sub alimentacao - salary-specific savings
-  const subAlimPotencial = 224.40;
+  const subAlimPotencial = 230.12;
   const subAlimTaxSaving = subAlimPotencial * (s.retencaoTaxa + 0.11);
   const subAlimAnual = subAlimTaxSaving * 11;
   tips.push({
     titulo: "Subs\u00eddio de Alimenta\u00e7\u00e3o em Cart\u00e3o",
-    descricao: `Com a sua taxa de reten\u00e7\u00e3o de ${pct(s.retencaoTaxa)} mais 11% de TSU, o subs\u00eddio de alimenta\u00e7\u00e3o em cart\u00e3o refei\u00e7\u00e3o (10,20\u00a0\u20ac/dia, ${eur(subAlimPotencial)}/m\u00eas) representa uma poupan\u00e7a fiscal de ${eur(subAlimTaxSaving)} mensais face ao pagamento em sal\u00e1rio. Anualmente (11 meses), s\u00e3o ${eur(subAlimAnual)} de ganho fiscal. Para o seu sal\u00e1rio de ${eur(s.brutoMensal)} brutos, isto equivale a um aumento l\u00edquido efetivo de ${pct(subAlimTaxSaving / s.liquidoMensal)}.`
+    descricao: `Com a sua taxa de reten\u00e7\u00e3o de ${pct(s.retencaoTaxa)} mais 11% de TSU, o subs\u00eddio de alimenta\u00e7\u00e3o em cart\u00e3o refei\u00e7\u00e3o (10,46\u00a0\u20ac/dia, ${eur(subAlimPotencial)}/m\u00eas) representa uma poupan\u00e7a fiscal de ${eur(subAlimTaxSaving)} mensais face ao pagamento em sal\u00e1rio. Anualmente (11 meses), s\u00e3o ${eur(subAlimAnual)} de ganho fiscal. Para o seu sal\u00e1rio de ${eur(s.brutoMensal)} brutos, isto equivale a um aumento l\u00edquido efetivo de ${pct(subAlimTaxSaving / s.liquidoMensal)}.`
   });
 
   // Dependentes - salary-specific
@@ -713,8 +722,8 @@ export function buildFaqs(s: SalarioEntry, d: DerivedNumbers): FaqItem[] {
       resposta: `Sim. Com ${eur(820)} brutos mensais, o trabalhador est\u00e1 isento de reten\u00e7\u00e3o na fonte de IRS. O \u00fanico desconto obrigat\u00f3rio \u00e9 a contribui\u00e7\u00e3o para a Seguran\u00e7a Social de 11% (${eur(s.tsuTrabalhador)}), resultando num l\u00edquido mensal de ${eur(s.liquidoMensal)}. Na declara\u00e7\u00e3o anual de IRS, poder\u00e1 existir um pequeno imposto a pagar (estimado em ${eur(s.irsAnual)} anuais), mas tamb\u00e9m \u00e9 poss\u00edvel obter reembolso se tiver dedu\u00e7\u00f5es.`
     },
     "1000": {
-      pergunta: "Qual a diferen\u00e7a l\u00edquida entre o sal\u00e1rio m\u00ednimo (870\u00a0\u20ac) e 1.000\u00a0\u20ac brutos?",
-      resposta: `O sal\u00e1rio m\u00ednimo de 870\u00a0\u20ac \u00e9 isento de reten\u00e7\u00e3o na fonte, resultando num l\u00edquido de cerca de 774,30\u00a0\u20ac. Com 1.000\u00a0\u20ac brutos, o l\u00edquido \u00e9 de ${eur(s.liquidoMensal)}, com reten\u00e7\u00e3o de ${pct(s.retencaoTaxa)}. A diferen\u00e7a l\u00edquida \u00e9 de aproximadamente ${eur(s.liquidoMensal - 774.30)}, porque o aumento de 130\u00a0\u20ac brutos gera apenas este incremento l\u00edquido ap\u00f3s descontos. A taxa marginal efetiva sobre estes 130\u00a0\u20ac \u00e9 de ${pct(1 - ((s.liquidoMensal - 774.30) / 130))}.`
+      pergunta: "Qual a diferen\u00e7a l\u00edquida entre o sal\u00e1rio m\u00ednimo (920\u00a0\u20ac) e 1.000\u00a0\u20ac brutos?",
+      resposta: `O sal\u00e1rio m\u00ednimo de 920\u00a0\u20ac \u00e9 isento de reten\u00e7\u00e3o na fonte, resultando num l\u00edquido de cerca de ${eur(LIQ_SMN)}. Com 1.000\u00a0\u20ac brutos, o l\u00edquido \u00e9 de ${eur(s.liquidoMensal)}, com reten\u00e7\u00e3o de ${pct(s.retencaoTaxa)}. A diferen\u00e7a l\u00edquida \u00e9 de aproximadamente ${eur(s.liquidoMensal - LIQ_SMN)}, porque o aumento de 80\u00a0\u20ac brutos gera apenas este incremento l\u00edquido ap\u00f3s descontos. A taxa marginal efetiva sobre estes 80\u00a0\u20ac \u00e9 de ${pct(1 - ((s.liquidoMensal - LIQ_SMN) / 80))}.`
     },
     "1200": {
       pergunta: "Quanto recebo por hora com um sal\u00e1rio de 1.200\u00a0\u20ac brutos?",
@@ -730,11 +739,11 @@ export function buildFaqs(s: SalarioEntry, d: DerivedNumbers): FaqItem[] {
     },
     "2000": {
       pergunta: "Quanto aumento l\u00edquido ganho se passar de 1.500\u00a0\u20ac para 2.000\u00a0\u20ac brutos?",
-      resposta: `O aumento de 500\u00a0\u20ac brutos traduz-se num ganho l\u00edquido mensal de ${eur(s.liquidoMensal - 1114.50)} (de 1.114,50\u00a0\u20ac para ${eur(s.liquidoMensal)}). A taxa marginal efetiva deste aumento \u00e9 de ${pct(1 - ((s.liquidoMensal - 1114.50) / 500))}, pois a reten\u00e7\u00e3o sobe de 14,7% para ${pct(s.retencaoTaxa)} e a TSU de 11% mant\u00e9m-se. Anualmente, o ganho l\u00edquido \u00e9 de ${eur(s.liquidoAnual - 15586.52)}. Por hora, ganha mais ${eur(d.liquidoHora - (1114.50 / 176))}.`
+      resposta: `O aumento de 500\u00a0\u20ac brutos traduz-se num ganho l\u00edquido mensal de ${eur(s.liquidoMensal - REF_1500.netMonthly)} (de ${eur(REF_1500.netMonthly)} para ${eur(s.liquidoMensal)}). A taxa marginal efetiva deste aumento \u00e9 de ${pct(1 - ((s.liquidoMensal - REF_1500.netMonthly) / 500))}, pois a reten\u00e7\u00e3o sobe de ${pct(REF_1500.retencaoTaxa)} para ${pct(s.retencaoTaxa)} e a TSU de 11% mant\u00e9m-se. Anualmente, o ganho l\u00edquido \u00e9 de ${eur(s.liquidoAnual - REF_1500.netAnnual)}. Por hora, ganha mais ${eur(d.liquidoHora - (REF_1500.netMonthly / 176))}.`
     },
     "2500": {
       pergunta: "Qual o impacto de ter 1 dependente com sal\u00e1rio de 2.500\u00a0\u20ac brutos?",
-      resposta: `Com 1 dependente, a taxa de reten\u00e7\u00e3o na fonte desce de ${pct(s.retencaoTaxa)} para aproximadamente 18,9%, e h\u00e1 uma dedu\u00e7\u00e3o adicional de 250\u00a0\u20ac \u00e0 coleta. Poupan\u00e7a mensal: ${eur(s.brutoMensal * (s.retencaoTaxa - 0.189))}. Poupan\u00e7a anual (incl. dedu\u00e7\u00e3o): ${eur(s.brutoMensal * (s.retencaoTaxa - 0.189) * 12 + 250)}. O l\u00edquido mensal subiria de ${eur(s.liquidoMensal)} para aproximadamente ${eur(s.liquidoMensal + s.brutoMensal * (s.retencaoTaxa - 0.189))}.`
+      resposta: `Com 1 dependente, a taxa de reten\u00e7\u00e3o na fonte desce de ${pct(s.retencaoTaxa)} para ${pct(RET_2500_1DEP)}, e a dedu\u00e7\u00e3o \u00e0 coleta por dependente \u00e9 de 600\u00a0\u20ac. Poupan\u00e7a mensal: ${eur(s.brutoMensal * (s.retencaoTaxa - RET_2500_1DEP))}. Poupan\u00e7a nos 14 pagamentos do ano: ${eur(s.brutoMensal * (s.retencaoTaxa - RET_2500_1DEP) * 14)}. O l\u00edquido mensal subiria de ${eur(s.liquidoMensal)} para aproximadamente ${eur(s.liquidoMensal + s.brutoMensal * (s.retencaoTaxa - RET_2500_1DEP))}.`
     },
     "3000": {
       pergunta: "Qual a taxa efetiva total de impostos sobre 3.000\u00a0\u20ac brutos?",
@@ -742,11 +751,11 @@ export function buildFaqs(s: SalarioEntry, d: DerivedNumbers): FaqItem[] {
     },
     "3500": {
       pergunta: "Recebo mais l\u00edquido se passar de 3.000\u00a0\u20ac para 3.500\u00a0\u20ac brutos?",
-      resposta: `Sim. O aumento de 500\u00a0\u20ac brutos gera +${eur(s.liquidoMensal - 1941)} l\u00edquidos/m\u00eas (de 1.941\u00a0\u20ac para ${eur(s.liquidoMensal)}). Taxa marginal efetiva sobre o aumento: ${pct(1 - ((s.liquidoMensal - 1941) / 500))}. Anualmente: +${eur((s.liquidoMensal - 1941) * 14)}. Por hora: de ${eur(1941 / 176)} para ${eur(d.liquidoHora)}. A efici\u00eancia decrescente refor\u00e7a a import\u00e2ncia de complementos n\u00e3o salariais.`
+      resposta: `Sim. O aumento de 500\u00a0\u20ac brutos gera +${eur(s.liquidoMensal - REF_3000.netMonthly)} l\u00edquidos/m\u00eas (de ${eur(REF_3000.netMonthly)} para ${eur(s.liquidoMensal)}). Taxa marginal efetiva sobre o aumento: ${pct(1 - ((s.liquidoMensal - REF_3000.netMonthly) / 500))}. Anualmente: +${eur((s.liquidoMensal - REF_3000.netMonthly) * 14)}. Por hora: de ${eur(REF_3000.netMonthly / 176)} para ${eur(d.liquidoHora)}. A efici\u00eancia decrescente refor\u00e7a a import\u00e2ncia de complementos n\u00e3o salariais.`
     },
     "4000": {
       pergunta: "Como reduzir a carga fiscal com um sal\u00e1rio de 4.000\u00a0\u20ac brutos?",
-      resposta: `Com ${eur(s.brutoMensal)} brutos e reten\u00e7\u00e3o de ${pct(s.retencaoTaxa)}, cada 100\u00a0\u20ac de aumento bruto gera apenas ${eur(100 * (1 - s.retencaoTaxa - 0.11))} l\u00edquidos. Estrat\u00e9gias: (1) PPR ${eur(2000)}/ano = 400\u00a0\u20ac dedu\u00e7\u00e3o; (2) dedu\u00e7\u00f5es sa\u00fade+educa\u00e7\u00e3o; (3) cart\u00e3o refei\u00e7\u00e3o (poupan\u00e7a de ${eur(224.40 * (s.retencaoTaxa + 0.11))}/m\u00eas); (4) tributa\u00e7\u00e3o conjunta se casado. Total potencial: ${eur(400 + 224.40 * (s.retencaoTaxa + 0.11) * 11 + s.irsAnual * 0.06)}/ano.`
+      resposta: `Com ${eur(s.brutoMensal)} brutos e reten\u00e7\u00e3o de ${pct(s.retencaoTaxa)}, cada 100\u00a0\u20ac de aumento bruto gera apenas ${eur(ref(s.brutoMensal + 100).netMonthly - s.liquidoMensal)} l\u00edquidos. Estrat\u00e9gias: (1) PPR ${eur(2000)}/ano = 400\u00a0\u20ac dedu\u00e7\u00e3o; (2) dedu\u00e7\u00f5es sa\u00fade+educa\u00e7\u00e3o; (3) cart\u00e3o refei\u00e7\u00e3o (poupan\u00e7a de ${eur(230.12 * (s.retencaoTaxa + 0.11))}/m\u00eas); (4) tributa\u00e7\u00e3o conjunta se casado. Total potencial: ${eur(400 + 230.12 * (s.retencaoTaxa + 0.11) * 11 + s.irsAnual * 0.06)}/ano.`
     },
     "5000": {
       pergunta: "Qual o rendimento l\u00edquido di\u00e1rio, semanal e hor\u00e1rio com 5.000\u00a0\u20ac brutos?",
@@ -881,7 +890,7 @@ export function getComparisonText(s: SalarioEntry, d: DerivedNumbers): string {
 
   let text = openings[variationIndex] + " ";
 
-  text += `Enquanto o sal\u00e1rio m\u00ednimo gera um l\u00edquido de aproximadamente 774,30\u00a0\u20ac, `
+  text += `Enquanto o sal\u00e1rio m\u00ednimo gera um l\u00edquido de aproximadamente 818,80\u00a0\u20ac, `
     + `os ${eur(s.brutoMensal)} brutos resultam em ${eur(s.liquidoMensal)} l\u00edquidos. `
     + `A diferen\u00e7a entre bruto e l\u00edquido \u00e9 de ${eur(d.diferencaBrutoLiquido)} mensais, dos quais `
     + `${eur(s.tsuTrabalhador)} se destinam \u00e0 Seguran\u00e7a Social e ${eur(s.retencaoMensal)} \u00e0 reten\u00e7\u00e3o de IRS. `

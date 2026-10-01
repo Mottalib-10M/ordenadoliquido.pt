@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import MiniSimAutonome from '../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -19,6 +20,8 @@ import Layout from "../../layouts/Layout.astro";
           <p class="text-neutral-600 leading-relaxed">
             O sal&aacute;rio bruto &eacute; o valor total da remunera&ccedil;&atilde;o acordada entre o trabalhador e a entidade empregadora, antes de quaisquer descontos. Inclui o vencimento base e eventuais complementos salariais regulares. &Eacute; sobre este valor que incidem as contribui&ccedil;&otilde;es para a Seguran&ccedil;a Social e a reten&ccedil;&atilde;o na fonte de IRS.
           </p>
+<MiniSimAutonome client:visible kind="liquido" lang="pt" locale="pt-PT" href="/" />
+
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
@@ -52,21 +55,21 @@ import Layout from "../../layouts/Layout.astro";
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-3">O que &eacute; o IRS Jovem?</h2>
           <p class="text-neutral-600 leading-relaxed">
-            O IRS Jovem &eacute; um regime fiscal que permite aos jovens trabalhadores (at&eacute; 35 anos) beneficiar de uma isen&ccedil;&atilde;o parcial de IRS nos primeiros 5 anos de obten&ccedil;&atilde;o de rendimentos. A isen&ccedil;&atilde;o &eacute; de 100% no 1.&ordm; ano, 75% no 2.&ordm;, 50% no 3.&ordm; e 4.&ordm;, e 25% no 5.&ordm; ano, com limites m&aacute;ximos baseados no IAS.
+            O IRS Jovem &eacute; um regime fiscal que permite aos jovens trabalhadores (at&eacute; 35 anos) beneficiar de uma isen&ccedil;&atilde;o parcial de IRS nos primeiros 10 anos de obten&ccedil;&atilde;o de rendimentos. A isen&ccedil;&atilde;o &eacute; de 100% no 1.&ordm; ano, 75% do 2.&ordm; ao 4.&ordm;, 50% do 5.&ordm; ao 7.&ordm; e 25% do 8.&ordm; ao 10.&ordm; ano, at&eacute; ao limite de 55 vezes o IAS (29.542,15 euros em 2026).
           </p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-3">O que &eacute; a dedu&ccedil;&atilde;o espec&iacute;fica?</h2>
           <p class="text-neutral-600 leading-relaxed">
-            A dedu&ccedil;&atilde;o espec&iacute;fica &eacute; um valor fixo de 4.104&euro; que &eacute; subtra&iacute;do ao rendimento bruto anual para determinar o rendimento colet&aacute;vel. Aplica-se automaticamente a todos os trabalhadores da categoria A (trabalho dependente). Se as contribui&ccedil;&otilde;es para a Seguran&ccedil;a Social forem superiores a este valor, utiliza-se o montante mais elevado.
+            A dedu&ccedil;&atilde;o espec&iacute;fica &eacute; um valor fixo de 4.587,09&euro; em 2026 (8,54 vezes o IAS) que &eacute; subtra&iacute;do ao rendimento bruto anual para determinar o rendimento colet&aacute;vel. Aplica-se automaticamente a todos os trabalhadores da categoria A (trabalho dependente). Se as contribui&ccedil;&otilde;es para a Seguran&ccedil;a Social forem superiores a este valor, utiliza-se o montante mais elevado.
           </p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-3">Qual &eacute; o sal&aacute;rio m&iacute;nimo em 2026?</h2>
           <p class="text-neutral-600 leading-relaxed">
-            O sal&aacute;rio m&iacute;nimo nacional (RMMG) em 2026 &eacute; de 870&euro; mensais (14 meses, totalizando 12.180&euro; anuais). Os trabalhadores que auferem o sal&aacute;rio m&iacute;nimo est&atilde;o, em regra, isentos de reten&ccedil;&atilde;o na fonte de IRS, pagando apenas a TSU de 11%.
+            O sal&aacute;rio m&iacute;nimo nacional (RMMG) em 2026 &eacute; de 920&euro; mensais (14 meses, totalizando 12.880&euro; anuais). Os trabalhadores que auferem o sal&aacute;rio m&iacute;nimo est&atilde;o, em regra, isentos de reten&ccedil;&atilde;o na fonte de IRS, pagando apenas a TSU de 11%.
           </p>
         </div>
 

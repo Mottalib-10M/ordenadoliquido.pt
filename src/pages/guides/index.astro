@@ -8,7 +8,7 @@ const guides = [
     description: "Conheça todos os escalões de IRS em vigor para 2026, as taxas marginais e como calcular o imposto sobre o seu rendimento.",
     href: "/guides/escaloes-irs-2026/",
     responde: "Em que escalão caio, e quanto muda se subir?",
-    chave: "Nove escalões, de 13 % a 48 %. A taxa aplica-se apenas à parcela acima de cada limite, nunca a todo o rendimento.",
+    chave: "Nove escalões, de 12,5 % a 48 %. A taxa aplica-se apenas à parcela acima de cada limite, nunca a todo o rendimento.",
     icon: "📊",
   },
   {
@@ -56,7 +56,7 @@ const guides = [
     description: "Valor atual do salário mínimo, evolução histórica, descontos aplicáveis e líquido efetivo.",
     href: "/guides/salario-minimo-portugal/",
     responde: "Quanto rende líquido o salário mínimo?",
-    chave: "870 € brutos em 2026, pagos catorze vezes, aos quais acresce em regra o subsídio de refeição.",
+    chave: "920 € brutos em 2026, pagos catorze vezes, aos quais acresce em regra o subsídio de refeição.",
     icon: "📈",
   },
   {
@@ -123,6 +123,7 @@ const valores = [
   { rotulo: 'Meses de remuneração no ano', nota: 'doze meses mais os dois subsídios', valor: `${MESES_ANO}` },
 ];
 
+import MiniSimAutonome from '../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -141,6 +142,8 @@ const valores = [
       Com esses dois, já consegue reconstituir sozinho a diferença entre o bruto do contrato
       e o valor que chega à conta: são as duas únicas linhas obrigatórias do recibo.
     </p>
+<MiniSimAutonome client:visible kind="liquido" lang="pt" locale="pt-PT" href="/" />
+
     <p class="text-neutral-700 leading-relaxed mt-3">
       Os restantes guias tratam de situações concretas e podem ser lidos à medida que surgem:
       um aumento que faz mudar de escalão, o primeiro emprego antes dos 35 anos, a escolha

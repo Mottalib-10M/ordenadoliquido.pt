@@ -3,6 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import SalaryCalculator from "../components/SalaryCalculator";
 import FontesOficiais from '../components/FontesOficiais.astro';
 import ExemploDetalhado from '../components/ExemploDetalhado.astro';
+import { ESCALOES_IRS_2026 as ESC, DEDUCAO_ESPECIFICA, DEDUCAO_POR_DEPENDENTE, SALARIO_MINIMO_2026 as SMN, TSU_TRABALHADOR, IRS_JOVEM_LIMITE } from '../lib/baremes-2026';
+import { calculateSalary } from '../lib/engine';
+const n = (x: number, d = 0) => new Intl.NumberFormat('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d }).format(x);
+const pct = (x: number) => new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 }).format(x * 100) + '%';
+const smn = calculateSalary({ grossMonthly: SMN, maritalStatus: 'solteiro', dependents: 0, irsJovem: 0 });
 ---
 
 <Layout
@@ -74,19 +79,13 @@ import ExemploDetalhado from '../components/ExemploDetalhado.astro';
       </p>
 
       <ul class="list-disc pl-6 space-y-1">
-        <li><strong>At&eacute; 7.703&euro;</strong>, taxa de 13,25%</li>
-        <li><strong>De 7.703&euro; a 11.623&euro;</strong>, taxa de 18%</li>
-        <li><strong>De 11.623&euro; a 16.472&euro;</strong>, taxa de 23%</li>
-        <li><strong>De 16.472&euro; a 21.321&euro;</strong>, taxa de 26%</li>
-        <li><strong>De 21.321&euro; a 27.146&euro;</strong>, taxa de 32,75%</li>
-        <li><strong>De 27.146&euro; a 39.791&euro;</strong>, taxa de 37%</li>
-        <li><strong>De 39.791&euro; a 51.997&euro;</strong>, taxa de 43,5%</li>
-        <li><strong>De 51.997&euro; a 81.199&euro;</strong>, taxa de 45%</li>
-        <li><strong>Superior a 81.199&euro;</strong>, taxa de 48%</li>
+        {ESC.map((e, i) => (
+          <li><strong>{i === 0 ? `Até ${n(e.limiteMax)}€` : e.limiteMax === Infinity ? `Superior a ${n(ESC[i - 1].limiteMax)}€` : `De ${n(ESC[i - 1].limiteMax)}€ a ${n(e.limiteMax)}€`}</strong>, taxa de {pct(e.taxa)}</li>
+        ))}
       </ul>
 
       <p>
-        &Eacute; importante compreender que estas taxas s&atilde;o marginais, ou seja, aplicam-se apenas &agrave; por&ccedil;&atilde;o de rendimento que se encontra dentro de cada escal&atilde;o. Por exemplo, se o seu rendimento colet&aacute;vel anual &eacute; de 15.000&euro;, os primeiros 7.703&euro; s&atilde;o tributados a 13,25%, os seguintes 3.920&euro; (at&eacute; 11.623&euro;) a 18%, e os restantes 3.377&euro; a 23%. A parcela a abater simplifica este c&aacute;lculo, permitindo aplicar a taxa do escal&atilde;o correspondente ao total e subtrair um valor fixo.
+        &Eacute; importante compreender que estas taxas s&atilde;o marginais, ou seja, aplicam-se apenas &agrave; por&ccedil;&atilde;o de rendimento que se encontra dentro de cada escal&atilde;o. Por exemplo, se o seu rendimento colet&aacute;vel anual &eacute; de 15.000&euro;, os primeiros {n(ESC[0].limiteMax)}&euro; s&atilde;o tributados a {pct(ESC[0].taxa)}, os seguintes {n(ESC[1].limiteMax - ESC[0].limiteMax)}&euro; (at&eacute; {n(ESC[1].limiteMax)}&euro;) a {pct(ESC[1].taxa)}, e os restantes {n(15000 - ESC[1].limiteMax)}&euro; a {pct(ESC[2].taxa)}. A parcela a abater simplifica este c&aacute;lculo, permitindo aplicar a taxa do escal&atilde;o correspondente ao total e subtrair um valor fixo.
       </p>
 
       <h3 class="text-xl font-bold text-neutral-900 mt-10 mb-4">Seguran&ccedil;a Social (TSU), Contribui&ccedil;&otilde;es Obrigat&oacute;rias</h3>
@@ -116,7 +115,7 @@ import ExemploDetalhado from '../components/ExemploDetalhado.astro';
       </p>
 
       <p>
-        O subs&iacute;dio de Natal deve ser pago at&eacute; 15 de dezembro de cada ano e corresponde a um m&ecirc;s de retribui&ccedil;&atilde;o. Este subs&iacute;dio est&aacute; sujeito a descontos para a Seguran&ccedil;a Social (11%) e a IRS, sendo tributado &agrave; taxa m&eacute;dia de imposto. O subs&iacute;dio de f&eacute;rias &eacute; normalmente pago antes do per&iacute;odo de f&eacute;rias e tamb&eacute;m est&aacute; sujeito aos mesmos descontos, com reten&ccedil;&atilde;o na fonte &agrave; taxa normal.
+        O subs&iacute;dio de Natal deve ser pago at&eacute; 15 de dezembro de cada ano e corresponde a um m&ecirc;s de retribui&ccedil;&atilde;o. Este subs&iacute;dio est&aacute; sujeito a descontos para a Seguran&ccedil;a Social (11%) e a IRS. O subs&iacute;dio de f&eacute;rias &eacute; normalmente pago antes do per&iacute;odo de f&eacute;rias e est&aacute; sujeito aos mesmos descontos. Em ambos os casos, a reten&ccedil;&atilde;o na fonte calcula-se em separado, com a mesma tabela que se aplica ao sal&aacute;rio do m&ecirc;s.
       </p>
 
       <p>
@@ -131,10 +130,10 @@ import ExemploDetalhado from '../components/ExemploDetalhado.astro';
 
       <ul class="list-disc pl-6 space-y-2">
         <li>
-          <strong>Dedu&ccedil;&atilde;o espec&iacute;fica (4.104&euro;)</strong>: todos os trabalhadores da categoria A (trabalho dependente) t&ecirc;m direito a esta dedu&ccedil;&atilde;o autom&aacute;tica, ou ao valor das contribui&ccedil;&otilde;es obrigat&oacute;rias para a Seguran&ccedil;a Social, quando este &eacute; superior.
+          <strong>Dedu&ccedil;&atilde;o espec&iacute;fica ({n(DEDUCAO_ESPECIFICA, 2)}&euro;)</strong>: todos os trabalhadores da categoria A (trabalho dependente) t&ecirc;m direito a esta dedu&ccedil;&atilde;o autom&aacute;tica, ou ao valor das contribui&ccedil;&otilde;es obrigat&oacute;rias para a Seguran&ccedil;a Social, quando este &eacute; superior.
         </li>
         <li>
-          <strong>Dedu&ccedil;&atilde;o pessoal e familiar (250&euro;/pessoa)</strong>: cada membro do agregado familiar (titulares e dependentes) gera uma dedu&ccedil;&atilde;o &agrave; cole&ccedil;&atilde;a de 250&euro;.
+          <strong>Dedu&ccedil;&atilde;o por dependente ({n(DEDUCAO_POR_DEPENDENTE)}&euro;)</strong>: cada dependente d&aacute; direito a uma dedu&ccedil;&atilde;o &agrave; coleta de {n(DEDUCAO_POR_DEPENDENTE)}&euro;, majorada para as crian&ccedil;as mais pequenas.
         </li>
         <li>
           <strong>Despesas gerais familiares</strong>: dedu&ccedil;&atilde;o de 35% das despesas gerais (alimenta&ccedil;&atilde;o, vestu&aacute;rio, etc.), at&eacute; um limite de 250&euro; por titular.
@@ -153,11 +152,11 @@ import ExemploDetalhado from '../components/ExemploDetalhado.astro';
       <h3 class="text-xl font-bold text-neutral-900 mt-10 mb-4">IRS Jovem, Regime Especial para Jovens Trabalhadores</h3>
 
       <p>
-        O regime de IRS Jovem foi criado para incentivar a entrada dos jovens no mercado de trabalho e promover a sua autonomia financeira. Este regime permite uma isen&ccedil;&atilde;o parcial de IRS durante os primeiros cinco anos de obten&ccedil;&atilde;o de rendimentos do trabalho, aplic&aacute;vel a jovens at&eacute; aos 35 anos de idade.
+        O regime de IRS Jovem foi criado para incentivar a entrada dos jovens no mercado de trabalho e promover a sua autonomia financeira. Este regime permite uma isen&ccedil;&atilde;o parcial de IRS durante os primeiros dez anos de obten&ccedil;&atilde;o de rendimentos do trabalho, aplic&aacute;vel a jovens at&eacute; aos 35 anos de idade.
       </p>
 
       <p>
-        As percentagens de isen&ccedil;&atilde;o s&atilde;o progressivamente decrescentes: <strong>100%</strong> no primeiro ano, <strong>75%</strong> no segundo ano, <strong>50%</strong> no terceiro e quarto anos, e <strong>25%</strong> no quinto ano. Cada escal&atilde;o tem um limite m&aacute;ximo de isen&ccedil;&atilde;o calculado com base no Indexante dos Apoios Sociais (IAS).
+        As percentagens de isen&ccedil;&atilde;o s&atilde;o progressivamente decrescentes: <strong>100%</strong> no primeiro ano, <strong>75%</strong> do segundo ao quarto ano, <strong>50%</strong> do quinto ao s&eacute;timo, e <strong>25%</strong> do oitavo ao d&eacute;cimo ano. O rendimento isento tem um limite anual de 55 vezes o Indexante dos Apoios Sociais (IAS), ou seja, {n(IRS_JOVEM_LIMITE, 2)}&euro; em 2026.
       </p>
 
       <p>
@@ -167,11 +166,11 @@ import ExemploDetalhado from '../components/ExemploDetalhado.astro';
       <h3 class="text-xl font-bold text-neutral-900 mt-10 mb-4">Sal&aacute;rio M&iacute;nimo Nacional em 2026</h3>
 
       <p>
-        O sal&aacute;rio m&iacute;nimo nacional (Retribui&ccedil;&atilde;o M&iacute;nima Mensal Garantida, RMMG) em 2026 &eacute; de <strong>870&euro; mensais</strong>. Este valor &eacute; fixado anualmente pelo Governo, ap&oacute;s concerta&ccedil;&atilde;o social com os parceiros sociais. O sal&aacute;rio m&iacute;nimo tem vindo a subir de forma consistente nos &uacute;ltimos anos, passando de 665&euro; em 2021 para os atuais 870&euro;.
+        O sal&aacute;rio m&iacute;nimo nacional (Retribui&ccedil;&atilde;o M&iacute;nima Mensal Garantida, RMMG) em 2026 &eacute; de <strong>{n(SMN)}&euro; mensais</strong>. Este valor &eacute; fixado anualmente pelo Governo, ap&oacute;s concerta&ccedil;&atilde;o social com os parceiros sociais. O sal&aacute;rio m&iacute;nimo tem vindo a subir de forma consistente nos &uacute;ltimos anos, passando de 665&euro; em 2021 para os atuais {n(SMN)}&euro;.
       </p>
 
       <p>
-        Os trabalhadores que auferem o sal&aacute;rio m&iacute;nimo est&atilde;o, em regra, isentos de reten&ccedil;&atilde;o na fonte de IRS, ficando apenas sujeitos ao desconto para a Seguran&ccedil;a Social de 11%. Isto significa que, em 2026, um trabalhador a receber o sal&aacute;rio m&iacute;nimo tem um vencimento l&iacute;quido mensal de aproximadamente 774,30&euro; (870&euro; - 95,70&euro; de TSU).
+        Os trabalhadores que auferem o sal&aacute;rio m&iacute;nimo est&atilde;o, em regra, isentos de reten&ccedil;&atilde;o na fonte de IRS, ficando apenas sujeitos ao desconto para a Seguran&ccedil;a Social de 11%. Isto significa que, em 2026, um trabalhador a receber o sal&aacute;rio m&iacute;nimo tem um vencimento l&iacute;quido mensal de {n(smn.netMonthly, 2)}&euro; ({n(SMN)}&euro; - {n(smn.tsuEmployee, 2)}&euro; de TSU).
       </p>
 
       <h3 class="text-xl font-bold text-neutral-900 mt-10 mb-4">Custo Total para o Empregador</h3>

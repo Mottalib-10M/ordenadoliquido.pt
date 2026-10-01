@@ -14,7 +14,10 @@ import {
   MESES_ANO,
   MESES_VENCIMENTO,
   IRS_JOVEM_ESCALOES,
+  DEDUCAO_POR_DEPENDENTE,
+  MINIMO_EXISTENCIA_2026,
   getTaxaRetencao,
+  retencaoMensal as retencaoTabela,
   type EstadoCivil,
 } from "./baremes-2026";
 
@@ -27,7 +30,7 @@ export interface SalaryInput {
   maritalStatus: EstadoCivil;
   /** Número de dependentes */
   dependents: number;
-  /** Ano do regime IRS Jovem (1-5), 0 se não aplicável */
+  /** Ano do regime IRS Jovem (1-10), 0 se não aplicável */
   irsJovem: number;
 }
 
@@ -102,24 +105,26 @@ export function calculateTSU(grossMonthly: number): {
  */
 export function calculateIRS(
   annualTaxable: number,
-  _maritalStatus: EstadoCivil,
+  maritalStatus: EstadoCivil,
   dependents: number
 ): number {
   if (annualTaxable <= 0) return 0;
 
-  /* Tributação separada (cada cônjuge declara metade em casado2titulares,
-     mas para simplificação usamos escalões individuais) */
+  /* Casado, único titular : tributação conjunta com quociente conjugal (o rendimento coletável divide-se por dois,
+     aplica-se a taxa e multiplica-se o imposto por dois). Nos outros casos, escalões individuais. */
+  const quociente = maritalStatus === "casado1titular" ? 2 : 1;
+  const base = annualTaxable / quociente;
   let imposto = 0;
   for (const escalao of ESCALOES_IRS_2026) {
-    if (annualTaxable <= escalao.limiteMax) {
-      imposto = annualTaxable * escalao.taxa - escalao.parcelaAbater;
+    if (base <= escalao.limiteMax) {
+      imposto = (base * escalao.taxa - escalao.parcelaAbater) * quociente;
       break;
     }
   }
 
-  /* Deduções familiares */
-  const deducaoFamiliar = dependents * DEDUCAO_FAMILIAR_POR_PESSOA;
-  imposto -= deducaoFamiliar;
+  /* Deduções à coleta : despesas gerais familiares por sujeito passivo e dedução por dependente */
+  const titulares = maritalStatus === "casado1titular" ? 2 : 1;
+  imposto -= titulares * DEDUCAO_FAMILIAR_POR_PESSOA + dependents * DEDUCAO_POR_DEPENDENTE;
 
   return round2(Math.max(0, imposto));
 }
@@ -132,8 +137,7 @@ export function calculateRetencao(
   maritalStatus: EstadoCivil,
   dependents: number
 ): number {
-  const taxa = getTaxaRetencao(grossMonthly, maritalStatus, dependents);
-  return round2(grossMonthly * taxa);
+  return retencaoTabela(grossMonthly, maritalStatus, dependents);
 }
 
 /**
@@ -158,19 +162,21 @@ export function calculateSalary(input: SalaryInput): SalaryResult {
   const taxableIncome = round2(Math.max(0, rendimentoBrutoAnual - deducaoReal));
 
   /* ── Dedução familiar ── */
-  const titulares = maritalStatus === "solteiro" ? 1 : 2;
-  const deducaoFamiliar = (titulares + dependents) * DEDUCAO_FAMILIAR_POR_PESSOA;
+  const titulares = maritalStatus === "casado1titular" ? 2 : 1;
+  const deducaoFamiliar = titulares * DEDUCAO_FAMILIAR_POR_PESSOA + dependents * DEDUCAO_POR_DEPENDENTE;
 
   /* ── IRS anual ── */
   let irsAnnual = calculateIRS(taxableIncome, maritalStatus, dependents);
+  /* Mínimo de existência : o imposto não pode deixar o rendimento abaixo de 12 880 € */
+  irsAnnual = round2(Math.min(irsAnnual, Math.max(0, grossAnnual - MINIMO_EXISTENCIA_2026)));
 
-  /* ── IRS Jovem ── */
+  /* ── IRS Jovem : parte do rendimento fica isenta (até 55 × IAS) ; o imposto baixa na mesma proporção ── */
   let irsJovemDesconto = 0;
   const irsAnnualAntesJovem = irsAnnual;
-  if (irsJovem >= 1 && irsJovem <= 5) {
+  if (irsJovem >= 1 && irsJovem <= IRS_JOVEM_ESCALOES.length && grossAnnual > 0) {
     const escalao = IRS_JOVEM_ESCALOES[irsJovem - 1];
-    const isencao = round2(irsAnnual * escalao.isencaoPercentagem);
-    irsJovemDesconto = round2(Math.min(isencao, escalao.limiteIsencao));
+    const rendimentoIsento = Math.min(grossAnnual * escalao.isencaoPercentagem, escalao.limiteIsencao);
+    irsJovemDesconto = round2(irsAnnual * (rendimentoIsento / grossAnnual));
     irsAnnual = round2(Math.max(0, irsAnnual - irsJovemDesconto));
   }
 
@@ -191,18 +197,11 @@ export function calculateSalary(input: SalaryInput): SalaryResult {
   const retencaoTaxa = round2(retencaoTaxaTabela * (1 - reducaoJovem) * 10000) / 10000;
   const retencaoMensal = round2(grossMonthly * retencaoTaxa);
 
-  /* ── Subsídio de Natal (13.º mês), taxado à taxa média ── */
+  /* ── Subsídios de Natal e de férias : a retenção calcula-se em separado, com a mesma tabela (Despacho, n.º 10) ── */
   const subsidioNatalBruto = grossMonthly;
-  const tsuSubNatal = round2(subsidioNatalBruto * TSU_TRABALHADOR);
-  const taxaMedia = grossAnnual > 0 ? irsAnnual / (grossAnnual - tsuEmployeeAnnual) : 0;
-  const irsSubNatal = round2(subsidioNatalBruto * taxaMedia);
-  const subsidioNatalLiquido = round2(subsidioNatalBruto - tsuSubNatal - irsSubNatal);
-
-  /* ── Subsídio de Férias (14.º mês), taxado à taxa de retenção normal ── */
+  const subsidioNatalLiquido = round2(subsidioNatalBruto - round2(subsidioNatalBruto * TSU_TRABALHADOR) - round2(subsidioNatalBruto * retencaoTaxa));
   const subsidioFeriasBruto = grossMonthly;
-  const tsuSubFerias = round2(subsidioFeriasBruto * TSU_TRABALHADOR);
-  const irsSubFerias = round2(subsidioFeriasBruto * retencaoTaxa);
-  const subsidioFeriasLiquido = round2(subsidioFeriasBruto - tsuSubFerias - irsSubFerias);
+  const subsidioFeriasLiquido = round2(subsidioFeriasBruto - round2(subsidioFeriasBruto * TSU_TRABALHADOR) - round2(subsidioFeriasBruto * retencaoTaxa));
 
   /* ── Salário líquido mensal (nos 12 meses normais) ── */
   const netMonthly = round2(grossMonthly - tsu.employee - retencaoMensal);

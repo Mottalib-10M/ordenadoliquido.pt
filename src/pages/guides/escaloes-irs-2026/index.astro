@@ -1,6 +1,8 @@
 ---
 import { CITAVEIS } from '../../../data/blocos-citaveis';
 import Layout from "../../../layouts/Layout.astro";
+import { ESCALOES_IRS_2026 as ESC } from "../../../lib/baremes-2026";
+const n = (x: number, d = 0) => new Intl.NumberFormat("de-DE", { minimumFractionDigits: d, maximumFractionDigits: d }).format(x);
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -21,7 +23,7 @@ const faqSchema = {
       "name": "Quantos escalões de IRS existem em 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Em 2026, existem 9 escalões de IRS em Portugal. As taxas marginais variam entre 13% para rendimentos até 7.703€ e 48% para rendimentos superiores a 81.199€, acrescida de uma taxa adicional de solidariedade para rendimentos muito elevados. Cada escalão tem a sua própria taxa, aplicada apenas à parcela de rendimento que nele cai: passar de escalão nunca faz descer o líquido, ao contrário do que se pensa com frequência."
+        "text": "Em 2026, existem 9 escalões de IRS em Portugal. As taxas marginais variam entre 12,5% para rendimentos até 8.342€ e 48% para rendimentos superiores a 86.634€, acrescida de uma taxa adicional de solidariedade para rendimentos muito elevados. Cada escalão tem a sua própria taxa, aplicada apenas à parcela de rendimento que nele cai: passar de escalão nunca faz descer o líquido, ao contrário do que se pensa com frequência."
       }
     },
     {
@@ -29,7 +31,7 @@ const faqSchema = {
       "name": "A taxa de IRS aplica-se sobre todo o rendimento?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Não. O IRS em Portugal funciona por escalões progressivos: cada taxa marginal aplica-se apenas à parte do rendimento que se enquadra nesse escalão. Por exemplo, se ganha 15.000€ coletáveis, os primeiros 7.703€ são tributados a 13% e o restante a 18%."
+        "text": "Não. O IRS em Portugal funciona por escalões progressivos: cada taxa marginal aplica-se apenas à parte do rendimento que se enquadra nesse escalão. Por exemplo, se ganha 15.000€ coletáveis, os primeiros 8.342€ são tributados a 12,5%, os seguintes 4.245€ a 15,7% e o restante a 21,2%."
       }
     },
     {
@@ -37,11 +39,12 @@ const faqSchema = {
       "name": "O que é o rendimento coletável para efeitos de IRS?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "O rendimento coletável é o valor sobre o qual efetivamente incide o imposto. Calcula-se subtraindo ao rendimento bruto anual a dedução específica (4.104€ ou o montante das contribuições para a Segurança Social, se superior) e eventuais abatimentos legais. É por isso que dois salários brutos iguais podem gerar impostos diferentes: o que conta não é o bruto, mas o que resta depois da dedução específica e das contribuições obrigatórias."
+        "text": "O rendimento coletável é o valor sobre o qual efetivamente incide o imposto. Calcula-se subtraindo ao rendimento bruto anual a dedução específica (4.587,09€ em 2026 ou o montante das contribuições para a Segurança Social, se superior) e eventuais abatimentos legais. É por isso que dois salários brutos iguais podem gerar impostos diferentes: o que conta não é o bruto, mas o que resta depois da dedução específica e das contribuições obrigatórias."
       }
     }
   ]
 };
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -69,11 +72,13 @@ const faqSchema = {
       {/* §21 : o paragrafo que um motor de resposta pode extrair, antes do
           resto do corpo. O chapeu tem uma linha : nao se extrai. */}
       <p class="mb-8 text-neutral-700 leading-relaxed">{CITAVEIS['/guides/escaloes-irs-2026/']}</p>
+<MiniSimAutonome client:visible kind="escaloes" lang="pt" locale="pt-PT" href="/" />
+
 
 
       <div class="prose prose-neutral max-w-none">
         <p class="text-lg text-neutral-600 leading-relaxed mb-8">
-          Os escalões de IRS determinam quanto imposto sobre o rendimento cada contribuinte paga em Portugal. Em 2026, a tabela mantém a estrutura de nove escalões progressivos, com taxas que variam entre 13% e 48%. Neste guia, explicamos em detalhe como funcionam os escalões, como se calcula o imposto e apresentamos exemplos práticos para diferentes níveis de rendimento.
+          Os escalões de IRS determinam quanto imposto sobre o rendimento cada contribuinte paga em Portugal. Em 2026, a tabela mantém a estrutura de nove escalões progressivos, com taxas que variam entre 12,5% e 48%. Neste guia, explicamos em detalhe como funcionam os escalões, como se calcula o imposto e apresentamos exemplos práticos para diferentes níveis de rendimento.
         </p>
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">O que são os escalões de IRS?</h2>
@@ -84,7 +89,7 @@ const faqSchema = {
           Este princípio de progressividade está consagrado na Constituição da República Portuguesa e visa garantir que quem ganha mais contribui proporcionalmente mais para o financiamento dos serviços públicos. Ao contrário do que muitas pessoas pensam, a taxa mais alta não se aplica à totalidade do rendimento, mas apenas à parcela que ultrapassa o limite do escalão anterior.
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          Por exemplo, se o seu rendimento coletável for de 20.000 euros anuais, não pagará 23% sobre os 20.000 euros. Em vez disso, os primeiros 7.703 euros são tributados a 13%, os seguintes 3.876 euros a 18%, e assim sucessivamente. Este mecanismo garante uma tributação justa e gradual.
+          Por exemplo, se o seu rendimento coletável for de 20.000 euros anuais, não pagará 24,1% sobre os 20.000 euros. Em vez disso, os primeiros 8.342 euros são tributados a 12,5%, os seguintes 4.245 euros a 15,7%, e assim sucessivamente. Este mecanismo garante uma tributação justa e gradual.
         </p>
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Tabela de Escalões de IRS 2026</h2>
@@ -103,15 +108,9 @@ const faqSchema = {
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">1.º</td><td class="border border-neutral-200 px-4 py-2">Até 7.703 €</td><td class="border border-neutral-200 px-4 py-2">13,00%</td><td class="border border-neutral-200 px-4 py-2">0 €</td></tr>
-              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">2.º</td><td class="border border-neutral-200 px-4 py-2">7.703 € – 11.623 €</td><td class="border border-neutral-200 px-4 py-2">18,00%</td><td class="border border-neutral-200 px-4 py-2">385,15 €</td></tr>
-              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">3.º</td><td class="border border-neutral-200 px-4 py-2">11.623 € – 16.472 €</td><td class="border border-neutral-200 px-4 py-2">23,00%</td><td class="border border-neutral-200 px-4 py-2">966,30 €</td></tr>
-              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">4.º</td><td class="border border-neutral-200 px-4 py-2">16.472 € – 21.321 €</td><td class="border border-neutral-200 px-4 py-2">26,00%</td><td class="border border-neutral-200 px-4 py-2">1.460,46 €</td></tr>
-              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">5.º</td><td class="border border-neutral-200 px-4 py-2">21.321 € – 27.146 €</td><td class="border border-neutral-200 px-4 py-2">32,75%</td><td class="border border-neutral-200 px-4 py-2">2.899,57 €</td></tr>
-              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">6.º</td><td class="border border-neutral-200 px-4 py-2">27.146 € – 39.791 €</td><td class="border border-neutral-200 px-4 py-2">37,00%</td><td class="border border-neutral-200 px-4 py-2">4.053,28 €</td></tr>
-              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">7.º</td><td class="border border-neutral-200 px-4 py-2">39.791 € – 51.997 €</td><td class="border border-neutral-200 px-4 py-2">43,50%</td><td class="border border-neutral-200 px-4 py-2">6.639,69 €</td></tr>
-              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">8.º</td><td class="border border-neutral-200 px-4 py-2">51.997 € – 81.199 €</td><td class="border border-neutral-200 px-4 py-2">45,00%</td><td class="border border-neutral-200 px-4 py-2">7.419,62 €</td></tr>
-              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">9.º</td><td class="border border-neutral-200 px-4 py-2">Mais de 81.199 €</td><td class="border border-neutral-200 px-4 py-2">48,00%</td><td class="border border-neutral-200 px-4 py-2">9.855,59 €</td></tr>
+              {ESC.map((e, i) => (
+                <tr class={i % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}><td class="border border-neutral-200 px-4 py-2">{i + 1}.º</td><td class="border border-neutral-200 px-4 py-2">{i === 0 ? `Até ${n(e.limiteMax)} €` : e.limiteMax === Infinity ? `Mais de ${n(ESC[i - 1].limiteMax)} €` : `${n(ESC[i - 1].limiteMax)} € – ${n(e.limiteMax)} €`}</td><td class="border border-neutral-200 px-4 py-2">{n(e.taxa * 100, 2)}%</td><td class="border border-neutral-200 px-4 py-2">{n(e.parcelaAbater, 2)} €</td></tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -129,32 +128,32 @@ const faqSchema = {
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Exemplo prático: rendimento de 25.000 € coletáveis</h2>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          Imaginemos um trabalhador solteiro sem dependentes com um rendimento coletável anual de 25.000 euros. Este valor enquadra-se no 5.º escalão (taxa marginal de 32,75%, parcela a abater de 2.899,57 €).
+          Imaginemos um trabalhador solteiro sem dependentes com um rendimento coletável anual de 25.000 euros. Este valor enquadra-se no 5.º escalão (taxa marginal de 31,10%, parcela a abater de 3.092,75 €).
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          <strong>Cálculo:</strong> IRS = (25.000 € × 32,75%) − 2.899,57 € = 8.187,50 € − 2.899,57 € = 5.287,93 €
+          <strong>Cálculo:</strong> IRS = (25.000 € × 31,10%) − 3.092,75 € = 7.775,00 € − 3.092,75 € = 4.682,25 €
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          A taxa efetiva neste caso seria de 5.287,93 € ÷ 25.000 € = 21,15%, ou seja, significativamente inferior à taxa marginal de 32,75%. Esta diferença ilustra perfeitamente como o sistema progressivo protege os contribuintes com rendimentos médios.
+          A taxa efetiva neste caso seria de 4.682,25 € ÷ 25.000 € = 18,73%, ou seja, significativamente inferior à taxa marginal de 31,10%. Esta diferença ilustra perfeitamente como o sistema progressivo protege os contribuintes com rendimentos médios.
         </p>
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Exemplo prático: rendimento de 45.000 € coletáveis</h2>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          Consideremos agora um contribuinte casado, único titular, sem dependentes, com um rendimento coletável de 45.000 euros. Este valor cai no 7.º escalão (taxa marginal de 43,50%, parcela a abater de 6.639,69 €).
+          Consideremos agora um contribuinte casado, único titular, sem dependentes, com um rendimento coletável de 45.000 euros. Na tributação conjunta aplica-se o quociente conjugal: o rendimento é dividido por dois, 22.500 euros, valor que cai no 4.º escalão (taxa marginal de 24,10%, parcela a abater de 1.476,52 €).
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          <strong>Cálculo:</strong> IRS = (45.000 € × 43,50%) − 6.639,69 € = 19.575,00 € − 6.639,69 € = 12.935,31 €
+          <strong>Cálculo:</strong> IRS = [(22.500 € × 24,10%) − 1.476,52 €] × 2 = 3.945,98 € × 2 = 7.891,96 €
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          A taxa efetiva para este rendimento é de 28,74%. Note-se que, apesar de o escalão indicar 43,50%, a taxa efetiva é consideravelmente inferior graças ao mecanismo progressivo. No caso de contribuintes casados com dois titulares, o rendimento coletável é dividido por dois antes de se aplicarem os escalões, sendo o imposto final multiplicado por dois.
+          A taxa efetiva para este rendimento é de 17,54%. Sem o quociente conjugal, os mesmos 45.000 euros cairiam no 7.º escalão, com uma taxa marginal de 43,10%: é a divisão por dois que explica a diferença. O mesmo mecanismo aplica-se aos casados com dois titulares que optem pela tributação conjunta, sobre a soma dos dois rendimentos.
         </p>
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Da dedução específica ao rendimento coletável</h2>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          Antes de aplicar os escalões, é necessário determinar o rendimento coletável. Para os trabalhadores por conta de outrem (Categoria A), o cálculo parte do rendimento bruto anual ao qual se subtrai a dedução específica de 4.104 euros (ou o valor das contribuições para a Segurança Social, se superior).
+          Antes de aplicar os escalões, é necessário determinar o rendimento coletável. Para os trabalhadores por conta de outrem (Categoria A), o cálculo parte do rendimento bruto anual ao qual se subtrai a dedução específica de 4.587,09 euros em 2026, ou seja, 8,54 vezes o IAS (ou o valor das contribuições para a Segurança Social, se superior).
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          Por exemplo, um trabalhador com um salário bruto mensal de 1.500 euros recebe 21.000 euros por ano (14 meses). As contribuições para a Segurança Social totalizam 2.310 euros (11% × 21.000 €). Como este valor é inferior à dedução específica de 4.104 euros, aplica-se a dedução específica. Assim, o rendimento coletável é: 21.000 € − 4.104 € = 16.896 €.
+          Por exemplo, um trabalhador com um salário bruto mensal de 1.500 euros recebe 21.000 euros por ano (14 meses). As contribuições para a Segurança Social totalizam 2.310 euros (11% × 21.000 €). Como este valor é inferior à dedução específica de 4.587,09 euros, aplica-se a dedução específica. Assim, o rendimento coletável é: 21.000 € − 4.587,09 € = 16.412,91 €.
         </p>
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Taxa adicional de solidariedade</h2>
@@ -167,7 +166,7 @@ const faqSchema = {
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Mínimo de existência</h2>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          O mínimo de existência é uma salvaguarda prevista na lei que garante que nenhum contribuinte fique com um rendimento líquido inferior a um determinado limiar após o pagamento de impostos. Em 2026, este valor corresponde a 1,5 vezes o valor anual do IAS (Indexante dos Apoios Sociais) multiplicado por 14 meses.
+          O mínimo de existência é uma salvaguarda prevista na lei que garante que nenhum contribuinte fique com um rendimento líquido inferior a um determinado limiar após o pagamento de impostos. Em 2026, este valor é de 12.880 euros, o equivalente a catorze salários mínimos de 920 euros: quem recebe o salário mínimo não paga IRS.
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
           Na prática, os trabalhadores que auferem o salário mínimo nacional ficam isentos de IRS ou pagam um valor muito reduzido, precisamente por efeito desta regra do mínimo de existência. Trata-se de um mecanismo essencial para proteger os rendimentos mais baixos.
@@ -191,7 +190,7 @@ const faqSchema = {
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Evolução dos escalões: 2024 a 2026</h2>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          Nos últimos anos, os escalões de IRS têm sido atualizados para acompanhar a inflação e aliviar a carga fiscal sobre a classe média. Em 2024, o número de escalões foi aumentado de sete para nove, com reduções nas taxas marginais dos escalões intermédios. Em 2025, foram feitos ajustes nos limites dos escalões, e em 2026 mantém-se a mesma estrutura com pequenas atualizações nos limites.
+          Nos últimos anos, os escalões de IRS têm sido atualizados para acompanhar a inflação e aliviar a carga fiscal sobre a classe média. Em 2024, o número de escalões foi aumentado de sete para nove, com reduções nas taxas marginais dos escalões intermédios. Em 2025, as taxas voltaram a descer até ao 8.º escalão. Em 2026, os limites dos escalões foram atualizados em 3,51% e as taxas do 2.º ao 5.º escalão desceram mais 0,3 pontos percentuais.
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
           Esta evolução reflete o compromisso político de tornar o sistema fiscal mais justo e de reduzir a carga tributária sobre os rendimentos do trabalho, especialmente na faixa intermédia. É importante consultar as tabelas atualizadas todos os anos, uma vez que pequenas alterações nos limites e nas taxas podem ter um impacto significativo no imposto a pagar.
@@ -203,19 +202,19 @@ const faqSchema = {
           <div class="bg-white rounded-xl border border-neutral-200 p-6">
             <h3 class="text-lg font-bold text-neutral-900 mb-2">Quantos escalões de IRS existem em 2026?</h3>
             <p class="text-neutral-600 leading-relaxed">
-              Em 2026, existem 9 escalões de IRS em Portugal. As taxas marginais variam entre 13% para rendimentos até 7.703 € e 48% para rendimentos superiores a 81.199 €, acrescida de uma taxa adicional de solidariedade para rendimentos muito elevados.
+              Em 2026, existem 9 escalões de IRS em Portugal. As taxas marginais variam entre 12,5% para rendimentos até 8.342 € e 48% para rendimentos superiores a 86.634 €, acrescida de uma taxa adicional de solidariedade para rendimentos muito elevados.
             </p>
           </div>
           <div class="bg-white rounded-xl border border-neutral-200 p-6">
             <h3 class="text-lg font-bold text-neutral-900 mb-2">A taxa de IRS aplica-se sobre todo o rendimento?</h3>
             <p class="text-neutral-600 leading-relaxed">
-              Não. O IRS em Portugal funciona por escalões progressivos: cada taxa marginal aplica-se apenas à parte do rendimento que se enquadra nesse escalão. Por exemplo, se ganha 15.000 € coletáveis, os primeiros 7.703 € são tributados a 13% e o restante a 18%.
+              Não. O IRS em Portugal funciona por escalões progressivos: cada taxa marginal aplica-se apenas à parte do rendimento que se enquadra nesse escalão. Por exemplo, se ganha 15.000 € coletáveis, os primeiros 8.342 € são tributados a 12,5%, os seguintes 4.245 € a 15,7% e o restante a 21,2%.
             </p>
           </div>
           <div class="bg-white rounded-xl border border-neutral-200 p-6">
             <h3 class="text-lg font-bold text-neutral-900 mb-2">O que é o rendimento coletável para efeitos de IRS?</h3>
             <p class="text-neutral-600 leading-relaxed">
-              O rendimento coletável é o valor sobre o qual efetivamente incide o imposto. Calcula-se subtraindo ao rendimento bruto anual a dedução específica (4.104 €) ou o montante das contribuições para a Segurança Social, se este for superior, e eventuais abatimentos legais.
+              O rendimento coletável é o valor sobre o qual efetivamente incide o imposto. Calcula-se subtraindo ao rendimento bruto anual a dedução específica (4.587,09 € em 2026) ou o montante das contribuições para a Segurança Social, se este for superior, e eventuais abatimentos legais.
             </p>
           </div>
         </div>

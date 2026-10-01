@@ -88,13 +88,13 @@ import ContextoFolha from '../../components/ContextoFolha.astro';
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">Salário Líquido</h2>
           <p class="text-neutral-600">O valor que o trabalhador efetivamente recebe na sua conta bancária após todos os descontos obrigatórios (Segurança Social e IRS). E o montante disponivel para o trabalhador utilizar livremente.</p>
-          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com 1 500 € brutos, um solteiro sem dependentes recebe cerca de 1 115 € líquidos. A diferença de 385 € reparte-se entre 165 € de Segurança Social e cerca de 220 € de retenção de IRS.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com 1 500 € brutos, um solteiro sem dependentes recebe cerca de 1 167 € líquidos. A diferença de 333 € reparte-se entre 165 € de Segurança Social e cerca de 168 € de retenção de IRS.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">IRS (Imposto sobre o Rendimento das Pessoas Singulares)</h2>
-          <p class="text-neutral-600">O imposto sobre o rendimento dos trabalhadores em Portugal. E calculado com base em escalões progressivos: quanto maior o rendimento, maior a taxa marginal aplicada. Em 2026, os escalões variam entre 13% e 48%. O IRS e retido mensalmente na fonte pelo empregador e ajustado na declaração anual.</p>
-          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: sobre 1 500 € brutos mensais, o IRS retido ronda os 220 € por mês. O imposto definitivo pode ser inferior, porque as deduções à coleta só entram na declaração anual.</p>
+          <p class="text-neutral-600">O imposto sobre o rendimento dos trabalhadores em Portugal. E calculado com base em escalões progressivos: quanto maior o rendimento, maior a taxa marginal aplicada. Em 2026, os escalões variam entre 12,5% e 48%. O IRS e retido mensalmente na fonte pelo empregador e ajustado na declaração anual.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: sobre 1 500 € brutos mensais, o IRS retido ronda os 168 € por mês. O imposto definitivo pode ser inferior, porque as deduções à coleta só entram na declaração anual.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
@@ -112,7 +112,7 @@ import ContextoFolha from '../../components/ContextoFolha.astro';
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">Retenção na Fonte</h2>
           <p class="text-neutral-600">O pagamento antecipado de IRS que a entidade empregadora desconta mensalmente do salário e entrega ao Estado. A taxa de retenção depende do salário bruto, estado civil e numero de dependentes, conforme as tabelas publicadas anualmente pela Autoridade Tributaria.</p>
-          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: a tabela pode reter 220 € num mês em que o imposto realmente devido seria de 200 €. Os 20 € de excesso regressam sob a forma de reembolso, no ano seguinte, após a declaração anual.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: a tabela pode reter 168 € num mês em que o imposto realmente devido seria de 150 €. Os 18 € de excesso regressam sob a forma de reembolso, no ano seguinte, após a declaração anual.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
@@ -123,32 +123,32 @@ import ContextoFolha from '../../components/ContextoFolha.astro';
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">Dedução Específica</h2>
-          <p class="text-neutral-600">Um valor fixo de 4.104 EUR que e subtraido ao rendimento bruto anual para determinar o rendimento coletável. Aplica-se automaticamente a todos os trabalhadores dependentes (categoria A). Se as contribuições para a Segurança Social forem superiores a este valor, utiliza-se o montante mais elevado.</p>
-          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: quem desconta 2 310 € de Segurança Social num ano beneficia desse valor como dedução, por ser superior aos 4 104 € apenas quando o salário o justifica; aplica-se sempre o montante mais elevado dos dois.</p>
+          <p class="text-neutral-600">Um valor de 4.587,09 EUR em 2026 (8,54 vezes o IAS) que e subtraido ao rendimento bruto anual para determinar o rendimento coletável. Aplica-se automaticamente a todos os trabalhadores dependentes (categoria A). Se as contribuições para a Segurança Social forem superiores a este valor, utiliza-se o montante mais elevado.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com 1 500 € brutos mensais, descontam-se 2 310 € de Segurança Social por ano, menos do que 4 587,09 €, pelo que se aplica a dedução específica. Com 3 500 € brutos, as contribuições chegam a 5 390 € e substituem-na; aplica-se sempre o montante mais elevado dos dois.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">Rendimento Coletável</h2>
           <p class="text-neutral-600">O valor sobre o qual incide efetivamente o IRS, após a dedução específica e outras deducoes aplicaveis. E calculado subtraindo ao rendimento bruto anual a dedução específica (ou as contribuições para a Segurança Social, se superiores).</p>
-          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com 21 000 € de rendimento anual e 2 310 € de contribuições, o rendimento coletável é de cerca de 16 896 € depois da dedução específica. É sobre esse valor, e não sobre os 21 000 €, que incidem os escalões.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com 21 000 € de rendimento anual e 2 310 € de contribuições, o rendimento coletável é de cerca de 16 413 € depois da dedução específica. É sobre esse valor, e não sobre os 21 000 €, que incidem os escalões.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsídio de Refeição</h2>
-          <p class="text-neutral-600">Uma prestacao paga pelo empregador para compensar as despesas de alimentacao do trabalhador. Quando pago em dinheiro, esta isento de IRS e Segurança Social ate 6,00 EUR por dia. Quando pago em cartao de refeição, a isenção sobe para 10,20 EUR por dia.</p>
+          <p class="text-neutral-600">Uma prestacao paga pelo empregador para compensar as despesas de alimentacao do trabalhador. Quando pago em dinheiro, esta isento de IRS e Segurança Social ate 6,15 EUR por dia. Quando pago em cartao de refeição, a isenção sobe para 10,46 EUR por dia.</p>
           <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: 22 dias úteis a 6 € por dia em cartão representam 132 € por mês isentos de IRS e de Segurança Social. Pago em dinheiro, o limite isento é mais baixo e o excedente passa a ser tributado.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsídio de Férias</h2>
           <p class="text-neutral-600">Uma remuneração adicional obrigatoria por lei, correspondente a um mês de retribuicao, paga antes do inicio do periodo de férias. E o chamado 14.o mês. Esta sujeito a retenção na fonte de IRS e a contribuições para a Segurança Social.</p>
-          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com 1 500 € brutos, o subsídio de férias é de 1 500 € brutos, dos quais se descontam 165 € de Segurança Social e a retenção de IRS aplicável, o que deixa cerca de 1 115 € líquidos.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: com 1 500 € brutos, o subsídio de férias é de 1 500 € brutos, dos quais se descontam 165 € de Segurança Social e a retenção de IRS aplicável, o que deixa cerca de 1 167 € líquidos.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <h2 class="text-lg font-bold text-neutral-900 mb-2">Subsídio de Natal</h2>
           <p class="text-neutral-600">Uma remuneração adicional obrigatoria por lei, correspondente a um mês de retribuicao, paga ate 15 de dezembro de cada ano. E o chamado 13.o mês. Tal como o subsídio de férias, esta sujeito a IRS e a Segurança Social.</p>
-          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: pago por inteiro, acrescenta cerca de 1 115 € líquidos em dezembro. Em duodécimos, esses mesmos 1 115 € repartem-se por doze meses, a cerca de 93 € por mês.</p>
+          <p class="text-sm text-neutral-700 bg-neutral-50 border-l-2 border-primary-300 pl-3 py-2 mt-3 leading-relaxed">Exemplo: pago por inteiro, acrescenta cerca de 1 167 € líquidos em dezembro. Em duodécimos, esses mesmos 1 167 € repartem-se por doze meses, a cerca de 97 € por mês.</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">

@@ -42,6 +42,7 @@ const faqSchema = {
     }
   ]
 };
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -68,6 +69,8 @@ const faqSchema = {
       {/* §21 : o paragrafo que um motor de resposta pode extrair, antes do
           resto do corpo. O chapeu tem uma linha : nao se extrai. */}
       <p class="mb-8 text-neutral-700 leading-relaxed">{CITAVEIS['/guides/taxa-social-unica-tsu/']}</p>
+<MiniSimAutonome client:visible kind="tsu" lang="pt" locale="pt-PT" href="/" />
+
 
 
       <div class="prose prose-neutral max-w-none">
@@ -180,7 +183,7 @@ const faqSchema = {
           A contribuição de 11% para a Segurança Social é o primeiro desconto que incide sobre o salário bruto, antes mesmo da retenção na fonte de IRS. Para um salário bruto de 1.200 euros, o desconto de TSU é de 132 euros, reduzindo o valor disponível para o cálculo da retenção na fonte.
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          É importante notar que as contribuições para a Segurança Social não são recuperáveis no IRS (ao contrário da retenção na fonte). No entanto, se o montante das contribuições anuais for superior à dedução específica de 4.104 euros, o valor das contribuições será utilizado em substituição da dedução específica, reduzindo o rendimento coletável sujeito a IRS.
+          É importante notar que as contribuições para a Segurança Social não são recuperáveis no IRS (ao contrário da retenção na fonte). No entanto, se o montante das contribuições anuais for superior à dedução específica de 4.587,09 euros, o valor das contribuições será utilizado em substituição da dedução específica, reduzindo o rendimento coletável sujeito a IRS.
         </p>
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Perguntas frequentes</h2>

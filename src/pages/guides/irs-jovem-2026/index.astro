@@ -21,7 +21,7 @@ const faqSchema = {
       "name": "Quem pode beneficiar do IRS Jovem em 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Podem beneficiar do IRS Jovem os trabalhadores com idade até 35 anos que obtenham rendimentos de trabalho dependente (Categoria A) ou independente (Categoria B). O benefício aplica-se nos primeiros 10 anos de obtenção de rendimentos após a conclusão de um ciclo de estudos e não depende do nível de habilitações."
+        "text": "Podem beneficiar do IRS Jovem os trabalhadores com idade até 35 anos que obtenham rendimentos de trabalho dependente (Categoria A) ou independente (Categoria B). O benefício aplica-se nos primeiros 10 anos de obtenção de rendimentos após o início da vida profissional e não depende do nível de habilitações."
       }
     },
     {
@@ -29,7 +29,7 @@ const faqSchema = {
       "name": "Qual é a percentagem de isenção do IRS Jovem?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Em 2026, o IRS Jovem prevê uma isenção de 100% no 1.º ano, 75% no 2.º ano, 50% do 3.º ao 5.º ano e 25% do 6.º ao 10.º ano. A isenção aplica-se ao rendimento até ao limite de 55 vezes o IAS (Indexante dos Apoios Sociais) por ano."
+        "text": "Em 2026, o IRS Jovem prevê uma isenção de 100% no 1.º ano, 75% do 2.º ao 4.º ano, 50% do 5.º ao 7.º ano e 25% do 8.º ao 10.º ano. A isenção aplica-se ao rendimento até ao limite de 55 vezes o IAS (Indexante dos Apoios Sociais) por ano."
       }
     },
     {
@@ -42,6 +42,7 @@ const faqSchema = {
     }
   ]
 };
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -68,6 +69,8 @@ const faqSchema = {
       {/* §21 : o paragrafo que um motor de resposta pode extrair, antes do
           resto do corpo. O chapeu tem uma linha : nao se extrai. */}
       <p class="mb-8 text-neutral-700 leading-relaxed">{CITAVEIS['/guides/irs-jovem-2026/']}</p>
+<MiniSimAutonome client:visible kind="liquido" lang="pt" locale="pt-PT" href="/" />
+
 
 
       <div class="prose prose-neutral max-w-none">
@@ -117,15 +120,15 @@ const faqSchema = {
             </thead>
             <tbody>
               <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">1.º ano</td><td class="border border-neutral-200 px-4 py-2">100%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
-              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">2.º ano</td><td class="border border-neutral-200 px-4 py-2">75%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
-              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">3.º ao 5.º ano</td><td class="border border-neutral-200 px-4 py-2">50%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
-              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">6.º ao 10.º ano</td><td class="border border-neutral-200 px-4 py-2">25%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">2.º ao 4.º ano</td><td class="border border-neutral-200 px-4 py-2">75%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
+              <tr class="bg-white"><td class="border border-neutral-200 px-4 py-2">5.º ao 7.º ano</td><td class="border border-neutral-200 px-4 py-2">50%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
+              <tr class="bg-neutral-50"><td class="border border-neutral-200 px-4 py-2">8.º ao 10.º ano</td><td class="border border-neutral-200 px-4 py-2">25%</td><td class="border border-neutral-200 px-4 py-2">55 × IAS</td></tr>
             </tbody>
           </table>
         </div>
 
         <p class="text-neutral-700 leading-relaxed mb-4">
-          O limite de isenção corresponde a 55 vezes o valor do IAS (Indexante dos Apoios Sociais). Com o IAS fixado em 522,50 euros para 2026, o limite anual de rendimento isento é de 28.737,50 euros. A parte do rendimento que exceda este limite é tributada normalmente segundo os escalões de IRS.
+          O limite de isenção corresponde a 55 vezes o valor do IAS (Indexante dos Apoios Sociais). Com o IAS fixado em 537,13 euros para 2026, o limite anual de rendimento isento é de 29.542,15 euros. A parte do rendimento que exceda este limite é tributada normalmente segundo os escalões de IRS.
         </p>
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Exemplo prático: jovem no 1.º ano de trabalho</h2>
@@ -133,15 +136,15 @@ const faqSchema = {
           Maria, 24 anos, acabou de começar o seu primeiro emprego com um salário bruto mensal de 1.200 euros (16.800 euros anuais com 14 meses). Sendo o seu 1.º ano de rendimentos, beneficia de uma isenção de 100% de IRS.
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          Sem o IRS Jovem, Maria pagaria aproximadamente 1.100 euros de IRS por ano. Com o benefício, este valor é totalmente isento. O seu único desconto é a TSU de 11%, pelo que o salário líquido mensal sobe consideravelmente. Ao longo do primeiro ano, a poupança efetiva com o IRS Jovem é de cerca de 1.100 euros.
+          Sem o IRS Jovem, Maria pagaria cerca de 1.400 euros de IRS por ano (1.400,49 euros antes das deduções por despesas) e receberia 971,78 euros líquidos por mês. Com o benefício, este valor é totalmente isento. O seu único desconto é a TSU de 11% (132 euros), pelo que o salário líquido mensal sobe para 1.068 euros. Ao longo do primeiro ano, a poupança efetiva com o IRS Jovem é de cerca de 1.400 euros.
         </p>
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Exemplo prático: jovem no 4.º ano de trabalho</h2>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          João, 27 anos, está no 4.º ano de trabalho e ganha 2.000 euros brutos mensais (28.000 euros anuais). Neste caso, beneficia de uma isenção de 50% do IRS, pois encontra-se entre o 3.º e o 5.º ano do benefício.
+          João, 27 anos, está no 4.º ano de trabalho e ganha 2.000 euros brutos mensais (28.000 euros anuais). Neste caso, beneficia de uma isenção de 75% do rendimento, pois encontra-se entre o 2.º e o 4.º ano do benefício.
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          Sem IRS Jovem, João pagaria cerca de 3.800 euros de IRS anual. Com a isenção de 50%, paga apenas metade desse valor, ou seja, aproximadamente 1.900 euros. A poupança anual neste cenário é de cerca de 1.900 euros, o que equivale a mais de 150 euros por mês no bolso.
+          Sem IRS Jovem, João pagaria cerca de 3.939 euros de IRS anual. Com a isenção de 75% do rendimento, o imposto desce para cerca de 985 euros. A poupança anual neste cenário é de cerca de 2.954 euros, o que equivale a mais de 210 euros por cada um dos 14 pagamentos: o líquido mensal passa de 1.478,67 para 1.704,67 euros.
         </p>
 
         <h2 class="text-2xl font-bold text-neutral-900 mt-10 mb-4">Como ativar o IRS Jovem</h2>
@@ -183,7 +186,7 @@ const faqSchema = {
           <div class="bg-white rounded-xl border border-neutral-200 p-6">
             <h3 class="text-lg font-bold text-neutral-900 mb-2">Qual é a percentagem de isenção do IRS Jovem?</h3>
             <p class="text-neutral-600 leading-relaxed">
-              Em 2026, o IRS Jovem prevê uma isenção de 100% no 1.º ano, 75% no 2.º ano, 50% do 3.º ao 5.º ano e 25% do 6.º ao 10.º ano. A isenção aplica-se ao rendimento até ao limite de 55 vezes o IAS por ano.
+              Em 2026, o IRS Jovem prevê uma isenção de 100% no 1.º ano, 75% do 2.º ao 4.º ano, 50% do 5.º ao 7.º ano e 25% do 8.º ao 10.º ano. A isenção aplica-se ao rendimento até ao limite de 55 vezes o IAS por ano.
             </p>
           </div>
           <div class="bg-white rounded-xl border border-neutral-200 p-6">

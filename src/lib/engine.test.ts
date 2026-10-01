@@ -28,8 +28,8 @@ describe("calculateTSU", () => {
 
   it("should handle minimum wage correctly", () => {
     const result = calculateTSU(SALARIO_MINIMO_2026);
-    expect(result.employee).toBe(Math.round(870 * TSU_TRABALHADOR * 100) / 100);
-    expect(result.employer).toBe(Math.round(870 * TSU_EMPREGADOR * 100) / 100);
+    expect(result.employee).toBe(Math.round(SALARIO_MINIMO_2026 * TSU_TRABALHADOR * 100) / 100);
+    expect(result.employer).toBe(Math.round(SALARIO_MINIMO_2026 * TSU_EMPREGADOR * 100) / 100);
   });
 });
 
@@ -44,27 +44,32 @@ describe("calculateIRS", () => {
     expect(calculateIRS(-1000, "solteiro", 0)).toBe(0);
   });
 
-  it("should apply 13.25% for the first bracket", () => {
+  it("should apply 12.5% for the first bracket, less the 250 € general deduction", () => {
     const result = calculateIRS(5000, "solteiro", 0);
-    expect(result).toBe(Math.round(5000 * 0.1325 * 100) / 100);
+    expect(result).toBe(5000 * 0.125 - 250);
   });
 
   it("should apply progressive rates for higher income", () => {
     const result = calculateIRS(10000, "solteiro", 0);
-    // 10000 * 0.18 - 365.89 = 1800 - 365.89 = 1434.11
-    expect(result).toBe(1434.11);
+    // 10000 * 0.157 - 266.94 (parcela a abater) - 250 = 1053.06
+    expect(result).toBe(1053.06);
   });
 
   it("should reduce tax by dependent deduction", () => {
     const withoutDeps = calculateIRS(20000, "solteiro", 0);
     const withDeps = calculateIRS(20000, "solteiro", 2);
-    expect(withDeps).toBe(withoutDeps - 500); // 2 * 250
+    expect(withDeps).toBe(withoutDeps - 1200); // 2 * 600
   });
 
-  it("should handle the top bracket (>81,199)", () => {
+  it("should handle the top bracket (>86,634)", () => {
     const result = calculateIRS(100_000, "solteiro", 0);
-    // 100000 * 0.48 - 8835.57 = 48000 - 8835.57 = 39164.43
-    expect(result).toBe(39164.43);
+    // 100000 * 0.48 - 11387.28 (parcela a abater) - 250
+    expect(result).toBeCloseTo(36362.72, 1);
+  });
+
+  it("applies the conjugal quotient for a married single earner", () => {
+    // 30000 / 2 = 15000 : 15000 * 0.212 - 959.23 = 2220.77 ; x 2 = 4441.54 ; less 2 x 250
+    expect(calculateIRS(30_000, "casado1titular", 0)).toBeCloseTo(3941.54, 1);
   });
 });
 
@@ -155,7 +160,7 @@ describe("calculateSalary", () => {
     expect(jovem.irsAnnual).toBeLessThan(normal.irsAnnual);
   });
 
-  it("should have deducao especifica of 4104", () => {
+  it("should have the 2026 specific deduction (8,54 x IAS)", () => {
     const result = calculateSalary({
       grossMonthly: 2000,
       maritalStatus: "solteiro",
@@ -173,6 +178,20 @@ describe("calculateSalary", () => {
       irsJovem: 0,
     });
     expect(result.retencaoMensal).toBe(0);
-    expect(result.netMonthly).toBe(870 - result.tsuEmployee);
+    expect(result.netMonthly).toBe(SALARIO_MINIMO_2026 - result.tsuEmployee);
+    expect(result.netMonthly).toBe(818.8);
+  });
+
+  it("follows the official 2026 withholding tables (Despacho n.º 233-A/2026)", () => {
+    // Tabela I, 1 819 € : 1819 x 24,10 % - 193,33 = 245,04 (taxa efetiva 13,5 %)
+    expect(calculateRetencao(1819, "solteiro", 0)).toBeCloseTo(245.04, 1);
+    // Tabela I, 1 042 € : 12,5 % x 1042 - 12,5 % x 2,60 x (1273,85 - 1042) = 54,90 (5,3 %)
+    expect(calculateRetencao(1042, "solteiro", 0)).toBeCloseTo(54.9, 1);
+    // Tabela II : 34,29 € por dependente
+    expect(calculateRetencao(1819, "solteiro", 1)).toBeCloseTo(245.04 - 34.29, 1);
+    // Tabela III, 1 432 € : 1432 x 12,72 % - 98,64 = 83,51 (5,8 %)
+    expect(calculateRetencao(1432, "casado1titular", 0)).toBeCloseTo(83.51, 1);
+    // Três dependentes : taxa marginal menos um ponto
+    expect(calculateRetencao(3000, "casado2titulares", 3)).toBeCloseTo(3000 * 0.3736 - 487.66 - 3 * 21.43, 1);
   });
 });

@@ -42,6 +42,7 @@ const faqSchema = {
     }
   ]
 };
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -68,6 +69,8 @@ const faqSchema = {
       {/* §21 : o paragrafo que um motor de resposta pode extrair, antes do
           resto do corpo. O chapeu tem uma linha : nao se extrai. */}
       <p class="mb-8 text-neutral-700 leading-relaxed">{CITAVEIS['/guides/deducoes-irs/']}</p>
+<MiniSimAutonome client:visible kind="liquido" lang="pt" locale="pt-PT" href="/" />
+
 
 
       <div class="prose prose-neutral max-w-none">
@@ -80,7 +83,7 @@ const faqSchema = {
           As deduções de IRS funcionam como valores que são subtraídos ao imposto calculado (coleta), reduzindo o montante que o contribuinte efetivamente paga. É importante distinguir entre dois conceitos: a dedução específica (que reduz o rendimento coletável) e as deduções à coleta (que reduzem o imposto apurado).
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
-          A dedução específica é de 4.104 euros para todos os trabalhadores por conta de outrem e é aplicada automaticamente ao rendimento bruto antes do cálculo do imposto. Já as deduções à coleta dependem das despesas efetivamente realizadas e declaradas pelo contribuinte, estando sujeitas a limites máximos por categoria.
+          A dedução específica é de 4.587,09 euros em 2026 (8,54 vezes o IAS) para todos os trabalhadores por conta de outrem e é aplicada automaticamente ao rendimento bruto antes do cálculo do imposto. Já as deduções à coleta dependem das despesas efetivamente realizadas e declaradas pelo contribuinte, estando sujeitas a limites máximos por categoria.
         </p>
         <p class="text-neutral-700 leading-relaxed mb-4">
           O processo é o seguinte: primeiro calcula-se o rendimento coletável (rendimento bruto menos a dedução específica), depois aplica-se a tabela de escalões para determinar a coleta, e por fim subtraem-se as deduções à coleta. O resultado é o imposto líquido a pagar.

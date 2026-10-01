@@ -141,11 +141,9 @@ export default function SalaryCalculator() {
                 focus:bg-white focus:border-primary-600 focus:ring-4 focus:ring-primary-600/15 focus:outline-none transition-all"
             >
               <option value={0}>N&atilde;o aplic&aacute;vel</option>
-              <option value={1}>1.&ordm; ano, Isen&ccedil;&atilde;o 100%</option>
-              <option value={2}>2.&ordm; ano, Isen&ccedil;&atilde;o 75%</option>
-              <option value={3}>3.&ordm; ano, Isen&ccedil;&atilde;o 50%</option>
-              <option value={4}>4.&ordm; ano, Isen&ccedil;&atilde;o 50%</option>
-              <option value={5}>5.&ordm; ano, Isen&ccedil;&atilde;o 25%</option>
+              {[100, 75, 75, 75, 50, 50, 50, 25, 25, 25].map((p, i) => (
+                <option key={i + 1} value={i + 1}>{i + 1}.&ordm; ano, Isen&ccedil;&atilde;o {p}%</option>
+              ))}
             </select>
           </div>
         </div>
