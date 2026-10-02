@@ -8,7 +8,9 @@ interface Props {
 
 const { title, description, canonical } = Astro.props;
 const siteUrl = "https://ordenadoliquido.pt";
-const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
+// Sans prop `canonical`, l'adresse de la page elle-meme : retomber sur l'accueil
+// declarait la page comme un doublon de l'accueil.
+const canonicalUrl = `${siteUrl}${canonical ?? Astro.url.pathname}`;
 // §11 : la vignette de partage. Son nom suit le chemin de la page, ce que le
 // script og-cards.py de la trame respecte. Sans elle, une page partagée sortait
 // en lien nu (relevé du 2026-09-26).
