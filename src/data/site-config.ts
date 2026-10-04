@@ -39,6 +39,9 @@ export const LEGAL_REQUIRED: Array<keyof LegalIdentity> = ['entityName', 'street
 
 /** Projet Microsoft Clarity (compte amradif). Vide = aucun traceur ni bandeau. */
 export const CLARITY_ID = 'yrbsknyary';
+/** Flux web Google Analytics 4 (propriété 557319080). Vide = pas de GA4. Chargé par
+ *  Consent.astro selon la même règle que Clarity. */
+export const GA4_ID = 'G-3JZGE84E70';
 /** Régime de consentement : 'opt-in' = rien avant l'accord ; 'notice' = mesure active
  *  avec information préalable et retrait possible. */
 export const CONSENT_MODE: 'opt-in' | 'notice' | 'none' = 'none';

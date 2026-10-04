@@ -85,12 +85,7 @@ const ogImage = `https://ordenadoliquido.pt/og/${cheminOg || 'accueil'}.png`;
     <!-- Plausible Analytics -->
     <script defer data-domain="ordenadoliquido.pt" src="https://plausible.io/js/script.js"></script>
 
-    <!--
-      Pas de GA4 ici : l'identifiant etait reste a l'etat de gabarit
-      (G-XXXXXXXXXX), donc deux requetes vers googletagmanager a chaque page
-      pour une mesure qui n'arrivait nulle part. Plausible, ci-dessus, mesure
-      l'audience sans cookie ni identifiant personnel.
-    -->
+    <!-- GA4 (GA4_ID de site-config) est chargé par Consent, comme Clarity. -->
     <Consent part="head" lang="pt" moreHref="/privacidade/" />
   </head>
   <body class="min-h-screen flex flex-col">

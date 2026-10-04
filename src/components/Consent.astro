@@ -1,6 +1,7 @@
 ---
 /**
- * Mesure d'audience Microsoft Clarity, soumise au choix du visiteur.
+ * Mesure d'audience Microsoft Clarity et Google Analytics 4, soumise au choix du visiteur.
+ * GA4 suit exactement la même règle de chargement que Clarity.
  *
  * Deux emplacements, un seul composant :
  *  - part="head" : pose l'état par défaut et ne charge Clarity que si le choix l'autorise ;
@@ -18,7 +19,7 @@
  * Rien n'est rendu si CLARITY_ID est vide. Les pages /embed/ n'utilisent pas ce composant :
  * un widget intégré chez un tiers ne mesure rien.
  */
-import { CLARITY_ID, CONSENT_MODE } from '../data/site-config';
+import { CLARITY_ID, CONSENT_MODE, GA4_ID } from '../data/site-config';
 
 interface Props { part: 'head' | 'body'; lang?: string; moreHref: string }
 const { part, lang = 'en', moreHref } = Astro.props;
@@ -62,6 +63,9 @@ const table = CONSENT_MODE === 'opt-in' ? OPT_IN : NOTICE;
 const s = table[lang] ?? table.en;
 const defaut = CONSENT_MODE === 'opt-in' ? 'denied' : 'granted';
 ---
+{GA4_ID && part === 'head' && (
+  <script is:inline set:html={`(function(){var id='${GA4_ID}',d='${defaut}';var c=null;try{c=localStorage.getItem('consent-choice');}catch(e){}window.dataLayer=window.dataLayer||[];window.gtag=function(){window.dataLayer.push(arguments);};window.__gaLoad=function(){if(window.__gaOn)return;window.__gaOn=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+id;document.head.appendChild(s);gtag('js',new Date());gtag('config',id);};if(c==='granted'||(c===null&&d==='granted'))window.__gaLoad();})();`} />
+)}
 {CLARITY_ID && part === 'head' && (
   <script is:inline set:html={`(function(){var d='${defaut}';var c=null;try{c=localStorage.getItem('consent-choice');}catch(e){}window.clarity=window.clarity||function(){(window.clarity.q=window.clarity.q||[]).push(arguments);};window.__clarityLoad=function(){if(window.__clarityOn)return;window.__clarityOn=true;var s=document.createElement('script');s.async=true;s.src='https://www.clarity.ms/tag/${CLARITY_ID}';document.head.appendChild(s);};if(c==='granted')window.clarity('consentv2',{ad_Storage:'denied',analytics_Storage:'granted'});if(c==='granted'||(c===null&&d==='granted'))window.__clarityLoad();})();`} />
 )}
@@ -97,6 +101,7 @@ const defaut = CONSENT_MODE === 'opt-in' ? 'denied' : 'granted';
         var stored = null;
         try { stored = localStorage.getItem(KEY); } catch (e) { /* stockage bloqué : on redemande */ }
         var apply = function (value) {
+          if (value === 'granted' && typeof window.__gaLoad === 'function') window.__gaLoad();
           if (typeof window.__clarityLoad !== 'function') return;
           if (value === 'granted') {
             window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
