@@ -82,13 +82,10 @@ const ogImage = `https://ordenadoliquido.pt/og/${cheminOg || 'accueil'}.png`;
       "url": "https://ordenadoliquido.pt/sobre/"
     })} />
 
-    <!-- Plausible Analytics -->
-    <script defer data-domain="ordenadoliquido.pt" src="https://plausible.io/js/script.js"></script>
 
-    <!-- GA4 (GA4_ID de site-config) est chargé par Consent, comme Clarity. -->
     <Consent part="head" lang="pt" moreHref="/privacidade/" />
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-screen flex flex-col" data-clarity-mask="true">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-primary-700 focus:rounded-lg focus:shadow-lg focus:ring-2 focus:ring-primary-600">Saltar para o conte&uacute;do</a>
     <!-- Header -->
     <header class="bg-white/95 backdrop-blur border-b border-neutral-200 sticky top-0 z-50">
@@ -212,6 +209,5 @@ const ogImage = `https://ordenadoliquido.pt/og/${cheminOg || 'accueil'}.png`;
     <style is:global>
       @import "../styles/global.css";
     </style>
-    <Consent part="body" lang="pt" moreHref="/privacidade/" />
   </body>
 </html>
